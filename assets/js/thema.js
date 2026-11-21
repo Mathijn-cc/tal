@@ -16,6 +16,11 @@
 	/* Vloeiend scrollen iets minder zwevend dan de standaard van Lenis. */
 	if (lenis && lenis.options) lenis.options.lerp = 0.15;
 
+	/* Vlakken die zelf scrollen (zoals het menu van het designsysteem) buiten Lenis houden, anders vangt Lenis het scrollen af. */
+	if (lenis) Array.prototype.forEach.call(document.querySelectorAll('.designsysteem-menu, .menupaneel, iframe'), function (el) {
+		el.setAttribute('data-lenis-prevent', '');
+	});
+
 	/* ---------- Mobiel menu ---------- */
 	/* De hamburger in de kop opent en sluit het paneel en draait daarbij naar een kruis (CSS). */
 	var paneel = document.getElementById('menupaneel');

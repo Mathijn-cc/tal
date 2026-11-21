@@ -152,3 +152,25 @@ function tal_uitrol_instellingen() {
 	update_option( 'blogdescription', 'Persoonlijk traineeship voor leiders' );
 	return true;
 }
+
+/* Podcastblok op de homepage: de echte Spotify-speler. */
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['podcast-spotify-v1'] = 'tal_uitrol_spotify';
+	return $taken;
+} );
+
+function tal_uitrol_spotify() {
+	if ( ! function_exists( 'update_sub_field' ) ) {
+		return false;
+	}
+	$id    = (int) get_option( 'page_on_front' );
+	$rijen = $id ? (array) get_post_meta( $id, 'blokken', true ) : array();
+	$plek  = array_search( 'podcast', $rijen, true );
+	if ( false === $plek ) {
+		echo "Geen podcastblok op de homepage.\n";
+		return true;
+	}
+	update_sub_field( array( 'field_powerhub_blokken', $plek + 1, 'field_podcast_spotify' ), 'https://open.spotify.com/show/5GOZrxoesUgtTvcfqINttf', $id );
+	echo 'Spotify-speler gezet (blok ' . ( $plek + 1 ) . ").\n";
+	return true;
+}

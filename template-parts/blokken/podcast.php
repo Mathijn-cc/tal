@@ -6,6 +6,12 @@ defined( 'ABSPATH' ) || exit;
 
 $link  = $blok['knop'] ?? array();
 $titel = wp_strip_all_tags( str_replace( '<br>', ' ', (string) ( $blok['kop'] ?? '' ) ) );
+
+/* Spotify-link omzetten naar de embed: open.spotify.com/show/<id> wordt open.spotify.com/embed/show/<id>. */
+$embed = '';
+if ( ! empty( $blok['spotify'] ) && preg_match( '#open\.spotify\.com/(?:embed/)?(show|episode|playlist)/([A-Za-z0-9]+)#', $blok['spotify'], $m ) ) {
+	$embed = 'https://open.spotify.com/embed/' . $m[1] . '/' . $m[2] . '?utm_source=generator';
+}
 ?>
 <section <?php echo powerhub_sectie( $blok, 'podcast' ); // phpcs:ignore ?>>
 	<div class="rij">
@@ -24,7 +30,11 @@ $titel = wp_strip_all_tags( str_replace( '<br>', ' ', (string) ( $blok['kop'] ??
 				<div class="podcast-knop"><?php echo powerhub_knop( $link, 'actie' ); // phpcs:ignore ?></div>
 			<?php endif; ?>
 		</div>
-		<?php if ( ! empty( $link['url'] ) ) : ?>
+		<?php if ( $embed ) : ?>
+			<div class="podcast-embed">
+				<iframe src="<?php echo esc_url( $embed ); ?>" title="<?php echo esc_attr( $titel . ' op Spotify' ); ?>" width="100%" height="352" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+			</div>
+		<?php elseif ( ! empty( $link['url'] ) ) : ?>
 			<?php if ( ! empty( $blok['beeld'] ) ) : ?>
 				<a class="podcast-speler" href="<?php echo esc_url( $link['url'] ); ?>" target="_blank" rel="noopener" aria-label="<?php echo esc_attr( $titel . ' op Spotify' ); ?>">
 					<?php echo powerhub_beeld( $blok['beeld'], 'large', array( 'alt' => '', 'sizes' => '(max-width: 860px) 100vw, 40vw' ) ); // phpcs:ignore ?>

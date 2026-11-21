@@ -1,7 +1,7 @@
 /**Thema -- Opbouw**/
 /* Alle waarden komen uit assets/css/tokens.css, gegenereerd uit designsysteem/tokens.json.
    Geen losse kleuren of maten in dit bestand: ontbreekt er iets, voeg dan een token toe.
-   Basiscomponenten van het startthema. Pas aan per merk, houd de namen. */
+   Basiscomponenten van het startthema, aangepast aan TAL Leadership. Blokstijlen staan in assets/css/blokken. */
 
 /**Basis -- Context**/
 /* Accent, link en focus wisselen mee met de ondergrond, zodat het contrast altijd voldoet (zie /designsysteem/, Toegankelijkheid).
@@ -13,9 +13,9 @@ body {
 }
 
 body .achtergrond-donker,
+body .achtergrond-citaat,
 body .is-donker,
 body .kaart.kaart-donker,
-body .kop-site,
 body .voet-site,
 body .accordeon.accordeon-vragen details {
 	--context-accent:     var(--kleur-tekst-accent);
@@ -89,50 +89,69 @@ body .naar-inhoud:focus {
 }
 
 /**Basis -- Typografie**/
+/* Alle koppen in DM Serif Display, altijd regulier. Grootte schaalt vloeiend tussen minimaal-* en maat-*. */
 body h1,
 body h2,
 body h3,
-body h4 {
+body h4,
+body blockquote {
 	margin:               0;
 	color:                var(--kleur-tekst-kop);
 	font-family:          var(--letter-kop);
-	font-weight:          var(--gewicht-halfvet);
+	font-weight:          var(--gewicht-normaal);
 	letter-spacing:       var(--spatiering-strak);
 	text-wrap:            pretty;
-	overflow-wrap:        break-word;
-	hyphens:              auto;
+	overflow-wrap:        normal;
+	hyphens:              manual;
 }
 
-body h1 {
-	font-size:            var(--maat-h1);
-	line-height:          var(--regel-h1);
+body h1,
+body .kop-hero {
+	font-size:            clamp(var(--minimaal-hero), var(--vloeiend-hero), var(--maat-hero));
+	line-height:          var(--regel-hero);
+	letter-spacing:       var(--spatiering-groot);
 }
 
-body h2 {
-	font-size:            var(--maat-h2);
+body h2,
+body .kop-l {
+	font-size:            clamp(var(--minimaal-h2), var(--vloeiend-h2), var(--maat-h2));
 	line-height:          var(--regel-h2);
 }
 
-body h3 {
-	font-size:            var(--maat-h3);
+body h3,
+body .kop-m {
+	font-family:          var(--letter-kop);
+	font-size:            clamp(var(--minimaal-h3), var(--vloeiend-h3), var(--maat-h3));
+	font-weight:          var(--gewicht-normaal);
 	line-height:          var(--regel-h3);
+	letter-spacing:       var(--spatiering-licht);
+	color:                var(--kleur-tekst-kop);
 }
 
 body h4 {
 	font-size:            var(--maat-h4);
 	line-height:          var(--regel-h4);
-	letter-spacing:       0;
+	letter-spacing:       var(--spatiering-licht);
+}
+
+body .is-donker h1,
+body .is-donker h2,
+body .is-donker h3,
+body .is-donker h4,
+body .is-donker blockquote,
+body .is-donker .kop-m {
+	color:                var(--kleur-tekst-op-donker);
 }
 
 /*Typografie -- Tekststijlen*/
-body .tekst-hero {
-	font-size:            var(--maat-hero);
-	line-height:          var(--regel-hero);
+body .lead {
+	color:                var(--kleur-tekst-kop);
+	font-size:            clamp(var(--minimaal-lead), var(--vloeiend-lead), var(--maat-lead));
+	line-height:          var(--regel-lead);
 }
 
-body .tekst-groot {
-	font-size:            var(--maat-groot);
-	line-height:          var(--regel-groot);
+body .is-donker .lead {
+	color:                var(--kleur-tekst-op-donker-gedempt);
 }
 
 body .tekst-klein {
@@ -140,35 +159,103 @@ body .tekst-klein {
 	line-height:          var(--regel-klein);
 }
 
-body .onderschrift {
-	color:                var(--kleur-tekst-gedempt);
-	font-size:            var(--maat-onderschrift);
-	line-height:          var(--regel-onderschrift);
+body .opmaak > * + * {
+	margin-top:           var(--ruimte-5);
 }
 
-/*Typografie -- Accent*/
-/* Kopformule: een gewone zin, het slot in het cursieve accent. Leesteken binnen het accent, nooit een uitroepteken. */
-body h1 em,
-body h2 em,
-body h3 em,
-body h4 em,
-body .kop em {
-	color:                var(--context-accent);
-	font-family:          var(--letter-accent);
-	font-style:           italic;
-	font-weight:          var(--gewicht-normaal);
-	letter-spacing:       0;
+body .opmaak strong {
+	color:                var(--kleur-tekst-kop);
+	font-weight:          var(--gewicht-medium);
+}
+
+/*Typografie -- Kop met accent (startthema)*/
+/* TAL kent geen cursief accent: *woorden* worden de stiftstreep (zie tal_kop). */
+body .kop em.accent {
+	color:                inherit;
+	font-family:          inherit;
+	font-style:           normal;
+}
+
+/*Typografie -- Stiftstreep*/
+/* Een koraal streep alsof hij met een stift is gezet. Groeit mee met scrollen (thema.js). */
+body .onderstreep {
+	background-image:     url("../beelden/stift.svg");
+	background-repeat:    no-repeat;
+	background-position:  0 91%;
+	background-size:      100% 0.3em;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/*Typografie -- Label in de marge*/
+body .marge {
+	margin:               0;
+	padding-top:          0.6em;
+	color:                var(--kleur-tekst-gedempt);
+	font-size:            var(--maat-bovenkop);
+	line-height:          var(--regel-bovenkop);
+}
+
+body .is-donker .marge {
+	color:                var(--kleur-tekst-accent);
+}
+
+body .bovenkop-tal {
+	margin:               0;
+	color:                var(--kleur-tekst-gedempt);
+	font-size:            var(--maat-bovenkop);
+	line-height:          var(--regel-bovenkop);
 }
 
 /**Basis -- Indeling**/
-body .binnen {
+/* Twaalf kolommen met een redactionele marge: label in kolom 1-3, inhoud in 4-12. */
+body {
+	--goot:               clamp(var(--minimaal-goot), var(--vloeiend-goot), var(--ruimte-goot));
+	--kolomgat:           clamp(var(--minimaal-kolomgat), var(--vloeiend-kolomgat), var(--ruimte-kolomgat));
+	--sectie:             clamp(var(--minimaal-sectie), var(--vloeiend-sectie), var(--ruimte-sectie));
+	--tussen:             clamp(var(--minimaal-tussen), var(--vloeiend-tussen), var(--ruimte-tussen));
+}
+
+body .binnen,
+body .rij {
 	max-width:            var(--ruimte-container);
 	margin:               0 auto;
-	padding:              0 var(--ruimte-goot);
+	padding:              0 var(--goot);
+}
+
+body .rij {
+	display:              grid;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	column-gap:           var(--kolomgat);
+}
+
+body .rij > .marge {
+	grid-column:          1 / span 3;
+}
+
+body .rij > .inhoud {
+	grid-column:          4 / span 9;
+	min-width:            0;
+}
+
+body .rij + .rij {
+	margin-top:           var(--tussen);
 }
 
 body .sectie {
-	padding:              var(--ruimte-sectie) 0;
+	padding:              var(--sectie) 0;
+	scroll-margin-top:    var(--ruimte-kop-balk);
+}
+
+@media (max-width: 860px) {
+	body .rij {
+		grid-template-columns: minmax(0, 1fr);
+		row-gap:              20px;
+	}
+
+	body .rij > * {
+		grid-column:          1 / -1 !important;
+	}
 }
 
 /*Indeling -- Ruimte per blok*/
@@ -177,11 +264,11 @@ body .sectie.ruimte-boven-geen {
 }
 
 body .sectie.ruimte-boven-klein {
-	padding-top:          calc(var(--ruimte-sectie) / 2);
+	padding-top:          calc(var(--sectie) / 2);
 }
 
 body .sectie.ruimte-boven-groot {
-	padding-top:          calc(var(--ruimte-sectie) * 1.4);
+	padding-top:          calc(var(--sectie) * 1.3);
 }
 
 body .sectie.ruimte-onder-geen {
@@ -189,30 +276,20 @@ body .sectie.ruimte-onder-geen {
 }
 
 body .sectie.ruimte-onder-klein {
-	padding-bottom:       calc(var(--ruimte-sectie) / 2);
+	padding-bottom:       calc(var(--sectie) / 2);
 }
 
 body .sectie.ruimte-onder-groot {
-	padding-bottom:       calc(var(--ruimte-sectie) * 1.4);
+	padding-bottom:       calc(var(--sectie) * 1.3);
 }
 
 /*Indeling -- Achtergronden*/
-/* Nooit meer dan twee achtergronden tegelijk in beeld. */
 body .achtergrond-pagina {
 	background:           var(--kleur-vlak-pagina);
 }
 
 body .achtergrond-wit {
 	background:           var(--kleur-vlak-kaart);
-}
-
-body .achtergrond-donker {
-	background:           var(--kleur-vlak-donker);
-}
-
-body .achtergrond-donker,
-body .is-donker {
-	color:                var(--kleur-tekst-op-donker-gedempt);
 }
 
 body .achtergrond-tint {
@@ -223,19 +300,21 @@ body .achtergrond-tint-zacht {
 	background:           var(--kleur-vlak-tint-zacht);
 }
 
-body .achtergrond-donker h1,
-body .achtergrond-donker h2,
-body .achtergrond-donker h3,
-body .achtergrond-donker h4,
-body .is-donker h1,
-body .is-donker h2,
-body .is-donker h3,
-body .is-donker h4 {
-	color:                var(--kleur-tekst-op-donker);
+body .achtergrond-donker {
+	background:           var(--kleur-vlak-donker);
+}
+
+body .achtergrond-citaat {
+	background:           var(--kleur-vlak-citaat);
+}
+
+body .achtergrond-donker,
+body .achtergrond-citaat,
+body .is-donker {
+	color:                var(--kleur-tekst-op-donker-gedempt);
 }
 
 /*Indeling -- Gedeeld vlak*/
-/* 50/50: twee vaste kleuren met een harde overgang (geen verloop, conform het designsysteem). */
 body .sectie.achtergrond-gedeeld.verdeling-boven {
 	background:           linear-gradient(to bottom, var(--vlak-1) 50%, var(--vlak-2) 50%);
 }
@@ -244,7 +323,7 @@ body .sectie.achtergrond-gedeeld.verdeling-links {
 	background:           linear-gradient(to right, var(--vlak-1) 50%, var(--vlak-2) 50%);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 860px) {
 	body .sectie.achtergrond-gedeeld.verdeling-links {
 		background:           linear-gradient(to bottom, var(--vlak-1) 50%, var(--vlak-2) 50%);
 	}
@@ -253,7 +332,7 @@ body .sectie.achtergrond-gedeeld.verdeling-links {
 /*Indeling -- Raster*/
 body .raster {
 	display:              grid;
-	gap:                  var(--ruimte-6);
+	gap:                  var(--kolomgat);
 }
 
 body .raster.raster-2 {
@@ -284,27 +363,59 @@ body .raster.raster-4 {
 }
 
 /*Indeling -- Paneel*/
-/* Groot vlak met de kenmerkende afgesneden hoek. */
 body .paneel {
 	padding:              var(--ruimte-12);
-	border-radius:        var(--hoek-paneel) var(--hoek-paneel) var(--hoek-paneel) var(--hoek-s);
 	background:           var(--kleur-vlak-kaart);
 }
 
+/**Componenten -- Foto**/
+/* Het beeld is hoger dan het kader, zodat het bij scrollen kan meebewegen zonder randen te tonen. */
+body .foto {
+	position:             relative;
+	overflow:             hidden;
+	background:           var(--kleur-accent-200);
+}
+
+body .foto .foto-beeld {
+	position:             absolute;
+	top:                  -7%;
+	left:                 0;
+	width:                100%;
+	max-width:            none;
+	height:               114%;
+	object-fit:           cover;
+	will-change:          transform;
+}
+
+/**Componenten -- Korrel**/
+/* Een fijne papierkorrel over de hele pagina. */
+body .korrel {
+	position:             fixed;
+	inset:                0;
+	z-index:              40;
+	pointer-events:       none;
+	background-image:     url("../beelden/korrel.png");
+	background-size:      220px 220px;
+	mix-blend-mode:       multiply;
+	opacity:              0.55;
+}
+
 /**Componenten -- Knop**/
+/* Rechte knop in inkt. Bij hover wordt hij koraal en rolt de tekst omhoog (de tweede regel is een tekstschaduw). */
 body .knop {
 	display:              inline-flex;
 	align-items:          center;
-	gap:                  10px;
-	padding:              13px 22px;
+	gap:                  14px;
+	min-height:           56px;
+	padding:              0 26px;
 	border:               1px solid transparent;
 	border-radius:        var(--hoek-knop);
 	background:           var(--kleur-actie-primair);
 	color:                var(--kleur-actie-primair-tekst);
 	font-family:          var(--letter-tekst);
-	font-size:            var(--maat-lopend);
+	font-size:            var(--maat-knop);
 	font-weight:          var(--gewicht-medium);
-	line-height:          1;
+	line-height:          var(--regel-knop);
 	white-space:          nowrap;
 	text-decoration:      none;
 	cursor:               pointer;
@@ -313,39 +424,62 @@ body .knop {
 
 body .knop:hover {
 	background:           var(--kleur-actie-primair-hover);
-	color:                var(--kleur-actie-primair-tekst);
+	color:                var(--kleur-actie-primair-hover-tekst);
 }
 
 body .knop:active {
-	opacity:              0.9;
 	transform:            scale(0.98);
 }
 
-/* Elke actieknop eindigt op een pijl. */
 body .knop::after {
-	content:              "\2192";
-	font-size:            1.05em;
-	line-height:          1;
-	transform:            translateY(-0.5px);
+	content:              none;
 }
 
-body .knop.knop-zonder-pijl::after {
-	content:              none;
+/*Knop -- Rollende tekst*/
+/* De tekst schuift één regel omhoog; de tekstschaduw eronder is de tweede regel. Geen extra markup nodig. */
+body .knop > span {
+	display:              block;
+	overflow:             hidden;
+	height:               1.25em;
+	line-height:          1.25em;
+	text-shadow:          0 1.25em 0 currentColor;
+}
+
+body .knop > span::before {
+	content:              "";
+	display:              block;
+	transition:           margin-top var(--duur-traag) var(--curve-uit);
+}
+
+body .knop:hover > span::before {
+	margin-top:           -1.25em;
 }
 
 /*Knop -- Maten*/
 body .knop.knop-klein {
-	min-height:           44px;
-	padding:              9px 16px;
+	min-height:           46px;
+	padding:              0 20px;
 	font-size:            var(--maat-klein);
 }
 
 body .knop.knop-groot {
-	padding:              16px 26px;
-	font-size:            var(--maat-groot);
+	min-height:           60px;
+	padding:              0 30px;
 }
 
 /*Knop -- Varianten*/
+body .is-donker .knop,
+body .knop.knop-donker {
+	background:           var(--kleur-actie-donker);
+	color:                var(--kleur-actie-donker-tekst);
+}
+
+body .is-donker .knop:hover,
+body .knop.knop-donker:hover {
+	background:           var(--kleur-actie-primair-hover);
+	color:                var(--kleur-actie-primair-hover-tekst);
+}
+
 body .knop.knop-secundair {
 	border-color:         var(--kleur-actie-secundair-rand);
 	background:           var(--kleur-actie-secundair);
@@ -353,19 +487,9 @@ body .knop.knop-secundair {
 }
 
 body .knop.knop-secundair:hover {
-	border-color:         var(--context-accent);
-	background:           var(--kleur-actie-secundair);
-	color:                var(--context-accent);
-}
-
-body .knop.knop-donker {
-	background:           var(--kleur-actie-donker);
-	color:                var(--kleur-actie-donker-tekst);
-}
-
-body .knop.knop-donker:hover {
-	background:           var(--kleur-donker-900);
-	color:                var(--kleur-actie-donker-tekst);
+	border-color:         var(--kleur-actie-primair-hover);
+	background:           var(--kleur-actie-primair-hover);
+	color:                var(--kleur-actie-primair-hover-tekst);
 }
 
 body .knop.knop-op-donker {
@@ -374,22 +498,11 @@ body .knop.knop-op-donker {
 	color:                var(--kleur-tekst-op-donker);
 }
 
-body .knop.knop-op-donker:hover {
-	background:           transparent;
-	color:                var(--context-accent);
-}
-
 body .knop.knop-kaal {
 	min-height:           44px;
 	padding:              0;
-	border-radius:        0;
 	background:           transparent;
 	color:                var(--kleur-tekst-kop);
-}
-
-body .knop.knop-kaal:hover {
-	background:           transparent;
-	color:                var(--context-accent);
 }
 
 body .knop[disabled],
@@ -402,7 +515,40 @@ body .knoppen {
 	display:              flex;
 	flex-wrap:            wrap;
 	align-items:          center;
-	gap:                  var(--ruimte-3);
+	gap:                  12px 28px;
+}
+
+/*Knop -- Tekstlink met groeiende onderstreping*/
+body .lijnlink {
+	display:              inline-flex;
+	align-items:          center;
+	min-height:           44px;
+	color:                var(--kleur-tekst-kop);
+	font-size:            var(--maat-knop);
+	font-weight:          var(--gewicht-medium);
+	text-decoration:      none;
+	background-image:     linear-gradient(currentColor, currentColor);
+	background-position:  0 calc(100% - 10px);
+	background-repeat:    no-repeat;
+	background-size:      100% 1px;
+	transition:           background-size var(--duur-traag) var(--curve-uit);
+}
+
+body .lijnlink:hover {
+	color:                var(--kleur-tekst-kop);
+	background-position:  100% calc(100% - 10px);
+	background-size:      0% 1px;
+}
+
+body .is-donker .lijnlink,
+body .is-donker .lijnlink:hover {
+	color:                var(--kleur-tekst-op-donker);
+}
+
+body .lijnlink.lijnlink-groot {
+	font-family:          var(--letter-kop);
+	font-size:            var(--maat-h4);
+	font-weight:          var(--gewicht-normaal);
 }
 
 /**Componenten -- Bovenkop**/
@@ -911,186 +1057,276 @@ body .is-donker .slider-bediening .slider-voortgang span:not(.is-actief) {
 }
 
 /**Site -- Kop**/
+/* Lichte balk die meeplakt, met vervaging eronder. Op mobiel alleen logo en hamburger. */
 body .kop-site {
-	background:           var(--kleur-vlak-donker);
+	position:             sticky;
+	top:                  0;
+	z-index:              30;
+	background:           var(--kleur-kop-balk);
+	-webkit-backdrop-filter: blur(14px);
+	backdrop-filter:      blur(14px);
+}
+
+body.admin-bar .kop-site {
+	top:                  var(--wp-admin--admin-bar--height, 32px);
 }
 
 body .kop-site .kop-site-binnen {
 	display:              flex;
 	align-items:          center;
-	gap:                  var(--ruimte-10);
+	justify-content:      space-between;
+	gap:                  24px;
 	max-width:            var(--ruimte-container);
+	height:               var(--ruimte-kop-balk);
 	margin:               0 auto;
-	padding:              22px var(--ruimte-goot);
+	padding:              0 var(--goot);
 }
 
-body .kop-site .kop-site-logo img,
-body .kop-site .kop-site-logo svg {
-	width:                auto;
-	height:               34px;
-}
-
-body .kop-site .kop-site-menu {
-	margin-left:          auto;
+body .kop-site .kop-site-rechts {
+	display:              flex;
+	align-items:          center;
+	gap:                  36px;
 }
 
 body .kop-site .kop-site-menu ul {
 	display:              flex;
 	align-items:          center;
-	gap:                  var(--ruimte-8);
+	gap:                  30px;
 	margin:               0;
 	padding:              0;
 	list-style:           none;
 }
 
-body .kop-site .kop-site-logo {
-	display:              inline-flex;
-	align-items:          center;
-	min-height:           44px;
-}
-
-/* Klikdoelen minimaal 44px hoog, zonder de opmaak te verschuiven. */
 body .kop-site .kop-site-menu a {
 	display:              inline-flex;
 	align-items:          center;
 	min-height:           44px;
-	color:                var(--kleur-tekst-op-donker);
-	font-size:            var(--maat-lopend);
-}
-
-body .kop-site .knop.knop-klein {
-	min-height:           44px;
-}
-
-body .kop-site .kop-site-menu a:hover,
-body .kop-site .kop-site-menu .current-menu-item > a {
-	color:                var(--context-accent);
-}
-
-body .kop-site .kop-site-taal {
-	display:              inline-flex;
-	align-items:          center;
-	gap:                  5px;
-	color:                var(--kleur-tekst-op-donker);
-}
-
-body .kop-site .kop-site-taal .icoon {
-	width:                15px;
-	height:               15px;
-}
-
-@media (max-width: 960px) {
-	body .kop-site .kop-site-menu {
-		display:              none;
-	}
-
-	body .kop-site .knop {
-		margin-left:          auto;
-	}
-}
-
-/**Site -- Footer**/
-body .voet-site {
-	background:           var(--kleur-vlak-donker);
-}
-
-body .voet-site .voet-site-hoofd {
-	display:              grid;
-	grid-template-columns: 1.6fr repeat(3, 1fr) 1.2fr;
-	gap:                  var(--ruimte-8);
-	max-width:            var(--ruimte-container);
-	margin:               0 auto;
-	padding:              var(--ruimte-20) var(--ruimte-goot) var(--ruimte-8);
-}
-
-body .voet-site .voet-site-logo {
-	width:                auto;
-	height:               44px;
-}
-
-body .voet-site .voet-site-slogan {
-	max-width:            230px;
-	margin-top:           var(--ruimte-6);
-	color:                var(--kleur-tekst-op-donker);
-	font-family:          var(--letter-accent);
-	font-size:            18px;
-	font-style:           italic;
-	line-height:          1.45;
-}
-
-body .voet-site .voet-site-kop {
-	margin-bottom:        var(--ruimte-4);
-	color:                var(--context-accent);
+	color:                var(--kleur-tekst-kop);
 	font-size:            var(--maat-klein);
 	font-weight:          var(--gewicht-medium);
 }
 
-body .voet-site .voet-site-links,
-body .voet-site .voet-site-links ul {
+body .kop-site .kop-site-menu a:hover,
+body .kop-site .kop-site-menu .current-menu-item > a {
+	color:                var(--kleur-tekst-link);
+}
+
+/*Kop -- Logo*/
+/* TAL in een halve cirkel, leadership ernaast. */
+body .kop-site-logo {
+	display:              inline-flex;
+	align-items:          flex-end;
+	min-height:           44px;
+	color:                var(--kleur-tekst-kop);
+}
+
+body .kop-site-logo img {
+	width:                auto;
+	height:               46px;
+}
+
+body .woordmerk {
+	display:              inline-flex;
+	align-items:          flex-end;
+	gap:                  10px;
+}
+
+body .woordmerk .woordmerk-tal {
+	display:              inline-flex;
+	align-items:          flex-end;
+	justify-content:      center;
+	width:                86px;
+	height:               46px;
+	padding-bottom:       4px;
+	border-radius:        43px 43px 0 0;
+	background:           var(--kleur-donker-800);
+	color:                var(--kleur-grijs-100);
+	font-family:          var(--letter-logo);
+	font-size:            25px;
+	font-weight:          550;
+	line-height:          1;
+	letter-spacing:       0.02em;
+}
+
+body .woordmerk .woordmerk-naam {
+	padding-bottom:       4px;
+	color:                var(--kleur-tekst-gedempt);
+	font-size:            var(--maat-klein);
+	line-height:          1;
+}
+
+/*Kop -- Hamburger*/
+body .kop-site .menuknop {
+	display:              none;
+	flex-direction:       column;
+	align-items:          flex-end;
+	justify-content:      center;
+	gap:                  7px;
+	width:                48px;
+	height:               48px;
+	padding:              0 12px;
+	border:               0;
+	background:           transparent;
+	cursor:               pointer;
+}
+
+body .kop-site .menuknop span {
+	display:              block;
+	width:                24px;
+	height:               1.5px;
+	background:           var(--kleur-tekst-kop);
+}
+
+body .kop-site .menuknop span + span {
+	width:                15px;
+}
+
+@media (max-width: 960px) {
+	body .kop-site .kop-site-menu,
+	body .kop-site .kop-site-knop {
+		display:              none;
+	}
+
+	body .kop-site .menuknop {
+		display:              inline-flex;
+	}
+}
+
+/**Site -- Mobiel menu**/
+/* Paneel in blos dat van boven openvouwt; de punten komen na elkaar omhoog. */
+body .menupaneel {
+	position:             fixed;
+	inset:                0;
+	z-index:              60;
 	display:              flex;
 	flex-direction:       column;
-	gap:                  var(--ruimte-3);
-	margin:               0;
+	padding:              0 var(--goot) 28px;
+	overflow-y:           auto;
+	background:           var(--kleur-vlak-tint);
+	color:                var(--kleur-tekst-kop);
+}
+
+body .menupaneel[hidden] {
+	display:              none;
+}
+
+body .menupaneel.is-open {
+	animation:            menupaneel-open 600ms var(--curve-uit) both;
+}
+
+body .menupaneel .menupaneel-kop {
+	display:              flex;
+	flex:                 none;
+	align-items:          center;
+	justify-content:      space-between;
+	height:               var(--ruimte-kop-balk);
+}
+
+body .menupaneel .sluitknop {
+	display:              inline-flex;
+	align-items:          center;
+	justify-content:      center;
+	width:                48px;
+	height:               48px;
 	padding:              0;
+	border:               0;
+	background:           transparent;
+	color:                var(--kleur-tekst-kop);
+	cursor:               pointer;
+}
+
+body .menupaneel .menupaneel-menu ul {
+	margin:               0;
+	padding:              12vh 0 0;
 	list-style:           none;
 }
 
-body .voet-site .voet-site-links a,
-body .voet-site .voet-site-links span {
-	color:                var(--kleur-tekst-op-donker);
-	font-size:            var(--maat-klein);
-}
-
-body .voet-site .voet-site-links a,
-body .voet-site .voet-site-juridisch a {
-	display:              inline-flex;
-	align-items:          center;
-	min-height:           44px;
-}
-
-body .voet-site .voet-site-links,
-body .voet-site .voet-site-links ul {
-	gap:                  0;
-}
-
-body .voet-site .voet-site-links a:hover {
-	color:                var(--context-accent);
-}
-
-body .voet-site .voet-site-juridisch {
-	display:              flex;
-	justify-content:      space-between;
-	gap:                  var(--ruimte-6);
-	max-width:            var(--ruimte-container);
-	margin:               0 auto;
-	padding:              var(--ruimte-6) var(--ruimte-goot) var(--ruimte-10);
-	color:                var(--kleur-tekst-op-donker-gedempt);
+body .menupaneel .menupaneel-menu a {
+	display:              block;
+	padding:              6px 0;
+	color:                var(--kleur-tekst-kop);
 	font-family:          var(--letter-kop);
-	font-size:            var(--maat-bovenkop);
-	letter-spacing:       var(--spatiering-hoofdletters);
-	text-transform:       uppercase;
+	font-size:            clamp(var(--minimaal-menu), var(--vloeiend-menu), var(--maat-menu));
+	line-height:          var(--regel-menu);
+	letter-spacing:       var(--spatiering-strak);
+}
+
+body .menupaneel.is-open .menupaneel-menu li {
+	animation:            menupaneel-punt 700ms var(--curve-uit) both;
+}
+
+body .menupaneel.is-open .menupaneel-menu li:nth-child(1) { animation-delay: 140ms; }
+body .menupaneel.is-open .menupaneel-menu li:nth-child(2) { animation-delay: 190ms; }
+body .menupaneel.is-open .menupaneel-menu li:nth-child(3) { animation-delay: 240ms; }
+body .menupaneel.is-open .menupaneel-menu li:nth-child(4) { animation-delay: 290ms; }
+body .menupaneel.is-open .menupaneel-menu li:nth-child(5) { animation-delay: 340ms; }
+body .menupaneel.is-open .menupaneel-menu li:nth-child(6) { animation-delay: 390ms; }
+
+body .menupaneel .menupaneel-menu a:hover {
+	color:                var(--kleur-tekst-link);
+}
+
+body .menupaneel .menupaneel-voet {
+	display:              flex;
+	flex-direction:       column;
+	align-items:          flex-start;
+	gap:                  14px;
+	margin-top:           auto;
+	padding-top:          48px;
+}
+
+body.menu-open {
+	overflow:             hidden;
+}
+
+@keyframes menupaneel-open {
+	from { clip-path: inset(0 0 100% 0); }
+	to   { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes menupaneel-punt {
+	from { opacity: 0; transform: translateY(60%); }
+	to   { opacity: 1; transform: translateY(0); }
+}
+
+/**Site -- Footer**/
+body .voet-site {
+	padding:              0 0 40px;
+	background:           var(--kleur-vlak-donker);
+	color:                var(--kleur-tekst-op-donker-gedempt);
+	font-size:            var(--maat-onderschrift);
+}
+
+body .voet-site .voet-site-rij {
+	display:              flex;
+	flex-wrap:            wrap;
+	align-items:          center;
+	justify-content:      space-between;
+	gap:                  16px 32px;
+	padding-top:          32px;
+	border-top:           1px solid var(--kleur-rand-op-donker);
 }
 
 body .voet-site .voet-site-juridisch ul {
 	display:              flex;
-	gap:                  var(--ruimte-4);
+	gap:                  var(--ruimte-5);
 	margin:               0;
 	padding:              0;
 	list-style:           none;
 }
 
-body .voet-site .voet-site-juridisch a {
-	color:                inherit;
+body .voet-site a {
+	color:                var(--kleur-tekst-op-donker);
+	text-decoration:      underline;
+	text-underline-offset: 0.3em;
 }
 
-@media (max-width: 960px) {
-	body .voet-site .voet-site-hoofd {
-		grid-template-columns: 1fr 1fr;
-	}
+body .voet-site a:hover {
+	color:                var(--kleur-tekst-accent);
+}
 
-	body .voet-site .voet-site-juridisch {
-		flex-direction:       column;
-	}
+body .voet-site .voet-site-maker {
+	margin-left:          auto;
 }
 
 /**Site -- Kruimelpad**/
@@ -1099,33 +1335,6 @@ body .kruimelpad {
 	margin:               0 auto;
 	padding:              var(--ruimte-4) var(--ruimte-goot) 0;
 	font-size:            var(--maat-klein);
-}
-
-/**Blokken -- Hero**/
-body .sectie.sectie-hero .hero-raster {
-	display:              grid;
-	grid-template-columns: 1.1fr 0.9fr;
-	gap:                  var(--ruimte-12);
-	align-items:          center;
-}
-
-body .sectie.sectie-hero .hero-intro {
-	max-width:            36ch;
-	margin-top:           var(--ruimte-6);
-}
-
-body .sectie.sectie-hero .knoppen {
-	margin-top:           var(--ruimte-8);
-}
-
-body .sectie.sectie-hero .hero-beeld img {
-	border-radius:        var(--hoek-paneel) var(--hoek-paneel) var(--hoek-paneel) var(--hoek-s);
-}
-
-@media (max-width: 900px) {
-	body .sectie.sectie-hero .hero-raster {
-		grid-template-columns: 1fr;
-	}
 }
 
 /**Blokken -- Tekst**/
@@ -1151,5 +1360,6 @@ body .sectie.sectie-tekst .knop {
 	*::before,
 	*::after {
 		transition:           none !important;
+		animation:            none !important;
 	}
 }

@@ -1,0 +1,62 @@
+/**Voor wie -- Kop die blijft staan**/
+body .sectie-voor-wie .rij {
+	row-gap:              40px;
+	align-items:          start;
+}
+
+body .sectie-voor-wie .voorwie-kop {
+	position:             sticky;
+	top:                  calc(var(--ruimte-kop-balk) + 40px);
+	display:              flex;
+	flex-direction:       column;
+	gap:                  22px;
+	grid-column:          1 / span 5;
+	align-self:           start;
+}
+
+body .sectie-voor-wie .voorwie-kop .lead {
+	max-width:            34ch;
+}
+
+body .sectie-voor-wie .voorwie-knop {
+	padding-top:          10px;
+}
+
+/**Voor wie -- Checklist**/
+body .sectie-voor-wie .checklist {
+	grid-column:          7 / span 6;
+	margin:               0;
+	padding:              0;
+	border-top:           1px solid var(--kleur-rand-subtiel);
+	list-style:           none;
+}
+
+body .sectie-voor-wie .checklist li {
+	display:              grid;
+	grid-template-columns: 28px minmax(0, 1fr);
+	gap:                  18px;
+	align-items:          start;
+	padding:              22px 0;
+	border-bottom:        1px solid var(--kleur-rand-subtiel);
+	color:                var(--kleur-tekst-kop);
+	font-size:            clamp(var(--minimaal-lijst), var(--vloeiend-lijst), var(--maat-lijst));
+	line-height:          var(--regel-lijst);
+}
+
+body .sectie-voor-wie .checklist .vink {
+	display:              inline-flex;
+	align-items:          center;
+	justify-content:      center;
+	width:                28px;
+	height:               28px;
+	margin-top:           1px;
+	border-radius:        var(--hoek-rond);
+	background:           var(--kleur-donker-800);
+	color:                var(--kleur-vlak-tint);
+}
+
+@media (max-width: 860px) {
+	body .sectie-voor-wie .voorwie-kop {
+		position:             static;
+	}
+}

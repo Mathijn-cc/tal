@@ -1,0 +1,93 @@
+/**Podcast -- Tekst**/
+body .sectie-podcast .rij {
+	row-gap:              24px;
+	align-items:          center;
+}
+
+body .sectie-podcast .podcast-tekst {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  20px;
+	grid-column:          1 / span 6;
+	min-width:            0;
+}
+
+body .sectie-podcast .podcast-tekst .lead {
+	max-width:            36ch;
+}
+
+body .sectie-podcast .podcast-uitleg {
+	max-width:            46ch;
+}
+
+body .sectie-podcast .podcast-knop {
+	padding-top:          12px;
+}
+
+/**Podcast -- Speler**/
+body .sectie-podcast .podcast-speler {
+	display:              block;
+	grid-column:          8 / span 5;
+	transition:           transform var(--duur-traag) var(--curve-uit);
+}
+
+body .sectie-podcast .podcast-speler:hover {
+	transform:            translateY(-4px);
+}
+
+body .sectie-podcast .podcast-speler img {
+	width:                100%;
+	border-radius:        var(--hoek-m);
+}
+
+/*Podcast -- Tegel (zonder afbeelding)*/
+body .sectie-podcast .podcast-tegel {
+	position:             relative;
+	display:              flex;
+	flex-direction:       column;
+	justify-content:      space-between;
+	grid-column:          8 / span 5;
+	aspect-ratio:         1 / 1;
+	padding:              clamp(24px, 3vw, 44px);
+	overflow:             hidden;
+	background:           var(--kleur-accent-500);
+	color:                var(--kleur-grijs-100);
+	transition:           background-color var(--duur-traag) var(--curve-uit);
+}
+
+body .sectie-podcast .podcast-tegel:hover {
+	background:           var(--kleur-accent-700);
+	color:                var(--kleur-grijs-100);
+}
+
+body .sectie-podcast .podcast-tegel-titel {
+	font-family:          var(--letter-kop);
+	font-size:            clamp(var(--minimaal-tegel), var(--vloeiend-tegel), var(--maat-tegel));
+	line-height:          var(--regel-tegel);
+	letter-spacing:       var(--spatiering-strak);
+}
+
+body .sectie-podcast .podcast-tegel-voet {
+	display:              flex;
+	align-items:          center;
+	justify-content:      space-between;
+	gap:                  16px;
+	font-size:            var(--maat-bovenkop);
+}
+
+body .sectie-podcast .podcast-speel {
+	display:              inline-flex;
+	flex:                 none;
+	align-items:          center;
+	justify-content:      center;
+	width:                64px;
+	height:               64px;
+	border-radius:        var(--hoek-rond);
+	background:           var(--kleur-grijs-100);
+	color:                var(--kleur-donker-800);
+	transition:           transform var(--duur-traag) var(--curve-uit);
+}
+
+body .sectie-podcast .podcast-tegel:hover .podcast-speel {
+	transform:            scale(1.1);
+}

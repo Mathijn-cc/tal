@@ -1,0 +1,66 @@
+/**Programma -- Kop**/
+body .sectie-programma .programma-kop {
+	row-gap:              20px;
+	margin-bottom:        clamp(28px, 3vw, 48px);
+}
+
+body .sectie-programma .programma-kop .kop {
+	grid-column:          4 / span 9;
+}
+
+/**Programma -- Spoor**/
+/* Op desktop schuift thema.js het spoor zijwaarts; zonder JS of op mobiel kun je er zelf doorheen vegen. */
+body .sectie-programma .programma-kader {
+	overflow-x:           auto;
+	scroll-snap-type:     x mandatory;
+	scrollbar-width:      none;
+}
+
+body .sectie-programma .programma-kader::-webkit-scrollbar {
+	display:              none;
+}
+
+body .sectie-programma.is-gepind .programma-kader {
+	overflow:             hidden;
+}
+
+body .sectie-programma .programma-spoor {
+	display:              flex;
+	gap:                  var(--kolomgat);
+	width:                max-content;
+	margin:               0;
+	padding:              0 var(--goot);
+	list-style:           none;
+}
+
+body .sectie-programma .programma-kaart {
+	display:              flex;
+	flex:                 none;
+	flex-direction:       column;
+	gap:                  20px;
+	width:                clamp(280px, 34vw, 520px);
+	scroll-snap-align:    start;
+	scroll-margin-left:   var(--goot);
+}
+
+body .sectie-programma .programma-kaart:nth-child(even) {
+	padding-top:          clamp(24px, 3vw, 56px);
+}
+
+body .sectie-programma .programma-beeld {
+	aspect-ratio:         4 / 3;
+}
+
+body .sectie-programma .programma-kaart .lead {
+	max-width:            24ch;
+}
+
+@media (max-width: 860px) {
+	body .sectie-programma .programma-kaart {
+		width:                76vw;
+	}
+
+	body .sectie-programma .programma-kaart:nth-child(even) {
+		padding-top:          0;
+	}
+}

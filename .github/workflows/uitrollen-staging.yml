@@ -1,6 +1,6 @@
 name: Uitrollen naar staging
 
-# Elke push naar main zet het thema op tal-leadership.bijnadaar.nl.
+# Elke push naar main zet het thema op tal.bijnadaar.nl.
 # Handmatig starten kan ook via het tabblad Actions.
 # Staging staat standaard op het bijnadaar-account (SiteGround). Ander account: SSH_HOST, SSH_PORT en SSH_USER aanpassen.
 on:
@@ -19,7 +19,7 @@ jobs:
       SSH_HOST: gnldm1102.siteground.biz
       SSH_PORT: 18765
       SSH_USER: u2594-ag8zh8mdhogx
-      SITE: www/tal-leadership.bijnadaar.nl/public_html
+      SITE: www/tal.bijnadaar.nl/public_html
       THEMA: tal-leadership
     steps:
       - name: Code ophalen

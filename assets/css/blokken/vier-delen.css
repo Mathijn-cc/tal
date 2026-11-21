@@ -1,0 +1,93 @@
+/**Lagen -- Kop**/
+body .sectie-vier-delen .lagen-kop {
+	row-gap:              32px;
+	align-items:          end;
+	margin-bottom:        clamp(32px, 3.4vw, 56px);
+}
+
+body .sectie-vier-delen .lagen-kop .kop {
+	grid-column:          1 / span 7;
+}
+
+body .sectie-vier-delen .lagen-intro {
+	grid-column:          9 / span 4;
+}
+
+/**Lagen -- Stapel**/
+/* Elke laag plakt iets lager dan de vorige, zodat de randen als een stapel zichtbaar blijven. */
+body .sectie-vier-delen .lagen {
+	margin:               0;
+}
+
+body .sectie-vier-delen .laag {
+	position:             sticky;
+	top:                  calc(var(--ruimte-kop-balk) + var(--laag) * 22px);
+	display:              grid;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	column-gap:           var(--kolomgat);
+	row-gap:              16px;
+	align-items:          start;
+	min-height:           clamp(280px, 26vw, 400px);
+	padding-top:          clamp(52px, 5.4vw, 96px);
+	padding-right:        max(var(--goot), calc((100% - var(--ruimte-container)) / 2 + var(--goot)));
+	padding-bottom:       clamp(64px, 7vw, 120px);
+	padding-left:         max(var(--goot), calc((100% - var(--ruimte-container)) / 2 + var(--goot)));
+	background:           var(--kleur-vlak-kaart);
+	box-shadow:           var(--schaduw-laag);
+}
+
+body.admin-bar .sectie-vier-delen .laag {
+	top:                  calc(var(--ruimte-kop-balk) + var(--laag) * 22px + var(--wp-admin--admin-bar--height, 32px));
+}
+
+body .sectie-vier-delen .laag:nth-child(4n+2) {
+	background:           var(--kleur-vlak-tint);
+}
+
+body .sectie-vier-delen .laag:nth-child(4n+3) {
+	background:           var(--kleur-vlak-tint-zacht);
+}
+
+body .sectie-vier-delen .laag.is-donker {
+	background:           var(--kleur-vlak-donker);
+	color:                var(--kleur-tekst-op-donker);
+}
+
+body .sectie-vier-delen .laag-naam {
+	grid-column:          1 / span 7;
+	color:                var(--kleur-tekst-kop);
+	font-family:          var(--letter-kop);
+	font-size:            clamp(var(--minimaal-laag), var(--vloeiend-laag), var(--maat-laag));
+	line-height:          var(--regel-laag);
+	letter-spacing:       var(--spatiering-groot);
+}
+
+body .sectie-vier-delen .laag.is-donker .laag-naam {
+	color:                var(--kleur-tekst-op-donker);
+}
+
+body .sectie-vier-delen .laag-vraag {
+	grid-column:          8 / span 5;
+	align-self:           end;
+	margin:               0;
+	padding-bottom:       0.5em;
+	color:                var(--kleur-tekst-kop);
+	font-size:            clamp(var(--minimaal-lead), var(--vloeiend-lead), var(--maat-lead));
+	line-height:          1.4;
+}
+
+body .sectie-vier-delen .laag.is-donker .laag-vraag {
+	color:                var(--kleur-tekst-op-donker-gedempt);
+}
+
+@media (max-width: 860px) {
+	body .sectie-vier-delen .laag {
+		grid-template-columns: minmax(0, 1fr);
+		row-gap:              40px;
+	}
+
+	body .sectie-vier-delen .laag-naam,
+	body .sectie-vier-delen .laag-vraag {
+		grid-column:          1 / -1;
+	}
+}

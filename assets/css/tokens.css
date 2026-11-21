@@ -96,21 +96,31 @@
 	--ruimte-goot:                 56px;
 	--ruimte-kolomgat:             32px;
 	--ruimte-container:            1440px;
-	--ruimte-sectie:               176px;
+	--ruimte-sectie:               200px;
 	--ruimte-kaart-binnen:         40px;
-	--ruimte-kop-balk:             84px;
+	--ruimte-kop-balk:             76px;
+	--ruimte-tussen:               140px;
 
 	/*Tokens -- Vloeiend*/
 	--vloeiend-hero:               8.3vw;
-	--vloeiend-groot:              7cqi;
+	--vloeiend-groot:              7vw;
+	--vloeiend-citaat:             7.4vw;
+	--vloeiend-h1:                 6.6vw;
 	--vloeiend-h2:                 5.6vw;
 	--vloeiend-h3:                 3.4vw;
-	--vloeiend-lead:               1.6vw;
 	--vloeiend-laag:               6.4vw;
-	--vloeiend-citaat:             7.4vw;
-	--vloeiend-afsluiter:          7vw;
 	--vloeiend-toch:               9vw;
+	--vloeiend-claim:              4.6vw;
+	--vloeiend-vraag:              3vw;
+	--vloeiend-uitkomst:           2.1vw;
+	--vloeiend-tegel:              5.2vw;
+	--vloeiend-lead:               1.6vw;
+	--vloeiend-lijst:              1.4vw;
+	--vloeiend-menu:               13vw;
+	--vloeiend-goot:               3.4vw;
+	--vloeiend-kolomgat:           2vw;
 	--vloeiend-sectie:             11vw;
+	--vloeiend-tussen:             8vw;
 
 	/*Tokens -- Hoek*/
 	--hoek-geen:                   0;
@@ -193,27 +203,58 @@
 	--regel-bovenkop:              1.4;
 	--maat-knop:                   16px;
 	--regel-knop:                  1.25;
+	--maat-claim:                  84px;
+	--regel-claim:                 1.02;
+	--maat-vraag:                  46px;
+	--regel-vraag:                 1.1;
+	--maat-uitkomst:               32px;
+	--regel-uitkomst:              1.15;
+	--maat-tegel:                  92px;
+	--regel-tegel:                 0.98;
+	--maat-lijst:                  21px;
+	--regel-lijst:                 1.45;
+	--maat-menu:                   64px;
+	--regel-menu:                  1;
 
 	/*Tokens -- Spatiering*/
 	--spatiering-hoofdletters:     .06em;
 	--spatiering-strak:            -.03em;
 	--spatiering-bovenkop:         0;
+	--spatiering-groot:            -.035em;
+	--spatiering-licht:            -.01em;
 
 	/*Tokens -- Overgang*/
 	--overgang-knop:               background-color var(--duur-traag) var(--curve-uit),color var(--duur-traag) var(--curve-uit);
 	--overgang-kaart:              box-shadow var(--duur-basis) var(--curve-standaard),transform var(--duur-basis) var(--curve-standaard);
+
+	/*Tokens -- Minimaal*/
+	--minimaal-hero:               48px;
+	--minimaal-groot:              34px;
+	--minimaal-citaat:             46px;
+	--minimaal-h1:                 44px;
+	--minimaal-h2:                 40px;
+	--minimaal-h3:                 30px;
+	--minimaal-laag:               44px;
+	--minimaal-toch:               64px;
+	--minimaal-claim:              28px;
+	--minimaal-vraag:              26px;
+	--minimaal-uitkomst:           24px;
+	--minimaal-tegel:              40px;
+	--minimaal-lead:               19px;
+	--minimaal-lijst:              18px;
+	--minimaal-menu:               44px;
+	--minimaal-goot:               20px;
+	--minimaal-kolomgat:           16px;
+	--minimaal-sectie:             104px;
+	--minimaal-tussen:             64px;
 }
 
 /*Tokens -- Mobiel*/
 @media (max-width: 768px) {
 	:root {
-		--ruimte-goot:                 20px;
-		--ruimte-kolomgat:             16px;
-		--ruimte-sectie:               104px;
 		--ruimte-kaart-binnen:         28px;
-		--ruimte-kop-balk:             68px;
 		--maat-hero:                   48px;
-		--maat-groot:                  36px;
+		--maat-groot:                  34px;
 		--maat-citaat:                 46px;
 		--maat-h1:                     44px;
 		--maat-h2:                     40px;
@@ -223,5 +264,10 @@
 		--maat-cijfer:                 40px;
 		--maat-lead:                   19px;
 		--maat-groot-tekst:            18px;
+		--maat-claim:                  28px;
+		--maat-vraag:                  26px;
+		--maat-uitkomst:               24px;
+		--maat-tegel:                  40px;
+		--maat-lijst:                  18px;
 	}
 }

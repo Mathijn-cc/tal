@@ -1,0 +1,62 @@
+/**Hero -- Opbouw**/
+body .sectie-hero .hero-kop {
+	row-gap:              clamp(40px, 5vw, 80px);
+}
+
+body .sectie-hero .hero-kop > h1,
+body .sectie-hero .hero-kop > h2 {
+	grid-column:          1 / -1;
+}
+
+/*Hero -- Kleine foto in de kop*/
+/* Opent zich met een clip-path (thema.js), zodat de tekst nooit verspringt. */
+body .sectie-hero .hero-mini {
+	display:              inline-block;
+	width:                1.55em;
+	height:               0.72em;
+	margin:               0 0.04em;
+	border-radius:        var(--hoek-inline-foto);
+	vertical-align:       0.02em;
+	background:           var(--kleur-accent-300);
+}
+
+/*Hero -- Naschrift*/
+body .sectie-hero .hero-naschrift {
+	grid-column:          1 / span 4;
+	align-self:           start;
+	color:                var(--kleur-tekst-accent-op-licht);
+	font-family:          var(--letter-kop);
+	font-size:            clamp(var(--minimaal-toch), var(--vloeiend-toch), var(--maat-toch));
+	line-height:          var(--regel-toch);
+	letter-spacing:       var(--spatiering-strak);
+}
+
+/*Hero -- Tekst*/
+body .sectie-hero .hero-tekst {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  18px;
+	grid-column:          7 / span 6;
+	max-width:            54ch;
+}
+
+body .sectie-hero .hero-nadruk {
+	color:                var(--kleur-tekst-kop);
+	font-weight:          var(--gewicht-medium);
+}
+
+body .sectie-hero .knoppen {
+	padding-top:          14px;
+}
+
+/*Hero -- Brede foto*/
+body .sectie-hero .hero-beeld {
+	grid-column:          1 / -1;
+	aspect-ratio:         16 / 8;
+}
+
+@media (max-width: 860px) {
+	body .sectie-hero .hero-beeld {
+		aspect-ratio:         4 / 5;
+	}
+}

@@ -1,0 +1,37 @@
+/**Over mij -- Opbouw**/
+body .sectie-over-mij .rij {
+	row-gap:              40px;
+	align-items:          start;
+}
+
+body .sectie-over-mij .overmij-beeld {
+	grid-column:          1 / span 5;
+	aspect-ratio:         3 / 4;
+}
+
+body .sectie-over-mij .overmij-tekst {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  18px;
+	grid-column:          7 / span 6;
+	min-width:            0;
+}
+
+body .sectie-over-mij .overmij-verhaal {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  20px;
+	max-width:            58ch;
+}
+
+body .sectie-over-mij .overmij-verhaal p {
+	margin:               0;
+}
+
+body .sectie-over-mij .overmij-voet {
+	display:              flex;
+	flex-wrap:            wrap;
+	align-items:          center;
+	gap:                  20px 36px;
+	padding-top:          12px;
+}

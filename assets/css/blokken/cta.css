@@ -1,0 +1,107 @@
+/**Afsluiter -- Achtergrond**/
+/* De foto staat rechts op twee derde van de breedte; de rand van de foto blijft zichtbaar. */
+body .sectie-cta {
+	position:             relative;
+	overflow:             hidden;
+}
+
+body .sectie-cta .cta-beeld {
+	position:             absolute;
+	top:                  0;
+	right:                0;
+	bottom:               0;
+	left:                 34%;
+	z-index:              0;
+	overflow:             hidden;
+}
+
+body .sectie-cta .cta-beeld .foto-beeld {
+	position:             absolute;
+	top:                  -8%;
+	left:                 0;
+	width:                100%;
+	max-width:            none;
+	height:               116%;
+	object-fit:           cover;
+}
+
+body .sectie-cta .cta-waas {
+	position:             absolute;
+	top:                  0;
+	right:                0;
+	bottom:               0;
+	left:                 34%;
+	z-index:              1;
+	background:           var(--kleur-waas-donker);
+}
+
+/**Afsluiter -- Tekst**/
+body .sectie-cta .cta-rij {
+	position:             relative;
+	z-index:              2;
+	row-gap:              clamp(36px, 4vw, 64px);
+	align-items:          end;
+}
+
+body .sectie-cta .cta-label,
+body .sectie-cta.is-donker .cta-label {
+	color:                var(--kleur-accent-200);
+}
+
+body .sectie-cta .cta-kop {
+	grid-column:          1 / span 10;
+	font-size:            clamp(var(--minimaal-groot), var(--vloeiend-groot), var(--maat-groot));
+	line-height:          var(--regel-groot);
+	letter-spacing:       var(--spatiering-groot);
+}
+
+body .sectie-cta .cta-actie {
+	display:              flex;
+	flex-wrap:            wrap;
+	align-items:          center;
+	gap:                  32px clamp(32px, 5vw, 80px);
+	grid-column:          1 / -1;
+	padding-top:          clamp(8px, 2vw, 32px);
+}
+
+body .sectie-cta .cta-contact {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  4px;
+	color:                var(--kleur-tekst-op-donker);
+	font-size:            var(--maat-knop);
+}
+
+/*Afsluiter -- Ronde knop*/
+body .sectie-cta .magneet {
+	display:              inline-flex;
+	align-items:          center;
+	justify-content:      center;
+	width:                clamp(168px, 16vw, 240px);
+	aspect-ratio:         1 / 1;
+	padding:              24px;
+	border-radius:        var(--hoek-rond);
+	background:           var(--kleur-actie-rond);
+	color:                var(--kleur-actie-rond-tekst);
+	font-size:            17px;
+	font-weight:          var(--gewicht-medium);
+	line-height:          1.25;
+	text-align:           center;
+	transition:           background-color var(--duur-traag) var(--curve-uit), color var(--duur-traag) var(--curve-uit);
+}
+
+body .sectie-cta .magneet:hover {
+	background:           var(--kleur-grijs-100);
+	color:                var(--kleur-donker-800);
+}
+
+@media (max-width: 860px) {
+	body .sectie-cta .cta-beeld,
+	body .sectie-cta .cta-waas {
+		left:                 0;
+	}
+
+	body .sectie-cta .cta-waas {
+		background:           var(--kleur-waas-donker-mobiel);
+	}
+}

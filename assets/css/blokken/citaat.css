@@ -1,0 +1,18 @@
+/**Citaat -- Opbouw**/
+body .sectie-citaat .citaat {
+	row-gap:              32px;
+	margin:               0 auto;
+}
+
+body .sectie-citaat blockquote {
+	grid-column:          1 / -1;
+	font-size:            clamp(var(--minimaal-citaat), var(--vloeiend-citaat), var(--maat-citaat));
+	line-height:          var(--regel-citaat);
+	letter-spacing:       var(--spatiering-groot);
+}
+
+body .sectie-citaat figcaption {
+	grid-column:          1 / -1;
+	color:                var(--kleur-accent-200);
+	font-size:            var(--maat-bovenkop);
+}

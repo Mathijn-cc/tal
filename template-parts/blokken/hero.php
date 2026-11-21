@@ -4,36 +4,39 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-$tag = 0 === ( $blok['_index'] ?? 0 ) ? 'h1' : 'h2';
+$tag  = 0 === ( $blok['_index'] ?? 0 ) ? 'h1' : 'h2';
+$kop  = tal_kop( $blok['kop'] ?? '', $tag, 'kop-hero' );
+$mini = '';
+if ( ! empty( $blok['kop_beeld'] ) ) {
+	$mini = '<span class="hero-mini foto" aria-hidden="true">' . powerhub_beeld( $blok['kop_beeld'], 'medium_large', array( 'class' => 'foto-beeld', 'alt' => '', 'loading' => 'eager', 'sizes' => '220px' ) ) . '</span>';
+}
+$kop = str_replace( '{foto}', $mini, $kop );
 ?>
 <section <?php echo powerhub_sectie( $blok, 'hero' ); // phpcs:ignore ?>>
-	<div class="binnen hero-raster">
+	<div class="rij hero-kop">
+		<?php echo $kop; // phpcs:ignore ?>
+		<?php if ( ! empty( $blok['naschrift'] ) ) : ?>
+			<p class="hero-naschrift"><?php echo esc_html( $blok['naschrift'] ); ?></p>
+		<?php endif; ?>
 		<div class="hero-tekst">
-			<?php if ( ! empty( $blok['bovenkop'] ) ) : ?>
-				<p class="bovenkop"><?php echo esc_html( $blok['bovenkop'] ); ?></p>
+			<?php if ( ! empty( $blok['lead'] ) ) : ?>
+				<p class="lead"><?php echo esc_html( $blok['lead'] ); ?></p>
 			<?php endif; ?>
-			<?php echo powerhub_kop( $blok['kop'] ?? '', $tag, 'tekst-hero' ); // phpcs:ignore ?>
-			<?php if ( ! empty( $blok['intro'] ) ) : ?>
-				<p class="hero-intro tekst-groot"><?php echo esc_html( $blok['intro'] ); ?></p>
+			<?php echo tal_alineas( $blok['tekst'] ?? '' ); // phpcs:ignore ?>
+			<?php if ( ! empty( $blok['nadruk'] ) ) : ?>
+				<p class="hero-nadruk"><?php echo esc_html( $blok['nadruk'] ); ?></p>
 			<?php endif; ?>
-			<?php if ( ! empty( $blok['knop']['url'] ) || ! empty( $blok['knop_2']['url'] ) ) : ?>
+			<?php if ( ! empty( $blok['knop']['url'] ) || ! empty( $blok['link']['url'] ) ) : ?>
 				<div class="knoppen">
-					<?php
-					echo powerhub_knop( $blok['knop'] ?? array(), 'actie knop-groot' ); // phpcs:ignore
-					$op_donker = false !== strpos( powerhub_sectie( $blok, 'hero' ), 'is-donker' );
-					echo powerhub_knop( $blok['knop_2'] ?? array(), $op_donker ? 'op-donker knop-groot' : 'secundair knop-groot' ); // phpcs:ignore
-					?>
+					<?php echo powerhub_knop( $blok['knop'] ?? array(), 'actie' ); // phpcs:ignore ?>
+					<?php echo tal_lijnlink( $blok['link'] ?? array() ); // phpcs:ignore ?>
 				</div>
 			<?php endif; ?>
 		</div>
-		<?php if ( ! empty( $blok['beeld'] ) ) : ?>
-			<div class="hero-beeld">
-				<?php
-				echo is_numeric( $blok['beeld'] )
-					? wp_get_attachment_image( (int) $blok['beeld'], 'breed', false, array( 'loading' => 'eager', 'fetchpriority' => 'high' ) )
-					: '<img src="' . esc_url( $blok['beeld'] ) . '" alt="">';
-				?>
-			</div>
-		<?php endif; ?>
 	</div>
+	<?php if ( ! empty( $blok['beeld'] ) ) : ?>
+		<div class="rij">
+			<?php echo tal_foto( $blok['beeld'], 'breed', 'hero-beeld', $blok['beeld_positie'] ?? 45, array( 'loading' => 'eager', 'fetchpriority' => 'high', 'sizes' => '100vw', 'alt' => '' ) ); // phpcs:ignore ?>
+		</div>
+	<?php endif; ?>
 </section>

@@ -5,7 +5,7 @@ Custom WordPress-thema voor TAL Leadership, gebouwd door Creators Connect op het
 ## Werkwijze
 
 - Deze repo is de enige bron van het thema. Pas nooit bestanden direct op de server aan.
-- Elke push naar `main` wordt automatisch uitgerold naar de staging (tal-leadership.bijnadaar.nl), zie het tabblad Actions.
+- Elke push naar `main` wordt automatisch uitgerold naar de staging (tal.bijnadaar.nl), zie het tabblad Actions.
 - Bij elke uitrol wordt eerst een back-up van het thema op de server gemaakt (`~/thema-backups/`, de laatste tien blijven bewaard).
 - Het versienummer wordt per uitrol automatisch opgehoogd.
 
@@ -29,3 +29,13 @@ bash scripts/powerhub-bijwerken.sh
 - ACF Pro en Rank Math op de site.
 - Repo secret `STAGING_SSH_KEY`: de private SSH-sleutel van de SiteGround-gebruiker.
 - Host, poort en gebruiker staan in de workflow. De repo moet daarom privé blijven.
+
+## TAL Leadership
+
+- **Ontwerp:** Design-artifact "TAL Leadership homepagina" (Claude). Kleuren, maten en teksten komen daaruit.
+- **Letters:** DM Serif Display (alle koppen), General Sans (tekst), Kalnia alleen voor TAL in het logo. Lokaal in `assets/fonts`.
+- **Koppen:** `*woorden*` krijgen de koraal stiftstreep (`tal_kop()` in `inc/helpers.php`), `<br>` is een nieuwe regel. In de hero zet `{foto}` de kleine foto in de zin.
+- **Blokken:** hero, herkenning, traject (claim), programma (kaarten op een rij), vier-delen (lagen), academy (brede foto met tekst), resultaten, voor-wie (checklist), over-mij, citaat, podcast, cta (afsluiter).
+- **Beweging:** alles staat in `assets/js/thema.js` (GSAP, ScrollTrigger, SplitText, Lenis). Uit via Powerhub > Animaties, en altijd uit bij beperkte beweging.
+- **Eerste uitrol:** de taak `homepage-v1` (`inc/uitrol.php`) zet de foto's uit `assets/beelden` in de mediabibliotheek, maakt de pagina Home met alle blokken en het hoofdmenu. Vereist ACF Pro; zonder ACF probeert de volgende uitrol het opnieuw.
+- **Nog aan te leveren:** schermafbeelding van de Spotify-speler voor het podcastblok (tot die tijd staat er een roze tegel).

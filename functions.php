@@ -16,6 +16,8 @@ define( 'THEMA_URL', get_template_directory_uri() );
 require THEMA_PAD . '/powerhub/powerhub.php';
 
 require THEMA_PAD . '/inc/instellingen.php';
+require THEMA_PAD . '/inc/helpers.php';
+require THEMA_PAD . '/inc/uitrol.php';
 require THEMA_PAD . '/inc/toegankelijkheid.php';
 
 /**
@@ -45,7 +47,13 @@ add_action( 'wp_enqueue_scripts', function () {
 	$laden = array( 'in_footer' => true, 'strategy' => 'defer' );
 
 	wp_enqueue_style( 'thema', THEMA_URL . '/assets/css/thema.css', array( 'tokens' ), THEMA_VERSIE );
-	wp_enqueue_script( 'thema', THEMA_URL . '/assets/js/thema.js', array( 'powerhub-animaties' ), THEMA_VERSIE, $laden );
+	/* SplitText (GSAP) voor de koppen, alleen als de animaties aan staan. Alle beweging van de site staat in thema.js. */
+	$nodig = array( 'powerhub-animaties' );
+	if ( powerhub_aan( 'animaties' ) ) {
+		wp_enqueue_script( 'gsap-splittext', THEMA_URL . '/assets/js/vendor/SplitText.min.js', array( 'gsap' ), '3.15.0', $laden );
+		$nodig[] = 'gsap-splittext';
+	}
+	wp_enqueue_script( 'thema', THEMA_URL . '/assets/js/thema.js', $nodig, THEMA_VERSIE, $laden );
 
 	wp_dequeue_style( 'wp-block-library' );
 	wp_dequeue_style( 'wp-block-library-theme' );

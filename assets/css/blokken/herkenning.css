@@ -1,0 +1,118 @@
+/**Herkenning -- Kop en vragen**/
+body .sectie-herkenning .herkenning-podium .rij {
+	row-gap:              40px;
+	align-items:          start;
+	padding-top:          8px;
+}
+
+body .sectie-herkenning .herkenning-kop {
+	grid-column:          1 / span 5;
+}
+
+body .sectie-herkenning .herkenning-kolom {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  28px;
+	grid-column:          7 / span 6;
+	min-width:            0;
+	padding-top:          clamp(48px, 6vw, 110px);
+}
+
+body .sectie-herkenning .herkenning-vragen {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  36px;
+}
+
+body .sectie-herkenning .herkenning-vraag {
+	color:                var(--kleur-tekst-kop);
+	font-family:          var(--letter-kop);
+	font-size:            clamp(var(--minimaal-vraag), var(--vloeiend-vraag), var(--maat-vraag));
+	line-height:          var(--regel-vraag);
+	letter-spacing:       var(--spatiering-licht);
+}
+
+/*Herkenning -- Vastgezet (alleen met JS op een breed scherm)*/
+/* De vragen liggen op elkaar; thema.js laat ze om de beurt zien en zet de hoogte op de hoogste vraag. */
+body .sectie-herkenning.is-gepind .herkenning-vragen {
+	position:             relative;
+	min-height:           clamp(200px, 18vw, 290px);
+}
+
+body .sectie-herkenning.is-gepind .herkenning-vraag {
+	position:             absolute;
+	top:                  0;
+	right:                0;
+	left:                 0;
+}
+
+/*Herkenning -- Voortgang*/
+body .sectie-herkenning .herkenning-voortgang {
+	display:              none;
+	align-items:          center;
+	gap:                  16px;
+}
+
+body .sectie-herkenning.is-gepind .herkenning-voortgang {
+	display:              flex;
+}
+
+body .sectie-herkenning .herkenning-balk {
+	position:             relative;
+	flex:                 1 1 auto;
+	height:               2px;
+	overflow:             hidden;
+	background:           var(--kleur-rand-subtiel);
+}
+
+body .sectie-herkenning .herkenning-balk i {
+	position:             absolute;
+	inset:                0;
+	background:           var(--kleur-tekst-kop);
+	transform-origin:     left center;
+}
+
+body .sectie-herkenning .herkenning-pijl {
+	flex:                 none;
+	color:                var(--kleur-tekst-kop);
+	animation:            herkenning-pijl 1.8s ease-in-out infinite;
+}
+
+@keyframes herkenning-pijl {
+	0%, 100% { transform: translateY(-2px); }
+	50%      { transform: translateY(4px); }
+}
+
+/**Herkenning -- Slot**/
+body .sectie-herkenning .herkenning-slot {
+	margin-top:           var(--tussen);
+	row-gap:              28px;
+	align-items:          end;
+}
+
+body .sectie-herkenning .herkenning-beeld {
+	grid-column:          1 / span 4;
+	aspect-ratio:         4 / 5;
+}
+
+body .sectie-herkenning .herkenning-actie {
+	display:              flex;
+	flex-direction:       column;
+	align-items:          flex-start;
+	gap:                  clamp(36px, 3.6vw, 56px);
+	grid-column:          7 / span 6;
+}
+
+@media (max-width: 860px) {
+	body .sectie-herkenning .herkenning-kolom {
+		padding-top:          8px;
+	}
+
+	body .sectie-herkenning.is-gepind .herkenning-vragen {
+		min-height:           250px;
+	}
+
+	body .sectie-herkenning .herkenning-beeld {
+		display:              none;
+	}
+}

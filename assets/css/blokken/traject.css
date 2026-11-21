@@ -1,0 +1,30 @@
+/**Traject -- Opbouw**/
+body .sectie-traject .traject-rij {
+	row-gap:              clamp(20px, 2.4vw, 36px);
+}
+
+body .sectie-traject .kop.is-roze {
+	color:                var(--kleur-tekst-accent-op-licht);
+}
+
+/*Traject -- Claim*/
+/* Kleurt woord voor woord in van steen naar inkt (thema.js). */
+body .sectie-traject .traject-claim {
+	color:                var(--kleur-tekst-kop);
+	font-family:          var(--letter-kop);
+	font-size:            clamp(var(--minimaal-claim), var(--vloeiend-claim), var(--maat-claim));
+	line-height:          var(--regel-claim);
+	letter-spacing:       var(--spatiering-groot);
+}
+
+/*Traject -- Tekst in twee kolommen*/
+body .sectie-traject .traject-tekst {
+	display:              grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+	gap:                  24px var(--kolomgat);
+	padding-top:          clamp(32px, 4vw, 64px);
+}
+
+body .sectie-traject .traject-slot {
+	padding-top:          8px;
+}

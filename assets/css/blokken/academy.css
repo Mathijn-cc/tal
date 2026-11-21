@@ -1,0 +1,39 @@
+/**Academy -- Beeld**/
+body .sectie-academy .academy-beeld {
+	grid-column:          1 / -1;
+	aspect-ratio:         21 / 9;
+	background:           var(--kleur-vlak-donker-verhoogd);
+}
+
+body .sectie-academy .rij + .academy-tekst {
+	margin-top:           clamp(40px, 4vw, 72px);
+}
+
+/**Academy -- Tekst**/
+body .sectie-academy .academy-tekst {
+	row-gap:              20px;
+}
+
+body .sectie-academy .academy-kolommen {
+	display:              grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+	gap:                  28px var(--kolomgat);
+	align-items:          start;
+}
+
+body .sectie-academy .academy-titel {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  14px;
+}
+
+body .sectie-academy .academy-ondertitel,
+body .sectie-academy.is-donker .academy-ondertitel {
+	color:                var(--kleur-tekst-accent);
+}
+
+@media (max-width: 860px) {
+	body .sectie-academy .academy-beeld {
+		aspect-ratio:         4 / 3;
+	}
+}

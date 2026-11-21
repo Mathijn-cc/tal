@@ -1,3 +1,4 @@
+</main>
 <footer class="voet-site is-donker">
 	<div class="binnen voet-site-rij">
 		<span>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php echo esc_html( powerhub( 'footer_naam', 'TAL leadership' ) ); ?></span>

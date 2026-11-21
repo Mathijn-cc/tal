@@ -58,3 +58,6 @@ $tal_knop = powerhub_hoofdknop();
 		<?php endif; ?>
 	</div>
 </div>
+
+<main id="inhoud">
+<?php powerhub_kruimelpad(); ?>

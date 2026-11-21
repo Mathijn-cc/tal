@@ -140,3 +140,15 @@ function tal_uitrol_menu() {
 	$locaties['hoofdmenu'] = $id;
 	set_theme_mod( 'nav_menu_locations', $locaties );
 }
+
+/* Naam en ondertitel van de site (staat in de titelbalk en bij Rank Math). */
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['instellingen-v1'] = 'tal_uitrol_instellingen';
+	return $taken;
+} );
+
+function tal_uitrol_instellingen() {
+	update_option( 'blogname', 'TAL Leadership' );
+	update_option( 'blogdescription', 'Persoonlijk traineeship voor leiders' );
+	return true;
+}

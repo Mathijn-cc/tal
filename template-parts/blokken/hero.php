@@ -8,7 +8,7 @@ $tag  = 0 === ( $blok['_index'] ?? 0 ) ? 'h1' : 'h2';
 $kop  = tal_kop( $blok['kop'] ?? '', $tag, 'kop-hero' );
 $mini = '';
 if ( ! empty( $blok['kop_beeld'] ) ) {
-	$mini = '<span class="hero-mini foto" aria-hidden="true">' . powerhub_beeld( $blok['kop_beeld'], 'medium_large', array( 'class' => 'foto-beeld', 'alt' => '', 'loading' => 'eager', 'sizes' => '220px' ) ) . '</span>';
+	$mini = '<span class="hero-mini foto" aria-hidden="true">' . powerhub_beeld( $blok['kop_beeld'], 'medium_large', array( 'class' => 'foto-beeld', 'alt' => '', 'loading' => 'eager', 'sizes' => '320px', 'style' => tal_uitsnede_stijl( array( 'beeld_x' => $blok['kop_beeld_x'] ?? '', 'beeld_positie' => $blok['kop_beeld_y'] ?? '' ), 50, 22 ) ) ) . '</span>';
 }
 $kop = str_replace( '{foto}', $mini, $kop );
 ?>

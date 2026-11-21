@@ -63,7 +63,7 @@ body .sectie-hero .hero-beeld {
 }
 
 /**Hero -- Mobiel**/
-/* Op een smal scherm vult de kop de breedte, staat Toch? rechts als antwoord en loopt de foto tot de rand. */
+/* Op een smal scherm vult de kop de breedte, staat Toch? eronder en loopt de foto tot de rand. */
 @media (max-width: 860px) {
 	body .sectie-hero .hero-kop {
 		row-gap:              0;
@@ -76,14 +76,16 @@ body .sectie-hero .hero-beeld {
 		line-height:          0.92;
 	}
 
+	/* Op mobiel een grotere, hogere foto in de zin, zodat je echt iets ziet. */
 	body .sectie-hero .hero-mini {
-		width:                1.7em;
-		height:               0.78em;
+		width:                1.9em;
+		height:               0.86em;
+		vertical-align:       -0.06em;
 	}
 
 	body .sectie-hero .hero-naschrift {
-		justify-self:         end;
-		margin-top:           0.08em;
+		justify-self:         start;
+		margin-top:           0.12em;
 	}
 
 	body .sectie-hero .hero-tekst {

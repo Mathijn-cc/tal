@@ -221,3 +221,23 @@ function tal_uitrol_knoppen() {
 	echo "Knoppen bijgewerkt.\n";
 	return true;
 }
+
+/* Kleine foto in de hero: uitsnede op het gezicht. */
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['hero-kleine-foto-v1'] = 'tal_uitrol_hero_kleine_foto';
+	return $taken;
+} );
+
+function tal_uitrol_hero_kleine_foto() {
+	if ( ! function_exists( 'update_sub_field' ) ) {
+		return false;
+	}
+	$id    = (int) get_option( 'page_on_front' );
+	$rijen = $id ? (array) get_post_meta( $id, 'blokken', true ) : array();
+	$hero  = array_search( 'hero', $rijen, true );
+	if ( false !== $hero ) {
+		update_sub_field( array( 'field_powerhub_blokken', $hero + 1, 'field_hero_kop_beeld_x' ), 50, $id );
+		update_sub_field( array( 'field_powerhub_blokken', $hero + 1, 'field_hero_kop_beeld_y' ), 22, $id );
+	}
+	return true;
+}

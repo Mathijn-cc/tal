@@ -112,9 +112,9 @@ function tal_acf_beeld( $prefix, $naam, $label, $extra = array() ) {
  * Uitsnede van een beeld: horizontaal en verticaal, met een eigen uitsnede voor mobiel (leeg is gelijk aan desktop).
  * Velden: beeld_x, beeld_positie (verticaal, bestaande naam), beeld_x_mobiel, beeld_y_mobiel.
  */
-function tal_acf_uitsnede( $prefix, $standaard_y = 40, $standaard_x = 50 ) {
-	$getal = function ( $naam, $label, $standaard, $uitleg ) use ( $prefix ) {
-		return powerhub_acf_veld( $prefix, $naam, $label, 'number', array_merge( powerhub_acf_breed( 25 ), array(
+function tal_acf_uitsnede( $prefix, $standaard_y = 40, $standaard_x = 50, $voor = '' ) {
+	$getal = function ( $naam, $label, $standaard, $uitleg ) use ( $prefix, $voor ) {
+		return powerhub_acf_veld( $prefix, $naam, $voor ? $voor . ': ' . lcfirst( $label ) : $label, 'number', array_merge( powerhub_acf_breed( 25 ), array(
 			'min'           => 0,
 			'max'           => 100,
 			'step'          => 5,

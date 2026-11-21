@@ -42,13 +42,13 @@ body .sectie-podcast .podcast-speler img {
 
 /*Podcast -- Spotify-speler*/
 body .sectie-podcast .podcast-embed {
-	grid-column:          8 / span 5;
+	grid-column:          7 / span 6;
 }
 
 body .sectie-podcast .podcast-embed iframe {
 	display:              block;
 	width:                100%;
-	height:               352px;
+	height:               clamp(480px, 40vw, 600px);
 	border:               0;
 	border-radius:        var(--hoek-m);
 }

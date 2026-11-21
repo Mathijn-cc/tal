@@ -134,8 +134,8 @@
 	var klaar = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
 	klaar.then(function () {
 
-		/* Koppen: regel voor regel omhoog uit een masker. */
-		if (Split) alle('main h1, main h2').forEach(function (kop) {
+		/* Koppen en ondertitels (tussenkoppen, labels): regel voor regel omhoog uit een masker. */
+		if (Split) alle('main h1, main h2, main .kop-m, main .marge, main .bovenkop-tal').forEach(function (kop) {
 			var split = Split.create(kop, { type: 'lines', mask: 'lines' });
 			/* Ruimte boven en onder elke regel, zodat j, g, p en accenten niet worden afgesneden. */
 			(split.masks || []).forEach(function (m) {

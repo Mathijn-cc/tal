@@ -346,6 +346,50 @@
 		}
 	}
 
+	/* Alle bevindingen als platte tekst, om te plakken in een ticket, mail of chat. */
+	function rapportTekst() {
+		var regels = ['Toegankelijkheid: ' + document.title, window.location.href, new Date().toLocaleString('nl-NL'), ''];
+		var samenvatting = paneel.querySelector('[data-samenvatting]');
+		if (samenvatting) regels.push(samenvatting.textContent, '');
+		soorten.forEach(function (soort) {
+			var lijst = bevindingen.filter(function (b) { return b.soort === soort.id; });
+			if (!lijst.length) return;
+			regels.push(soort.titel + ' (' + lijst.length + ')');
+			lijst.forEach(function (b, i) {
+				regels.push((i + 1) + '. ' + b.tekst + (b.detail ? ' (' + b.detail + ')' : ''));
+			});
+			regels.push('');
+		});
+		regels.push('Grenzen: tekst ' + c.kleinste + 'px, lopende tekst ' + c.lopend + 'px, contrast ' + c.niveau + ', klikdoel ' + c.klikdoel + 'px.');
+		return regels.join('\n');
+	}
+
+	function kopieren(knop) {
+		var tekst = rapportTekst();
+		var klaar = function (gelukt) {
+			knop.textContent = gelukt ? 'Gekopieerd' : 'Kopiëren mislukt';
+			setTimeout(function () { knop.textContent = 'Kopiëren'; }, 2000);
+		};
+		var terugval = function () {
+			var veld = maak('textarea', { readonly: '', 'aria-hidden': 'true' });
+			veld.value = tekst;
+			veld.style.position = 'fixed';
+			veld.style.opacity = '0';
+			paneel.appendChild(veld);
+			veld.select();
+			var gelukt = false;
+			try { gelukt = document.execCommand('copy'); } catch (e) { gelukt = false; }
+			paneel.removeChild(veld);
+			knop.focus();
+			klaar(gelukt);
+		};
+		if (navigator.clipboard && window.isSecureContext) {
+			navigator.clipboard.writeText(tekst).then(function () { klaar(true); }, terugval);
+		} else {
+			terugval();
+		}
+	}
+
 	function bouwPaneel() {
 		paneel = maak('section', { id: PANEEL, role: 'region', 'aria-labelledby': PANEEL + '-titel', tabindex: '-1' });
 		var kop = maak('div', { class: 'tg-kop' });
@@ -355,9 +399,12 @@
 		kop.appendChild(titels);
 		var opnieuw = maak('button', { type: 'button', class: 'tg-knop' }, 'Opnieuw');
 		opnieuw.addEventListener('click', function () { markeren(null); analyseren(); tekenen(); });
+		var kopieer = maak('button', { type: 'button', class: 'tg-knop', 'aria-live': 'polite' }, 'Kopiëren');
+		kopieer.addEventListener('click', function () { kopieren(kopieer); });
 		var sluiten = maak('button', { type: 'button', class: 'tg-knop tg-sluiten', 'aria-label': 'Paneel sluiten' });
 		sluiten.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 3l10 10M13 3 3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
 		sluiten.addEventListener('click', sluit);
+		kop.appendChild(kopieer);
 		kop.appendChild(opnieuw);
 		kop.appendChild(sluiten);
 		paneel.appendChild(kop);
@@ -388,7 +435,7 @@
 		if (terug && terug.focus) terug.focus();
 	}
 
-	window.powerhubControle = { open: open, sluit: sluit, bevindingen: function () { return bevindingen; } };
+	window.powerhubControle = { open: open, sluit: sluit, bevindingen: function () { return bevindingen; }, rapport: function () { return paneel ? rapportTekst() : ''; } };
 
 	/* Met ?toegankelijkheid=1 direct openen, als lettertypes en lay-out klaar zijn. */
 	if (/[?&]toegankelijkheid=1(&|$)/.test(window.location.search)) {

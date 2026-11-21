@@ -1,0 +1,388 @@
+/**Powerhub -- Variabelen**/
+.wrap.powerhub {
+	--ph-donker:          #1d2733;
+	--ph-tekst:           #2b3440;
+	--ph-zacht:           #6b7480;
+	--ph-lijn:            #e6e8eb;
+	--ph-vlak:            #ffffff;
+	--ph-achtergrond:     #f4f5f6;
+	--ph-accent:          #ffd23f;
+	--ph-succes:          #1f8a5b;
+	--ph-fout:            #c0392b;
+	--ph-hoek:            14px;
+
+	max-width:            1180px;
+	margin:               20px 20px 0 0;
+	color:                var(--ph-tekst);
+}
+
+/**Powerhub -- Kop**/
+.wrap.powerhub .powerhub-kop {
+	display:              flex;
+	align-items:          center;
+	justify-content:      space-between;
+	gap:                  1rem;
+	padding:              1.25rem 1.5rem;
+	border-radius:        var(--ph-hoek);
+	background:           var(--ph-donker);
+	color:                #ffffff;
+}
+
+/*Kop -- Merk*/
+.wrap.powerhub .powerhub-kop .powerhub-merk {
+	display:              flex;
+	align-items:          center;
+	gap:                  0.9rem;
+}
+
+.wrap.powerhub .powerhub-kop .powerhub-merk .powerhub-merk-icoon {
+	display:              grid;
+	place-items:          center;
+	width:                42px;
+	height:               42px;
+	border-radius:        12px;
+	background:           var(--ph-accent);
+	color:                var(--ph-donker);
+}
+
+.wrap.powerhub .powerhub-kop .powerhub-merk .powerhub-merk-titel {
+	margin:               0;
+	font-size:            1.35rem;
+	font-weight:          700;
+	letter-spacing:       -0.01em;
+}
+
+.wrap.powerhub .powerhub-kop .powerhub-merk .powerhub-merk-sub {
+	margin:               0.15rem 0 0;
+	font-size:            0.8rem;
+	opacity:              0.7;
+}
+
+/*Kop -- Niveau*/
+.wrap.powerhub .powerhub-kop .powerhub-niveau {
+	padding:              0.3rem 0.7rem;
+	border:               1px solid rgba(255, 255, 255, 0.3);
+	border-radius:        999px;
+	font-size:            0.75rem;
+}
+
+/**Powerhub -- Meldingen**/
+.wrap.powerhub .powerhub-melding {
+	margin:               1rem 0 0;
+	padding:              0.8rem 1rem;
+	border-left:          4px solid var(--ph-succes);
+	border-radius:        8px;
+	background:           var(--ph-vlak);
+}
+
+.wrap.powerhub .powerhub-melding.powerhub-melding-fout {
+	border-left-color:    var(--ph-fout);
+}
+
+/**Powerhub -- Indeling**/
+.wrap.powerhub .powerhub-indeling {
+	display:              grid;
+	grid-template-columns: 250px 1fr;
+	gap:                  1.5rem;
+	margin-top:           1.5rem;
+	align-items:          start;
+}
+
+@media (max-width: 960px) {
+	.wrap.powerhub .powerhub-indeling {
+		grid-template-columns: 1fr;
+	}
+}
+
+/*Indeling -- Tabs*/
+.wrap.powerhub .powerhub-indeling .powerhub-tabs {
+	position:             sticky;
+	top:                  48px;
+	display:              flex;
+	flex-direction:       column;
+	gap:                  0.2rem;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button {
+	display:              flex;
+	flex-direction:       column;
+	align-items:          flex-start;
+	gap:                  0.15rem;
+	padding:              0.7rem 0.9rem;
+	border:               0;
+	border-radius:        10px;
+	background:           transparent;
+	color:                var(--ph-tekst);
+	text-align:           left;
+	cursor:               pointer;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button:hover {
+	background:           var(--ph-lijn);
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button[aria-selected="true"] {
+	background:           var(--ph-vlak);
+	box-shadow:           0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button .powerhub-tab-titel {
+	display:              flex;
+	align-items:          center;
+	gap:                  0.4rem;
+	font-size:            0.95rem;
+	font-weight:          600;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button small {
+	color:                var(--ph-zacht);
+	font-size:            0.78rem;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button .powerhub-slot {
+	padding:              0.05rem 0.4rem;
+	border-radius:        999px;
+	background:           var(--ph-lijn);
+	color:                var(--ph-zacht);
+	font-size:            0.65rem;
+	font-weight:          500;
+	text-transform:       uppercase;
+	letter-spacing:       0.04em;
+}
+
+/*Indeling -- Panelen*/
+.wrap.powerhub .powerhub-indeling .powerhub-paneel {
+	padding:              1.5rem 1.75rem;
+	border-radius:        var(--ph-hoek);
+	background:           var(--ph-vlak);
+	box-shadow:           0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.js .wrap.powerhub .powerhub-indeling .powerhub-paneel[hidden] {
+	display:              none;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-paneel .powerhub-paneel-kop h2 {
+	margin:               0;
+	font-size:            1.25rem;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-paneel .powerhub-paneel-kop p {
+	margin:               0.25rem 0 1rem;
+	color:                var(--ph-zacht);
+}
+
+/**Powerhub -- Velden**/
+.wrap.powerhub .powerhub-veld {
+	display:              grid;
+	grid-template-columns: 240px 1fr;
+	gap:                  1.25rem;
+	align-items:          start;
+	padding:              0.9rem 0;
+	border-top:           1px solid var(--ph-lijn);
+}
+
+@media (max-width: 782px) {
+	.wrap.powerhub .powerhub-veld {
+		grid-template-columns: 1fr;
+		gap:                  0.4rem;
+	}
+}
+
+.wrap.powerhub .powerhub-veld .powerhub-label {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  0.2rem;
+	padding-top:          0.35rem;
+	font-weight:          600;
+}
+
+.wrap.powerhub .powerhub-uitleg {
+	color:                var(--ph-zacht);
+	font-weight:          400;
+	font-size:            0.8rem;
+}
+
+.wrap.powerhub .powerhub-veld .powerhub-invoer input[type="text"],
+.wrap.powerhub .powerhub-veld .powerhub-invoer input[type="url"],
+.wrap.powerhub .powerhub-veld .powerhub-invoer input[type="email"],
+.wrap.powerhub .powerhub-veld .powerhub-invoer input[type="number"],
+.wrap.powerhub .powerhub-veld .powerhub-invoer select,
+.wrap.powerhub .powerhub-veld .powerhub-invoer textarea {
+	width:                100%;
+	max-width:            520px;
+	min-height:           38px;
+	border-color:         var(--ph-lijn);
+	border-radius:        8px;
+}
+
+/*Velden -- Tussenkop*/
+.wrap.powerhub .powerhub-tussenkop {
+	margin:               2rem 0 0.6rem;
+	font-size:            0.85rem;
+	text-transform:       uppercase;
+	letter-spacing:       0.06em;
+	color:                var(--ph-zacht);
+}
+
+/*Velden -- Kleur*/
+.wrap.powerhub .powerhub-veld .powerhub-kleur {
+	display:              inline-flex;
+	align-items:          center;
+	gap:                  0.6rem;
+}
+
+.wrap.powerhub .powerhub-veld .powerhub-kleur input[type="color"] {
+	width:                44px;
+	height:               36px;
+	padding:              2px;
+	border:               1px solid var(--ph-lijn);
+	border-radius:        8px;
+	background:           var(--ph-vlak);
+	cursor:               pointer;
+}
+
+/*Velden -- Beeld*/
+.wrap.powerhub .powerhub-veld .powerhub-beeld .powerhub-beeld-voorbeeld img {
+	display:              block;
+	max-height:           64px;
+	width:                auto;
+	margin-bottom:        0.5rem;
+	padding:              0.5rem;
+	border-radius:        8px;
+	background:           repeating-conic-gradient(#eeeeee 0% 25%, #ffffff 0% 50%) 50% / 16px 16px;
+}
+
+.wrap.powerhub .powerhub-veld .powerhub-beeld button {
+	vertical-align:       middle;
+}
+
+/*Velden -- Schakel*/
+.wrap.powerhub .powerhub-schakel {
+	display:              flex;
+	align-items:          flex-start;
+	gap:                  0.9rem;
+	padding:              0.9rem 0;
+	border-top:           1px solid var(--ph-lijn);
+	cursor:               pointer;
+}
+
+.wrap.powerhub .powerhub-schakel input {
+	position:             absolute;
+	opacity:              0;
+}
+
+.wrap.powerhub .powerhub-schakel .powerhub-schakel-knop {
+	position:             relative;
+	flex:                 0 0 40px;
+	height:               22px;
+	margin-top:           1px;
+	border-radius:        999px;
+	background:           #cfd4da;
+	transition:           background 0.2s ease;
+}
+
+.wrap.powerhub .powerhub-schakel .powerhub-schakel-knop::after {
+	content:              "";
+	position:             absolute;
+	top:                  3px;
+	left:                 3px;
+	width:                16px;
+	height:               16px;
+	border-radius:        50%;
+	background:           #ffffff;
+	transition:           transform 0.2s ease;
+}
+
+.wrap.powerhub .powerhub-schakel input:checked + .powerhub-schakel-knop {
+	background:           var(--ph-succes);
+}
+
+.wrap.powerhub .powerhub-schakel input:checked + .powerhub-schakel-knop::after {
+	transform:            translateX(18px);
+}
+
+.wrap.powerhub .powerhub-schakel input:focus-visible + .powerhub-schakel-knop {
+	outline:              2px solid var(--ph-donker);
+	outline-offset:       2px;
+}
+
+.wrap.powerhub .powerhub-schakel .powerhub-schakel-tekst {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  0.15rem;
+}
+
+/**Powerhub -- Acties**/
+.wrap.powerhub .powerhub-acties {
+	position:             sticky;
+	bottom:               0;
+	margin:               1rem -1.75rem -1.5rem;
+	padding:              1rem 1.75rem;
+	border-top:           1px solid var(--ph-lijn);
+	border-radius:        0 0 var(--ph-hoek) var(--ph-hoek);
+	background:           var(--ph-vlak);
+	box-shadow:           0 -6px 12px rgba(255, 255, 255, 0.9);
+}
+
+.wrap.powerhub .powerhub-formulier > .powerhub-tussenkop:first-of-type {
+	margin-top:           0.5rem;
+}
+
+.wrap.powerhub .powerhub-tussenkop + .powerhub-uitleg {
+	display:              block;
+	margin:               -0.4rem 0 0.6rem;
+}
+
+/**Powerhub -- Gereedschap**/
+.wrap.powerhub .powerhub-gereedschap {
+	display:              grid;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	gap:                  1rem;
+}
+
+.wrap.powerhub .powerhub-gereedschap .powerhub-kaart {
+	padding:              1.1rem 1.25rem;
+	border:               1px solid var(--ph-lijn);
+	border-radius:        12px;
+}
+
+.wrap.powerhub .powerhub-gereedschap .powerhub-kaart h3 {
+	margin:               0 0 0.4rem;
+	font-size:            1rem;
+}
+
+.wrap.powerhub .powerhub-gereedschap .powerhub-kaart p {
+	margin:               0 0 0.9rem;
+	color:                var(--ph-zacht);
+}
+
+.wrap.powerhub .powerhub-gereedschap .powerhub-kaart.powerhub-kaart-gevaar {
+	border-color:         #f1c6c0;
+}
+
+.wrap.powerhub .powerhub-systeem {
+	width:                100%;
+	margin-top:           1.5rem;
+	border-collapse:      collapse;
+}
+
+.wrap.powerhub .powerhub-systeem th,
+.wrap.powerhub .powerhub-systeem td {
+	padding:              0.55rem 0;
+	border-top:           1px solid var(--ph-lijn);
+	text-align:           left;
+}
+
+.wrap.powerhub .powerhub-systeem th {
+	width:                240px;
+	font-weight:          600;
+}
+
+.wrap.powerhub .powerhub-status-goed {
+	color:                var(--ph-succes);
+}
+
+.wrap.powerhub .powerhub-status-fout {
+	color:                var(--ph-fout);
+}

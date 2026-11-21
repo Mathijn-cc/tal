@@ -1,0 +1,522 @@
+/**Blokken -- Basis**/
+/* Beheerervaring van de blokken in de huisstijl van het thema. Alle kleuren komen uit de tokens van het thema,
+   met neutrale terugvalwaarden voor thema's zonder designsysteem. */
+#acf-group_powerhub_blokken,
+.acf-fc-popup.blokkiezer,
+.blokken-intro {
+	--bh-donker:          var(--kleur-vlak-donker, #1d2733);
+	--bh-tekst:           var(--kleur-tekst-kop, #1d2733);
+	--bh-zacht:           var(--kleur-tekst-gedempt, #5c6773);
+	--bh-lijn:            var(--kleur-rand-subtiel, #e4e6e8);
+	--bh-vlak:            var(--kleur-vlak-kaart, #ffffff);
+	--bh-pagina:          var(--kleur-vlak-pagina, #f3f3f3);
+	--bh-actie:           var(--kleur-actie-primair, #ffd23f);
+	--bh-actie-tekst:     var(--kleur-actie-primair-tekst, #1d2733);
+	--bh-tegel:           var(--kleur-tegel-accent, #2f74e0);
+	--bh-tegel-tekst:     var(--kleur-tegel-accent-tekst, #1d2733);
+	--bh-tint:            var(--kleur-vlak-tint-zacht, #eaf3fd);
+	--bh-letter:          var(--letter-tekst, system-ui, sans-serif);
+	--bh-smal:            var(--letter-smal, var(--bh-letter));
+	--bh-knop:            var(--hoek-knop, 12px 12px 12px 4px);
+}
+
+/**Blokken -- Intro**/
+.blokken-intro {
+	display:              flex;
+	align-items:          center;
+	gap:                  14px;
+	margin:               16px 0 4px;
+	padding:              14px 18px;
+	border-radius:        16px 16px 16px 4px;
+	background:           var(--bh-donker);
+	color:                #ffffff;
+	font-family:          var(--bh-letter);
+	font-size:            14px;
+	line-height:          1.5;
+}
+
+.blokken-intro a {
+	color:                var(--kleur-tekst-link-op-donker, #8fd3ff);
+}
+
+.blokken-intro .blokken-intro-icoon {
+	display:              grid;
+	flex-shrink:          0;
+	place-items:          center;
+	width:                38px;
+	height:               38px;
+	border-radius:        10px;
+	background:           var(--bh-actie);
+	color:                var(--bh-actie-tekst);
+}
+
+.blokken-intro .blokken-intro-icoon svg {
+	width:                20px;
+	height:               20px;
+}
+
+/**Blokken -- Werkbalk**/
+#acf-group_powerhub_blokken .blokken-werkbalk {
+	display:              flex;
+	align-items:          center;
+	justify-content:      space-between;
+	gap:                  12px;
+	margin:               0 0 12px;
+	font-family:          var(--bh-letter);
+}
+
+#acf-group_powerhub_blokken .blokken-werkbalk .blokken-teller {
+	color:                var(--bh-zacht);
+	font-family:          var(--bh-smal);
+	font-size:            13px;
+	letter-spacing:       0.08em;
+	text-transform:       uppercase;
+}
+
+#acf-group_powerhub_blokken .blokken-werkbalk button {
+	padding:              6px 12px;
+	border:               1px solid var(--bh-lijn);
+	border-radius:        var(--bh-knop);
+	background:           var(--bh-vlak);
+	color:                var(--bh-tekst);
+	font-family:          var(--bh-letter);
+	font-size:            13px;
+	cursor:               pointer;
+}
+
+#acf-group_powerhub_blokken .blokken-werkbalk button:hover {
+	border-color:         var(--bh-tekst);
+}
+
+/**Blokken -- Blok**/
+#acf-group_powerhub_blokken .acf-flexible-content .layout {
+	overflow:             hidden;
+	margin:               0 0 10px;
+	border:               1px solid var(--bh-lijn);
+	border-radius:        16px;
+	background:           var(--bh-vlak);
+	box-shadow:           0 1px 2px rgba(29, 39, 51, 0.04);
+	font-family:          var(--bh-letter);
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout:hover {
+	border-color:         var(--kleur-rand-sterk, #c2c7cb);
+}
+
+/*Blok -- Kopbalk*/
+#acf-group_powerhub_blokken .acf-flexible-content .layout .acf-fc-layout-handle {
+	display:              flex;
+	align-items:          center;
+	gap:                  12px;
+	min-height:           56px;
+	padding:              10px 140px 10px 14px;
+	border-bottom:        1px solid var(--bh-lijn);
+	color:                var(--bh-tekst);
+	font-size:            15px;
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout.-collapsed .acf-fc-layout-handle {
+	border-bottom:        0;
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout .acf-fc-layout-handle .acf-fc-layout-order {
+	flex-shrink:          0;
+	width:                24px;
+	height:               24px;
+	margin:               0;
+	border-radius:        50%;
+	background:           var(--bh-pagina);
+	color:                var(--bh-zacht);
+	font-size:            12px;
+	line-height:          24px;
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout .blok-icoon {
+	display:              grid;
+	flex-shrink:          0;
+	place-items:          center;
+	width:                34px;
+	height:               34px;
+	border-radius:        9px;
+	background:           var(--bh-tegel);
+	color:                var(--bh-tegel-tekst);
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout .blok-icoon svg {
+	width:                18px;
+	height:               18px;
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout .blok-label {
+	font-weight:          600;
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout .blok-kop {
+	overflow:             hidden;
+	margin-left:          4px;
+	color:                var(--bh-zacht);
+	font-weight:          400;
+	white-space:          nowrap;
+	text-overflow:        ellipsis;
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout .blok-kop::before {
+	content:              "\00b7\00a0";
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout .blok-status {
+	margin-left:          8px;
+	padding:              2px 8px;
+	border-radius:        999px;
+	background:           var(--bh-pagina);
+	color:                var(--bh-zacht);
+	font-family:          var(--bh-smal);
+	font-size:            12px;
+	letter-spacing:       0.06em;
+	text-transform:       uppercase;
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout .acf-fc-layout-controls {
+	top:                  14px;
+}
+
+/*Blok -- Tabs*/
+/* Inhoud, Weergave, Geavanceerd als compacte segmenten. */
+#acf-group_powerhub_blokken .layout .acf-tab-wrap {
+	margin:               0;
+	padding:              12px 14px 0;
+	border:               0;
+	background:           transparent;
+}
+
+#acf-group_powerhub_blokken .layout .acf-tab-wrap .acf-tab-group {
+	display:              inline-flex;
+	gap:                  3px;
+	margin:               0;
+	padding:              4px;
+	border:               0;
+	border-radius:        12px 12px 12px 4px;
+	background:           var(--bh-pagina);
+}
+
+#acf-group_powerhub_blokken .layout .acf-tab-wrap .acf-tab-group li {
+	margin:               0;
+}
+
+#acf-group_powerhub_blokken .layout .acf-tab-wrap .acf-tab-group li a {
+	padding:              7px 14px;
+	border:               0;
+	border-radius:        9px 9px 9px 3px;
+	background:           transparent;
+	color:                var(--bh-zacht);
+	font-size:            14px;
+	font-weight:          500;
+}
+
+#acf-group_powerhub_blokken .layout .acf-tab-wrap .acf-tab-group li.active a {
+	background:           var(--bh-donker);
+	color:                #ffffff;
+}
+
+/*Blok -- Velden*/
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field {
+	padding:              12px 14px;
+	border-top:           0;
+}
+
+#acf-group_powerhub_blokken .layout .acf-field .acf-label label {
+	color:                var(--bh-tekst);
+	font-size:            14px;
+	font-weight:          600;
+}
+
+#acf-group_powerhub_blokken .layout .acf-field .acf-label p.description,
+#acf-group_powerhub_blokken .layout .acf-field .acf-input > p.description {
+	color:                var(--bh-zacht);
+	font-size:            13px;
+}
+
+#acf-group_powerhub_blokken .layout .acf-field input[type="text"],
+#acf-group_powerhub_blokken .layout .acf-field input[type="url"],
+#acf-group_powerhub_blokken .layout .acf-field input[type="number"],
+#acf-group_powerhub_blokken .layout .acf-field textarea,
+#acf-group_powerhub_blokken .layout .acf-field select {
+	min-height:           40px;
+	border-color:         var(--bh-lijn);
+	border-radius:        10px;
+	font-family:          var(--bh-letter);
+	font-size:            15px;
+}
+
+#acf-group_powerhub_blokken .layout .acf-field input:focus,
+#acf-group_powerhub_blokken .layout .acf-field textarea:focus,
+#acf-group_powerhub_blokken .layout .acf-field select:focus {
+	border-color:         var(--bh-donker);
+	box-shadow:           0 0 0 1px var(--bh-donker);
+}
+
+/*Blok -- Knopgroepen*/
+#acf-group_powerhub_blokken .layout .acf-button-group {
+	display:              inline-flex;
+	flex-wrap:            wrap;
+	gap:                  3px;
+	padding:              4px;
+	border-radius:        12px 12px 12px 4px;
+	background:           var(--bh-pagina);
+}
+
+#acf-group_powerhub_blokken .layout .acf-button-group label {
+	display:              inline-flex;
+	align-items:          center;
+	gap:                  8px;
+	margin:               0;
+	padding:              7px 13px;
+	border:               0 !important;
+	border-radius:        9px 9px 9px 3px !important;
+	background:           transparent;
+	color:                var(--bh-zacht);
+	font-size:            14px;
+	font-weight:          500;
+	box-shadow:           none;
+}
+
+#acf-group_powerhub_blokken .layout .acf-button-group label:hover {
+	color:                var(--bh-tekst);
+}
+
+#acf-group_powerhub_blokken .layout .acf-button-group label.selected {
+	background:           var(--bh-vlak);
+	color:                var(--bh-tekst);
+	box-shadow:           0 1px 2px rgba(29, 39, 51, 0.1), 0 4px 10px -6px rgba(29, 39, 51, 0.3);
+}
+
+/*Blok -- Kleurkeuze*/
+#acf-group_powerhub_blokken .kleurkeuze .acf-button-group label::before {
+	content:              "";
+	flex-shrink:          0;
+	width:                16px;
+	height:               16px;
+	border-radius:        50%;
+	background:           var(--bh-vlak);
+	box-shadow:           inset 0 0 0 1px rgba(29, 39, 51, 0.25);
+}
+
+#acf-group_powerhub_blokken .kleurkeuze.alleen-bolletjes .acf-button-group label {
+	gap:                  0;
+	padding:              7px;
+	font-size:            0;
+}
+
+#acf-group_powerhub_blokken .kleurkeuze.alleen-bolletjes .acf-button-group label::before {
+	width:                22px;
+	height:               22px;
+}
+
+#acf-group_powerhub_blokken .kleurkeuze.alleen-bolletjes .acf-button-group label.selected::before {
+	box-shadow:           0 0 0 2px var(--bh-vlak), 0 0 0 4px var(--bh-donker);
+}
+
+/*Blok -- Contrastmelding*/
+#acf-group_powerhub_blokken .contrastmelding {
+	display:              flex;
+	gap:                  10px;
+	align-items:          flex-start;
+	margin:               0 14px 12px;
+	padding:              10px 14px;
+	border-left:          3px solid #b35900;
+	border-radius:        8px;
+	background:           #fff6ec;
+	color:                #5c2e00;
+	font-size:            13px;
+	line-height:          1.5;
+}
+
+/*Blok -- Herhalers*/
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-table {
+	overflow:             hidden;
+	border:               1px solid var(--bh-lijn);
+	border-radius:        12px;
+}
+
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row-handle.order {
+	background:           var(--bh-pagina);
+	color:                var(--bh-zacht);
+}
+
+/**Blokken -- Toevoegen**/
+#acf-group_powerhub_blokken .acf-flexible-content > .acf-actions .acf-button.button-primary {
+	display:              inline-flex;
+	align-items:          center;
+	gap:                  8px;
+	min-height:           44px;
+	padding:              0 20px;
+	border:               0;
+	border-radius:        var(--bh-knop);
+	background:           var(--bh-actie);
+	color:                var(--bh-actie-tekst);
+	font-family:          var(--bh-letter);
+	font-size:            15px;
+	font-weight:          500;
+	text-shadow:          none;
+	box-shadow:           none;
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content > .acf-actions .acf-button.button-primary:hover {
+	background:           var(--kleur-actie-primair-hover, var(--bh-actie));
+}
+
+/**Blokken -- Kiezer**/
+.acf-fc-popup.blokkiezer {
+	position:             fixed !important;
+	top:                  50% !important;
+	left:                 50% !important;
+	z-index:              100000 !important;
+	box-sizing:           border-box;
+	width:                min(720px, 94vw) !important;
+	max-width:            none !important;
+	max-height:           82vh;
+	overflow:             hidden;
+	padding:              0 !important;
+	border:               0 !important;
+	border-radius:        24px 24px 24px 6px !important;
+	background:           var(--bh-vlak) !important;
+	box-shadow:           0 30px 80px -20px rgba(29, 39, 51, 0.5) !important;
+	color:                var(--bh-tekst) !important;
+	font-family:          var(--bh-letter);
+	transform:            translate(-50%, -50%);
+}
+
+.acf-fc-popup.blokkiezer::before {
+	display:              none !important;
+}
+
+/*Kiezer -- Kop*/
+.acf-fc-popup.blokkiezer .blokkiezer-kop {
+	display:              flex;
+	align-items:          center;
+	gap:                  14px;
+	padding:              18px 20px;
+	background:           var(--bh-donker);
+	color:                #ffffff;
+}
+
+.acf-fc-popup.blokkiezer .blokkiezer-kop strong {
+	font-size:            18px;
+	font-weight:          600;
+	white-space:          nowrap;
+}
+
+.acf-fc-popup.blokkiezer .blokkiezer-zoek {
+	display:              flex;
+	flex: 1;
+	align-items:          center;
+	gap:                  8px;
+	padding:              0 12px;
+	border-radius:        12px 12px 12px 4px;
+	background:           rgba(255, 255, 255, 0.1);
+}
+
+.acf-fc-popup.blokkiezer .blokkiezer-zoek svg {
+	width:                16px;
+	height:               16px;
+	opacity:              0.7;
+}
+
+.acf-fc-popup.blokkiezer .blokkiezer-zoek input {
+	width:                100%;
+	min-height:           40px;
+	padding:              0;
+	border:               0;
+	background:           transparent;
+	color:                #ffffff;
+	font-family:          var(--bh-letter);
+	font-size:            15px;
+	box-shadow:           none;
+}
+
+.acf-fc-popup.blokkiezer .blokkiezer-zoek input::placeholder {
+	color:                rgba(255, 255, 255, 0.7);
+}
+
+/*Kiezer -- Lijst*/
+.acf-fc-popup.blokkiezer ul {
+	display:              grid !important;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap:                  6px;
+	max-height:           calc(82vh - 80px);
+	margin:               0;
+	padding:              12px;
+	overflow-y:           auto;
+}
+
+.acf-fc-popup.blokkiezer ul li {
+	display:              block !important;
+	height:               auto !important;
+	margin:               0;
+}
+
+.acf-fc-popup.blokkiezer ul li.is-weg {
+	display:              none !important;
+}
+
+.acf-fc-popup.blokkiezer ul li a {
+	display:              grid !important;
+	grid-template-columns: 44px 1fr;
+	align-items:          center;
+	gap:                  2px 14px;
+	height:               auto !important;
+	padding:              12px 14px !important;
+	border-radius:        14px 14px 14px 4px;
+	color:                var(--bh-tekst) !important;
+	font-size:            15px;
+	font-weight:          600;
+	line-height:          1.3 !important;
+	text-align:           left;
+	white-space:          normal !important;
+	transition:           background-color 0.2s ease;
+}
+
+.acf-fc-popup.blokkiezer ul li a:hover,
+.acf-fc-popup.blokkiezer ul li a:focus {
+	background:           var(--bh-tint) !important;
+	color:                var(--bh-tekst) !important;
+	outline:              none;
+}
+
+.acf-fc-popup.blokkiezer ul li a:focus-visible {
+	box-shadow:           0 0 0 2px var(--bh-donker);
+}
+
+.acf-fc-popup.blokkiezer ul li a .blok-icoon {
+	display:              grid;
+	grid-row:             span 2;
+	place-items:          center;
+	width:                44px;
+	height:               44px;
+	border-radius:        10px;
+	background:           var(--bh-tegel);
+	color:                var(--bh-tegel-tekst);
+}
+
+.acf-fc-popup.blokkiezer ul li a .blok-icoon svg {
+	width:                22px;
+	height:               22px;
+}
+
+.acf-fc-popup.blokkiezer ul li a .blok-uitleg {
+	color:                var(--bh-zacht);
+	font-size:            13px;
+	font-weight:          400;
+}
+
+.acf-fc-popup.blokkiezer .blokkiezer-leeg {
+	padding:              24px;
+	color:                var(--bh-zacht);
+	text-align:           center;
+}
+
+@media (max-width: 640px) {
+	.acf-fc-popup.blokkiezer ul {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}

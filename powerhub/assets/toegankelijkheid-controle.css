@@ -1,0 +1,274 @@
+/**Paginacontrole -- Paneel**/
+/* Eigen neutrale stijl met een id als basis, zodat het thema er niet doorheen praat. */
+#toegankelijkheid-paneel {
+	--tg-tekst:           #1f2328;
+	--tg-zacht:           #59636e;
+	--tg-lijn:            #e1e4e8;
+	--tg-vlak:            #ffffff;
+	--tg-achtergrond:     #f6f7f8;
+	--tg-fout:            #b42318;
+	--tg-fout-vlak:       #fdeceb;
+	--tg-handmatig:       #4f5862;
+	--tg-handmatig-vlak:  #eceff2;
+	--tg-focus:           #1f6feb;
+	--tg-letter:          ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+	position:             fixed;
+	right:                16px;
+	bottom:               16px;
+	z-index:              100000;
+	display:              flex;
+	flex-direction:       column;
+	box-sizing:           border-box;
+	width:                min(420px, calc(100vw - 32px));
+	max-height:           min(70vh, 640px);
+	margin:               0;
+	padding:              0;
+	overflow:             hidden;
+	border:               1px solid var(--tg-lijn);
+	border-radius:        12px;
+	background:           var(--tg-vlak);
+	box-shadow:           0 12px 40px rgba(16, 24, 40, 0.18);
+	color:                var(--tg-tekst);
+	font-family:          var(--tg-letter);
+	font-size:            14px;
+	font-style:           normal;
+	font-weight:          400;
+	line-height:          1.45;
+	letter-spacing:       normal;
+	text-align:           left;
+	text-transform:       none;
+}
+
+#toegankelijkheid-paneel[hidden] {
+	display:              none;
+}
+
+#toegankelijkheid-paneel *,
+#toegankelijkheid-paneel *::before,
+#toegankelijkheid-paneel *::after {
+	box-sizing:           border-box;
+	font-family:          inherit;
+	letter-spacing:       normal;
+	text-transform:       none;
+}
+
+#toegankelijkheid-paneel:focus {
+	outline:              none;
+}
+
+#toegankelijkheid-paneel:focus-visible {
+	outline:              3px solid var(--tg-focus);
+	outline-offset:       2px;
+}
+
+/*Paneel -- Kop*/
+#toegankelijkheid-paneel .tg-kop {
+	display:              flex;
+	gap:                  8px;
+	align-items:          center;
+	padding:              12px 12px 12px 16px;
+	border-bottom:        1px solid var(--tg-lijn);
+	background:           var(--tg-achtergrond);
+}
+
+#toegankelijkheid-paneel .tg-kop .tg-titels {
+	display:              flex;
+	flex:                 1;
+	flex-direction:       column;
+	min-width:            0;
+}
+
+#toegankelijkheid-paneel .tg-kop .tg-titel {
+	color:                var(--tg-tekst);
+	font-size:            15px;
+	font-weight:          700;
+}
+
+#toegankelijkheid-paneel .tg-kop .tg-samenvatting {
+	color:                var(--tg-zacht);
+	font-size:            14px;
+}
+
+#toegankelijkheid-paneel .tg-knop {
+	display:              inline-flex;
+	align-items:          center;
+	justify-content:      center;
+	min-width:            44px;
+	min-height:           44px;
+	margin:               0;
+	padding:              0 12px;
+	border:               1px solid var(--tg-lijn);
+	border-radius:        8px;
+	background:           var(--tg-vlak);
+	box-shadow:           none;
+	color:                var(--tg-tekst);
+	font-size:            14px;
+	font-weight:          600;
+	line-height:          1;
+	cursor:               pointer;
+}
+
+#toegankelijkheid-paneel .tg-knop:hover {
+	border-color:         var(--tg-zacht);
+}
+
+#toegankelijkheid-paneel .tg-knop.tg-sluiten {
+	padding:              0;
+}
+
+#toegankelijkheid-paneel button:focus-visible,
+#toegankelijkheid-paneel summary:focus-visible {
+	outline:              3px solid var(--tg-focus);
+	outline-offset:       -3px;
+}
+
+/*Paneel -- Inhoud*/
+#toegankelijkheid-paneel .tg-inhoud {
+	flex:                 1;
+	padding:              8px 0;
+	overflow-y:           auto;
+	overscroll-behavior:  contain;
+}
+
+#toegankelijkheid-paneel .tg-groep {
+	margin:               0;
+	padding:              0;
+	border-bottom:        1px solid var(--tg-lijn);
+}
+
+#toegankelijkheid-paneel .tg-groep summary {
+	display:              flex;
+	gap:                  8px;
+	align-items:          center;
+	justify-content:      space-between;
+	min-height:           44px;
+	padding:              8px 16px;
+	color:                var(--tg-tekst);
+	font-size:            14px;
+	font-weight:          700;
+	list-style:           none;
+	cursor:               pointer;
+}
+
+#toegankelijkheid-paneel .tg-groep summary::-webkit-details-marker {
+	display:              none;
+}
+
+#toegankelijkheid-paneel .tg-groep summary::before {
+	content:              "";
+	width:                7px;
+	height:               7px;
+	margin-right:         4px;
+	border-right:         2px solid currentColor;
+	border-bottom:        2px solid currentColor;
+	transform:            rotate(-45deg);
+}
+
+#toegankelijkheid-paneel .tg-groep[open] summary::before {
+	transform:            rotate(45deg);
+}
+
+#toegankelijkheid-paneel .tg-groep summary span:first-of-type {
+	flex:                 1;
+}
+
+#toegankelijkheid-paneel .tg-groep .tg-aantal {
+	min-width:            24px;
+	padding:              2px 8px;
+	border-radius:        999px;
+	background:           var(--tg-fout);
+	color:                #ffffff;
+	font-size:            13px;
+	text-align:           center;
+}
+
+#toegankelijkheid-paneel .tg-groep.is-handmatig .tg-aantal {
+	background:           var(--tg-handmatig-vlak);
+	color:                var(--tg-handmatig);
+}
+
+#toegankelijkheid-paneel .tg-groep ol {
+	margin:               0 0 8px;
+	padding:              0;
+	list-style:           none;
+}
+
+#toegankelijkheid-paneel .tg-groep li {
+	margin:               0;
+	padding:              0;
+}
+
+#toegankelijkheid-paneel .tg-bevinding {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  2px;
+	width:                100%;
+	min-height:           44px;
+	margin:               0;
+	padding:              8px 16px 8px 30px;
+	border:               0;
+	border-left:          3px solid transparent;
+	border-radius:        0;
+	background:           transparent;
+	box-shadow:           none;
+	color:                var(--tg-tekst);
+	font-size:            14px;
+	font-weight:          400;
+	line-height:          1.4;
+	text-align:           left;
+	cursor:               pointer;
+}
+
+#toegankelijkheid-paneel div.tg-bevinding {
+	cursor:               default;
+}
+
+#toegankelijkheid-paneel button.tg-bevinding:hover {
+	background:           var(--tg-achtergrond);
+}
+
+#toegankelijkheid-paneel .tg-bevinding[aria-current="true"] {
+	border-left-color:    #c2008a;
+	background:           var(--tg-fout-vlak);
+}
+
+#toegankelijkheid-paneel .tg-bevinding .tg-bevinding-tekst {
+	overflow-wrap:        anywhere;
+}
+
+#toegankelijkheid-paneel .tg-bevinding .tg-bevinding-detail {
+	color:                var(--tg-zacht);
+	font-size:            14px;
+}
+
+#toegankelijkheid-paneel .tg-meer,
+#toegankelijkheid-paneel .tg-schoon {
+	margin:               8px 16px;
+	color:                var(--tg-zacht);
+	font-size:            14px;
+}
+
+/*Paneel -- Voet*/
+#toegankelijkheid-paneel .tg-voet {
+	margin:               0;
+	padding:              10px 16px;
+	border-top:           1px solid var(--tg-lijn);
+	background:           var(--tg-achtergrond);
+	color:                var(--tg-zacht);
+	font-size:            14px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	#toegankelijkheid-paneel .tg-groep summary::before {
+		transition:           transform 0.15s ease;
+	}
+}
+
+/**Paginacontrole -- Markering**/
+.toegankelijkheid-markering {
+	outline:              3px solid #c2008a !important;
+	outline-offset:       3px !important;
+	box-shadow:           0 0 0 7px rgba(194, 0, 138, 0.22) !important;
+	scroll-margin:        80px;
+}

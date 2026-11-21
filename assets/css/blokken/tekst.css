@@ -1,0 +1,42 @@
+/**Blokken -- Tekst**/
+body .sectie.sectie-tekst .tekst-raster {
+	display:              grid;
+	gap:                  var(--ruimte-6);
+}
+
+body .sectie.sectie-tekst .opmaak {
+	max-width:            65ch;
+	font-size:            var(--maat-groot);
+	line-height:          var(--regel-groot);
+}
+
+body .sectie.sectie-tekst .opmaak p + p {
+	margin-top:           var(--ruimte-4);
+}
+
+body .sectie.sectie-tekst .knoppen {
+	margin-top:           var(--ruimte-8);
+}
+
+/*Tekst -- Smal*/
+body .sectie.sectie-tekst.tekst-smal .tekst-raster {
+	max-width:            calc(760px + 2 * var(--ruimte-goot));
+}
+
+/*Tekst -- Kop links*/
+@media (min-width: 900px) {
+	body .sectie.sectie-tekst.tekst-gesplitst .tekst-raster {
+		grid-template-columns: 5fr 6fr;
+		gap:                  var(--ruimte-16);
+		align-items:          start;
+	}
+}
+
+/*Tekst -- Twee kolommen*/
+@media (min-width: 900px) {
+	body .sectie.sectie-tekst.tekst-kolommen .opmaak {
+		max-width:            none;
+		columns:              2;
+		column-gap:           var(--ruimte-12);
+	}
+}

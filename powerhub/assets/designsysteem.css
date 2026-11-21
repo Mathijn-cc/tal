@@ -1,0 +1,404 @@
+/**Designsysteem -- Pagina**/
+/* Het kader van de documentatie. Bewust neutraal, zodat de stijl van het thema in de voorbeelden opvalt. */
+body.designsysteem-pagina {
+	--ds-tekst:           #1f2328;
+	--ds-zacht:           #656d76;
+	--ds-lijn:            #e4e6e8;
+	--ds-vlak:            #ffffff;
+	--ds-achtergrond:     #f6f7f8;
+	--ds-letter:          ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+	--ds-mono:            ui-monospace, SFMono-Regular, Menlo, monospace;
+
+	margin:               0;
+	background:           var(--ds-achtergrond);
+}
+
+body.designsysteem-pagina .designsysteem {
+	display:              grid;
+	grid-template-columns: 240px minmax(0, 1fr);
+	min-height:           100vh;
+	font-family:          var(--ds-letter);
+	color:                var(--ds-tekst);
+}
+
+@media (max-width: 900px) {
+	body.designsysteem-pagina .designsysteem {
+		grid-template-columns: 1fr;
+	}
+}
+
+/*Pagina -- Menu*/
+body.designsysteem-pagina .designsysteem .designsysteem-menu {
+	position:             sticky;
+	top:                  0;
+	height:               100vh;
+	overflow-y:           auto;
+	padding:              28px 22px;
+	border-right:         1px solid var(--ds-lijn);
+	background:           var(--ds-vlak);
+	font-size:            14px;
+}
+
+@media (max-width: 900px) {
+	body.designsysteem-pagina .designsysteem .designsysteem-menu {
+		position:             static;
+		height:               auto;
+		border-right:         0;
+		border-bottom:        1px solid var(--ds-lijn);
+	}
+}
+
+body.admin-bar.designsysteem-pagina .designsysteem .designsysteem-menu {
+	top:                  32px;
+	height:               calc(100vh - 32px);
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-menu .designsysteem-merk {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  10px;
+	margin-bottom:        24px;
+	color:                var(--ds-tekst);
+	font-weight:          600;
+	text-decoration:      none;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-menu .designsysteem-merk img {
+	width:                auto;
+	height:               28px;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-menu ol {
+	margin:               0;
+	padding:              0;
+	list-style:           none;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-menu ol a {
+	display:              block;
+	padding:              6px 10px;
+	border-radius:        6px;
+	color:                var(--ds-zacht);
+	text-decoration:      none;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-menu ol a:hover,
+body.designsysteem-pagina .designsysteem .designsysteem-menu ol a.is-actief {
+	background:           var(--ds-achtergrond);
+	color:                var(--ds-tekst);
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-menu .designsysteem-versie {
+	margin-top:           24px;
+	color:                var(--ds-zacht);
+	font-size:            12px;
+	line-height:          1.6;
+}
+
+/*Pagina -- Inhoud*/
+body.designsysteem-pagina .designsysteem .designsysteem-inhoud {
+	min-width:            0;
+	padding:              48px clamp(20px, 4vw, 64px) 120px;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-hoofdstuk {
+	max-width:            1100px;
+	margin:               0 auto 72px;
+	scroll-margin-top:    48px;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-hoofdstuk.designsysteem-hoofdstuk-breed {
+	max-width:            none;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-bovenkop {
+	margin:               0 0 8px;
+	color:                var(--ds-zacht);
+	font-size:            12px;
+	letter-spacing:       0.08em;
+	text-transform:       uppercase;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-titel {
+	margin:               0 0 16px;
+	color:                var(--ds-tekst);
+	font-family:          var(--ds-letter);
+	font-size:            40px;
+	font-weight:          700;
+	line-height:          1.1;
+	letter-spacing:       -0.02em;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-lead {
+	max-width:            68ch;
+	margin:               0 0 28px;
+	color:                var(--ds-zacht);
+	font-size:            17px;
+	line-height:          1.6;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-kop {
+	margin:               0 0 20px;
+	padding-bottom:       12px;
+	border-bottom:        1px solid var(--ds-lijn);
+	color:                var(--ds-tekst);
+	font-family:          var(--ds-letter);
+	font-size:            26px;
+	font-weight:          700;
+	line-height:          1.2;
+	letter-spacing:       -0.01em;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-subkop {
+	margin:               32px 0 12px;
+	color:                var(--ds-tekst);
+	font-family:          var(--ds-letter);
+	font-size:            17px;
+	font-weight:          600;
+	line-height:          1.3;
+	letter-spacing:       0;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-subkop code {
+	margin-left:          6px;
+	color:                var(--ds-zacht);
+	font-size:            13px;
+	font-weight:          400;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-uitleg {
+	display:              block;
+	margin:               2px 0 0;
+	color:                var(--ds-zacht);
+	font-size:            13px;
+	line-height:          1.5;
+}
+
+body.designsysteem-pagina .designsysteem code {
+	font-family:          var(--ds-mono);
+	font-size:            12.5px;
+}
+
+/*Inhoud -- Feiten*/
+body.designsysteem-pagina .designsysteem .designsysteem-feiten {
+	display:              grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap:                  12px;
+	margin:               0;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-feiten div {
+	padding:              16px 18px;
+	border:               1px solid var(--ds-lijn);
+	border-radius:        10px;
+	background:           var(--ds-vlak);
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-feiten dt {
+	color:                var(--ds-zacht);
+	font-size:            12px;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-feiten dd {
+	margin:               4px 0 0;
+	font-size:            22px;
+	font-weight:          600;
+}
+
+/*Inhoud -- Stalen*/
+body.designsysteem-pagina .designsysteem .designsysteem-stalen {
+	display:              grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap:                  12px;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-staal {
+	margin:               0;
+	overflow:             hidden;
+	border:               1px solid var(--ds-lijn);
+	border-radius:        10px;
+	background:           var(--ds-vlak);
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-staal .designsysteem-staal-kleur {
+	display:              block;
+	height:               72px;
+	border-bottom:        1px solid var(--ds-lijn);
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-staal figcaption {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  2px;
+	padding:              10px 12px;
+	font-size:            13px;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-aangepast {
+	display:              block;
+	margin-top:           4px;
+	color:                #b35900;
+	font-size:            12px;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-aangepast[hidden] {
+	display:              none;
+}
+
+/*Inhoud -- Tabellen*/
+body.designsysteem-pagina .designsysteem .designsysteem-tabel {
+	width:                100%;
+	border-collapse:      collapse;
+	overflow:             hidden;
+	border-radius:        10px;
+	background:           var(--ds-vlak);
+	font-size:            14px;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-tabel th,
+body.designsysteem-pagina .designsysteem .designsysteem-tabel td {
+	padding:              12px 14px;
+	border-bottom:        1px solid var(--ds-lijn);
+	text-align:           left;
+	vertical-align:       middle;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-tabel th {
+	color:                var(--ds-zacht);
+	font-size:            12px;
+	font-weight:          500;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-tabel .designsysteem-voorbeeldcel {
+	width:                140px;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-tabel .designsysteem-bron code {
+	color:                var(--ds-zacht);
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-bolletje {
+	display:              inline-block;
+	width:                36px;
+	height:               36px;
+	border:               1px solid var(--ds-lijn);
+	border-radius:        50%;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-vlak {
+	display:              block;
+	width:                64px;
+	height:               44px;
+	background:           var(--ds-vlak);
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-vlak.designsysteem-vlak-rand {
+	border:               2px solid var(--ds-tekst);
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-balk {
+	display:              block;
+	height:               12px;
+	border-radius:        3px;
+	background:           var(--ds-tekst);
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-letter {
+	font-size:            26px;
+	line-height:          1;
+}
+
+/*Inhoud -- Tekststijlen*/
+body.designsysteem-pagina .designsysteem .designsysteem-tekststijl {
+	display:              grid;
+	grid-template-columns: 200px minmax(0, 1fr);
+	gap:                  20px;
+	align-items:          baseline;
+	padding:              18px 0;
+	border-bottom:        1px solid var(--ds-lijn);
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-tekststijl .designsysteem-tekststijl-info {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  4px;
+	color:                var(--ds-zacht);
+	font-size:            12px;
+}
+
+/*Inhoud -- Componenten*/
+body.designsysteem-pagina .designsysteem .designsysteem-component {
+	margin-bottom:        40px;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-podium {
+	padding:              32px;
+	border:               1px solid var(--ds-lijn);
+	border-radius:        12px 12px 0 0;
+	background:           var(--kleur-vlak-pagina, #ffffff);
+	font-family:          var(--letter-tekst, inherit);
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-code {
+	border:               1px solid var(--ds-lijn);
+	border-top:           0;
+	border-radius:        0 0 12px 12px;
+	background:           var(--ds-vlak);
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-code summary {
+	padding:              10px 16px;
+	color:                var(--ds-zacht);
+	font-size:            13px;
+	cursor:               pointer;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-code pre {
+	margin:               0;
+	padding:              16px;
+	overflow-x:           auto;
+	border-top:           1px solid var(--ds-lijn);
+	background:           #0f1419;
+	color:                #e6e6e6;
+	white-space:          pre;
+}
+
+/*Inhoud -- Blokken*/
+body.designsysteem-pagina .designsysteem .designsysteem-blok {
+	margin-bottom:        40px;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-blok .designsysteem-blok-podium {
+	margin-bottom:        16px;
+	overflow:             hidden;
+	border:               1px solid var(--ds-lijn);
+	border-radius:        12px;
+}
+
+/*Inhoud -- Regels*/
+body.designsysteem-pagina .designsysteem .designsysteem-regels {
+	font-size:            15px;
+	line-height:          1.65;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-regels h3 {
+	margin:               28px 0 8px;
+	color:                var(--ds-tekst);
+	font-family:          var(--ds-letter);
+	font-size:            17px;
+	font-weight:          600;
+	letter-spacing:       0;
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-regels p,
+body.designsysteem-pagina .designsysteem .designsysteem-regels li {
+	max-width:            75ch;
+	color:                var(--ds-tekst);
+}
+
+body.designsysteem-pagina .designsysteem .designsysteem-regels .designsysteem-afwijking {
+	padding:              12px 16px;
+	border-left:          3px solid #b35900;
+	border-radius:        6px;
+	background:           #fff6ec;
+}

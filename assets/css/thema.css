@@ -1,0 +1,1155 @@
+/**Thema -- Opbouw**/
+/* Alle waarden komen uit assets/css/tokens.css, gegenereerd uit designsysteem/tokens.json.
+   Geen losse kleuren of maten in dit bestand: ontbreekt er iets, voeg dan een token toe.
+   Basiscomponenten van het startthema. Pas aan per merk, houd de namen. */
+
+/**Basis -- Context**/
+/* Accent, link en focus wisselen mee met de ondergrond, zodat het contrast altijd voldoet (zie /designsysteem/, Toegankelijkheid).
+   Licht is de standaard; donkere vlakken zetten hun eigen waarden. */
+body {
+	--context-accent:     var(--kleur-tekst-accent-op-licht);
+	--context-link:       var(--kleur-tekst-link);
+	--context-focus:      var(--kleur-focus-op-licht);
+}
+
+body .achtergrond-donker,
+body .is-donker,
+body .kaart.kaart-donker,
+body .kop-site,
+body .voet-site,
+body .accordeon.accordeon-vragen details {
+	--context-accent:     var(--kleur-tekst-accent);
+	--context-link:       var(--kleur-tekst-link-op-donker);
+	--context-focus:      var(--kleur-focus);
+}
+
+/**Basis -- Document**/
+*,
+*::before,
+*::after {
+	box-sizing:           border-box;
+}
+
+body {
+	margin:               0;
+	background:           var(--kleur-vlak-pagina);
+	color:                var(--kleur-tekst-lopend);
+	font-family:          var(--letter-tekst);
+	font-size:            var(--maat-lopend);
+	font-weight:          var(--gewicht-normaal);
+	line-height:          var(--regel-lopend);
+	-webkit-font-smoothing: antialiased;
+}
+
+body img {
+	display:              block;
+	max-width:            100%;
+	height:               auto;
+}
+
+body a {
+	color:                var(--context-link);
+	text-decoration:      none;
+	transition:           color var(--duur-basis) var(--curve-standaard);
+}
+
+body a:hover {
+	color:                var(--context-accent);
+}
+
+body :focus-visible {
+	outline:              2px solid var(--context-focus);
+	outline-offset:       2px;
+}
+
+body p {
+	margin:               0;
+}
+
+body .screen-reader-text {
+	position:             absolute;
+	width:                1px;
+	height:               1px;
+	overflow:             hidden;
+	clip:                 rect(0 0 0 0);
+	white-space:          nowrap;
+}
+
+body .naar-inhoud {
+	position:             absolute;
+	left:                 -9999px;
+}
+
+body .naar-inhoud:focus {
+	top:                  var(--ruimte-4);
+	left:                 var(--ruimte-4);
+	z-index:              100;
+	padding:              var(--ruimte-3) var(--ruimte-4);
+	background:           var(--kleur-vlak-kaart);
+}
+
+/**Basis -- Typografie**/
+body h1,
+body h2,
+body h3,
+body h4 {
+	margin:               0;
+	color:                var(--kleur-tekst-kop);
+	font-family:          var(--letter-kop);
+	font-weight:          var(--gewicht-halfvet);
+	letter-spacing:       var(--spatiering-strak);
+	text-wrap:            pretty;
+	overflow-wrap:        break-word;
+	hyphens:              auto;
+}
+
+body h1 {
+	font-size:            var(--maat-h1);
+	line-height:          var(--regel-h1);
+}
+
+body h2 {
+	font-size:            var(--maat-h2);
+	line-height:          var(--regel-h2);
+}
+
+body h3 {
+	font-size:            var(--maat-h3);
+	line-height:          var(--regel-h3);
+}
+
+body h4 {
+	font-size:            var(--maat-h4);
+	line-height:          var(--regel-h4);
+	letter-spacing:       0;
+}
+
+/*Typografie -- Tekststijlen*/
+body .tekst-hero {
+	font-size:            var(--maat-hero);
+	line-height:          var(--regel-hero);
+}
+
+body .tekst-groot {
+	font-size:            var(--maat-groot);
+	line-height:          var(--regel-groot);
+}
+
+body .tekst-klein {
+	font-size:            var(--maat-klein);
+	line-height:          var(--regel-klein);
+}
+
+body .onderschrift {
+	color:                var(--kleur-tekst-gedempt);
+	font-size:            var(--maat-onderschrift);
+	line-height:          var(--regel-onderschrift);
+}
+
+/*Typografie -- Accent*/
+/* Kopformule: een gewone zin, het slot in het cursieve accent. Leesteken binnen het accent, nooit een uitroepteken. */
+body h1 em,
+body h2 em,
+body h3 em,
+body h4 em,
+body .kop em {
+	color:                var(--context-accent);
+	font-family:          var(--letter-accent);
+	font-style:           italic;
+	font-weight:          var(--gewicht-normaal);
+	letter-spacing:       0;
+}
+
+/**Basis -- Indeling**/
+body .binnen {
+	max-width:            var(--ruimte-container);
+	margin:               0 auto;
+	padding:              0 var(--ruimte-goot);
+}
+
+body .sectie {
+	padding:              var(--ruimte-sectie) 0;
+}
+
+/*Indeling -- Ruimte per blok*/
+body .sectie.ruimte-boven-geen {
+	padding-top:          0;
+}
+
+body .sectie.ruimte-boven-klein {
+	padding-top:          calc(var(--ruimte-sectie) / 2);
+}
+
+body .sectie.ruimte-boven-groot {
+	padding-top:          calc(var(--ruimte-sectie) * 1.4);
+}
+
+body .sectie.ruimte-onder-geen {
+	padding-bottom:       0;
+}
+
+body .sectie.ruimte-onder-klein {
+	padding-bottom:       calc(var(--ruimte-sectie) / 2);
+}
+
+body .sectie.ruimte-onder-groot {
+	padding-bottom:       calc(var(--ruimte-sectie) * 1.4);
+}
+
+/*Indeling -- Achtergronden*/
+/* Nooit meer dan twee achtergronden tegelijk in beeld. */
+body .achtergrond-pagina {
+	background:           var(--kleur-vlak-pagina);
+}
+
+body .achtergrond-wit {
+	background:           var(--kleur-vlak-kaart);
+}
+
+body .achtergrond-donker {
+	background:           var(--kleur-vlak-donker);
+}
+
+body .achtergrond-donker,
+body .is-donker {
+	color:                var(--kleur-tekst-op-donker-gedempt);
+}
+
+body .achtergrond-tint {
+	background:           var(--kleur-vlak-tint);
+}
+
+body .achtergrond-tint-zacht {
+	background:           var(--kleur-vlak-tint-zacht);
+}
+
+body .achtergrond-donker h1,
+body .achtergrond-donker h2,
+body .achtergrond-donker h3,
+body .achtergrond-donker h4,
+body .is-donker h1,
+body .is-donker h2,
+body .is-donker h3,
+body .is-donker h4 {
+	color:                var(--kleur-tekst-op-donker);
+}
+
+/*Indeling -- Gedeeld vlak*/
+/* 50/50: twee vaste kleuren met een harde overgang (geen verloop, conform het designsysteem). */
+body .sectie.achtergrond-gedeeld.verdeling-boven {
+	background:           linear-gradient(to bottom, var(--vlak-1) 50%, var(--vlak-2) 50%);
+}
+
+body .sectie.achtergrond-gedeeld.verdeling-links {
+	background:           linear-gradient(to right, var(--vlak-1) 50%, var(--vlak-2) 50%);
+}
+
+@media (max-width: 900px) {
+	body .sectie.achtergrond-gedeeld.verdeling-links {
+		background:           linear-gradient(to bottom, var(--vlak-1) 50%, var(--vlak-2) 50%);
+	}
+}
+
+/*Indeling -- Raster*/
+body .raster {
+	display:              grid;
+	gap:                  var(--ruimte-6);
+}
+
+body .raster.raster-2 {
+	grid-template-columns: repeat(2, 1fr);
+}
+
+body .raster.raster-3 {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+body .raster.raster-4 {
+	grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 960px) {
+	body .raster.raster-3,
+	body .raster.raster-4 {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 640px) {
+	body .raster.raster-2,
+	body .raster.raster-3,
+	body .raster.raster-4 {
+		grid-template-columns: 1fr;
+	}
+}
+
+/*Indeling -- Paneel*/
+/* Groot vlak met de kenmerkende afgesneden hoek. */
+body .paneel {
+	padding:              var(--ruimte-12);
+	border-radius:        var(--hoek-paneel) var(--hoek-paneel) var(--hoek-paneel) var(--hoek-s);
+	background:           var(--kleur-vlak-kaart);
+}
+
+/**Componenten -- Knop**/
+body .knop {
+	display:              inline-flex;
+	align-items:          center;
+	gap:                  10px;
+	padding:              13px 22px;
+	border:               1px solid transparent;
+	border-radius:        var(--hoek-knop);
+	background:           var(--kleur-actie-primair);
+	color:                var(--kleur-actie-primair-tekst);
+	font-family:          var(--letter-tekst);
+	font-size:            var(--maat-lopend);
+	font-weight:          var(--gewicht-medium);
+	line-height:          1;
+	white-space:          nowrap;
+	text-decoration:      none;
+	cursor:               pointer;
+	transition:           var(--overgang-knop);
+}
+
+body .knop:hover {
+	background:           var(--kleur-actie-primair-hover);
+	color:                var(--kleur-actie-primair-tekst);
+}
+
+body .knop:active {
+	opacity:              0.9;
+	transform:            scale(0.98);
+}
+
+/* Elke actieknop eindigt op een pijl. */
+body .knop::after {
+	content:              "\2192";
+	font-size:            1.05em;
+	line-height:          1;
+	transform:            translateY(-0.5px);
+}
+
+body .knop.knop-zonder-pijl::after {
+	content:              none;
+}
+
+/*Knop -- Maten*/
+body .knop.knop-klein {
+	min-height:           44px;
+	padding:              9px 16px;
+	font-size:            var(--maat-klein);
+}
+
+body .knop.knop-groot {
+	padding:              16px 26px;
+	font-size:            var(--maat-groot);
+}
+
+/*Knop -- Varianten*/
+body .knop.knop-secundair {
+	border-color:         var(--kleur-actie-secundair-rand);
+	background:           var(--kleur-actie-secundair);
+	color:                var(--kleur-actie-secundair-tekst);
+}
+
+body .knop.knop-secundair:hover {
+	border-color:         var(--context-accent);
+	background:           var(--kleur-actie-secundair);
+	color:                var(--context-accent);
+}
+
+body .knop.knop-donker {
+	background:           var(--kleur-actie-donker);
+	color:                var(--kleur-actie-donker-tekst);
+}
+
+body .knop.knop-donker:hover {
+	background:           var(--kleur-donker-900);
+	color:                var(--kleur-actie-donker-tekst);
+}
+
+body .knop.knop-op-donker {
+	border-color:         var(--kleur-rand-op-donker);
+	background:           transparent;
+	color:                var(--kleur-tekst-op-donker);
+}
+
+body .knop.knop-op-donker:hover {
+	background:           transparent;
+	color:                var(--context-accent);
+}
+
+body .knop.knop-kaal {
+	min-height:           44px;
+	padding:              0;
+	border-radius:        0;
+	background:           transparent;
+	color:                var(--kleur-tekst-kop);
+}
+
+body .knop.knop-kaal:hover {
+	background:           transparent;
+	color:                var(--context-accent);
+}
+
+body .knop[disabled],
+body .knop.is-uit {
+	opacity:              0.45;
+	pointer-events:       none;
+}
+
+body .knoppen {
+	display:              flex;
+	flex-wrap:            wrap;
+	align-items:          center;
+	gap:                  var(--ruimte-3);
+}
+
+/**Componenten -- Bovenkop**/
+body .bovenkop {
+	display:              flex;
+	align-items:          center;
+	gap:                  10px;
+	margin:               0 0 var(--ruimte-5);
+	color:                var(--kleur-tekst-kop);
+	font-family:          var(--letter-kop);
+	font-size:            var(--maat-bovenkop);
+	font-weight:          var(--gewicht-medium);
+	line-height:          var(--regel-bovenkop);
+	letter-spacing:       var(--spatiering-bovenkop);
+	text-transform:       uppercase;
+}
+
+body .bovenkop::before {
+	content:              "";
+	flex-shrink:          0;
+	width:                7px;
+	height:               7px;
+	border-radius:        50%;
+	background:           var(--kleur-stip);
+}
+
+body .bovenkop.bovenkop-midden {
+	justify-content:      center;
+}
+
+body .achtergrond-donker .bovenkop,
+body .is-donker .bovenkop,
+body .bovenkop.bovenkop-op-donker {
+	color:                var(--kleur-tekst-op-donker);
+}
+
+/**Componenten -- Icoon en tegel**/
+/* Alleen Lucide-lijniconen, lijndikte 2. Geen emoji, icoonfonts of eigen pictogrammen. */
+body .icoon {
+	display:              block;
+	flex-shrink:          0;
+	width:                20px;
+	height:               20px;
+	stroke-width:         2;
+}
+
+body .tegel {
+	display:              inline-flex;
+	flex-shrink:          0;
+	align-items:          center;
+	justify-content:      center;
+	width:                44px;
+	height:               44px;
+	border-radius:        var(--hoek-s);
+	background:           var(--kleur-tegel-accent);
+	color:                var(--kleur-tegel-accent-tekst);
+}
+
+body .tegel .icoon {
+	width:                22px;
+	height:               22px;
+}
+
+/*Tegel -- Maten*/
+body .tegel.tegel-klein {
+	width:                36px;
+	height:               36px;
+	border-radius:        8px;
+}
+
+body .tegel.tegel-klein .icoon {
+	width:                18px;
+	height:               18px;
+}
+
+body .tegel.tegel-groot {
+	width:                52px;
+	height:               52px;
+	border-radius:        12px;
+}
+
+body .tegel.tegel-groot .icoon {
+	width:                26px;
+	height:               26px;
+}
+
+/*Tegel -- Varianten*/
+body .tegel.tegel-actie {
+	background:           var(--kleur-tegel-actie);
+	color:                var(--kleur-tegel-actie-tekst);
+}
+
+body .tegel.tegel-donker {
+	background:           var(--kleur-donker-800);
+	color:                var(--kleur-wit);
+}
+
+/**Componenten -- Kaart**/
+body .kaart {
+	overflow:             hidden;
+	padding:              var(--ruimte-kaart-binnen);
+	border:               1px solid transparent;
+	border-radius:        var(--hoek-l);
+	background:           var(--kleur-vlak-kaart);
+	color:                var(--kleur-tekst-lopend);
+	box-shadow:           var(--schaduw-kaart);
+	transition:           var(--overgang-kaart);
+}
+
+body .kaart.kaart-zweef:hover {
+	box-shadow:           var(--schaduw-kaart-hover);
+	transform:            translateY(-2px);
+}
+
+/*Kaart -- Varianten*/
+body .kaart.kaart-donker {
+	background:           var(--kleur-vlak-donker-verhoogd);
+	color:                var(--kleur-tekst-op-donker-gedempt);
+	box-shadow:           var(--schaduw-geen);
+}
+
+body .kaart.kaart-donker h3,
+body .kaart.kaart-donker h4 {
+	color:                var(--kleur-tekst-op-donker);
+}
+
+body .kaart.kaart-tint {
+	background:           var(--kleur-vlak-tint-zacht);
+	box-shadow:           var(--schaduw-geen);
+}
+
+/* Maximaal één uitgelichte kaart per groep. */
+body .kaart.kaart-uitgelicht {
+	border-color:         var(--kleur-actie-500);
+}
+
+body .kaart.kaart-vol {
+	padding:              0;
+}
+
+/*Kaart -- Functie*/
+body .kaart.kaart-functie {
+	display:              flex;
+	flex-direction:       column;
+	padding:              0;
+}
+
+body .kaart.kaart-functie .kaart-functie-beeld {
+	position:             relative;
+}
+
+body .kaart.kaart-functie .kaart-functie-beeld img {
+	width:                100%;
+	height:               270px;
+	object-fit:           cover;
+}
+
+body .kaart.kaart-functie .kaart-functie-beeld .tegel {
+	position:             absolute;
+	bottom:               -22px;
+	left:                 26px;
+}
+
+body .kaart.kaart-functie .kaart-functie-tekst {
+	display:              flex;
+	flex:                 1;
+	flex-direction:       column;
+	gap:                  var(--ruimte-4);
+	padding:              42px var(--ruimte-kaart-binnen) var(--ruimte-kaart-binnen);
+}
+
+body .kaart.kaart-functie .kaart-functie-actie {
+	margin-top:           auto;
+	padding-top:          var(--ruimte-6);
+}
+
+/*Kaart -- Voordeel*/
+body .kaart.kaart-voordeel {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  var(--ruimte-5);
+}
+
+body .kaart.kaart-voordeel p {
+	margin-top:           10px;
+	font-size:            var(--maat-klein);
+	line-height:          var(--regel-klein);
+}
+
+/*Kaart -- Cijfer*/
+body .kaart.kaart-cijfer {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  var(--ruimte-6);
+}
+
+body .kaart.kaart-cijfer .kaart-cijfer-waarde {
+	color:                var(--kleur-tekst-kop);
+	font-size:            var(--maat-cijfer);
+	font-weight:          var(--gewicht-halfvet);
+	line-height:          var(--regel-cijfer);
+	letter-spacing:       var(--spatiering-strak);
+}
+
+body .kaart.kaart-cijfer .kaart-cijfer-label {
+	margin-top:           8px;
+	color:                var(--kleur-tekst-gedempt);
+	font-size:            var(--maat-onderschrift);
+	line-height:          var(--regel-onderschrift);
+}
+
+/*Kaart -- Citaat*/
+/* Alleen echte klantreferenties. */
+body .kaart.kaart-citaat {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  var(--ruimte-6);
+}
+
+body .kaart.kaart-citaat .kaart-citaat-kop {
+	color:                var(--kleur-tekst-kop);
+	font-size:            32px;
+	font-weight:          var(--gewicht-vet);
+	line-height:          1.1;
+	letter-spacing:       var(--spatiering-strak);
+}
+
+body .kaart.kaart-citaat blockquote {
+	margin:               0;
+	color:                var(--kleur-tekst-kop);
+	font-family:          var(--letter-accent);
+	font-size:            var(--maat-groot);
+	font-style:           italic;
+	line-height:          1.5;
+}
+
+body .kaart.kaart-citaat blockquote::before {
+	content:              "\201C";
+	color:                var(--kleur-actie-500);
+}
+
+body .kaart.kaart-citaat blockquote::after {
+	content:              "\201D";
+	color:                var(--kleur-actie-500);
+}
+
+body .kaart.kaart-citaat .kaart-citaat-afzender {
+	display:              flex;
+	align-items:          center;
+	gap:                  var(--ruimte-3);
+	margin-top:           auto;
+	padding-top:          var(--ruimte-5);
+	border-top:           1px solid var(--kleur-rand-subtiel);
+}
+
+body .kaart.kaart-citaat .kaart-citaat-afzender img {
+	width:                38px;
+	height:               38px;
+	border-radius:        50%;
+	object-fit:           cover;
+}
+
+body .kaart.kaart-citaat .kaart-citaat-naam {
+	color:                var(--kleur-tekst-kop);
+	font-size:            var(--maat-klein);
+	font-weight:          var(--gewicht-medium);
+}
+
+body .kaart.kaart-citaat .kaart-citaat-rol {
+	color:                var(--kleur-tekst-gedempt);
+	font-size:            var(--maat-onderschrift);
+}
+
+/**Componenten -- Vinklijst**/
+body .vinklijst {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  var(--ruimte-3);
+	margin:               var(--ruimte-2) 0 0;
+	padding:              0;
+	list-style:           none;
+}
+
+body .vinklijst li {
+	display:              flex;
+	align-items:          flex-start;
+	gap:                  12px;
+}
+
+body .vinklijst li::before {
+	content:              "";
+	flex-shrink:          0;
+	width:                17px;
+	height:               17px;
+	margin-top:           4px;
+	background:           var(--kleur-markering-positief);
+	-webkit-mask:         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask:                 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/**Componenten -- Accordeon**/
+/* Gebouwd op <details>. Eén tegelijk open regelt assets/js/thema.js. */
+body .accordeon {
+	display:              flex;
+	flex-direction:       column;
+}
+
+body .accordeon details {
+	padding:              20px 0;
+	border-bottom:        1px solid var(--kleur-rand-subtiel);
+	counter-increment:    accordeon;
+}
+
+body .accordeon summary {
+	display:              flex;
+	align-items:          flex-start;
+	min-height:           44px;
+	padding-top:          var(--ruimte-2);
+	padding-bottom:       var(--ruimte-2);
+	gap:                  var(--ruimte-4);
+	color:                var(--kleur-tekst-kop);
+	font-size:            var(--maat-h4);
+	font-weight:          var(--gewicht-vet);
+	line-height:          1.35;
+	list-style:           none;
+	cursor:               pointer;
+}
+
+body .accordeon summary::-webkit-details-marker {
+	display:              none;
+}
+
+body .accordeon summary::after {
+	content:              "";
+	flex-shrink:          0;
+	width:                20px;
+	height:               20px;
+	margin-top:           3px;
+	margin-left:          auto;
+	background:           var(--kleur-actie-500);
+	-webkit-mask:         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M5 12h14M12 5v14'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask:                 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M5 12h14M12 5v14'/%3E%3C/svg%3E") center / contain no-repeat;
+	transition:           transform var(--duur-basis) var(--curve-standaard);
+}
+
+body .accordeon details[open] summary::after {
+	transform:            rotate(45deg);
+}
+
+body .accordeon .accordeon-tekst {
+	padding-top:          var(--ruimte-3);
+	color:                var(--kleur-tekst-lopend);
+	font-size:            var(--maat-klein);
+	line-height:          var(--regel-lopend);
+}
+
+/*Accordeon -- Genummerd*/
+body .accordeon.accordeon-genummerd {
+	counter-reset:        accordeon;
+}
+
+body .accordeon.accordeon-genummerd summary::before {
+	content:              counter(accordeon) ".";
+	flex-shrink:          0;
+	width:                28px;
+	color:                var(--context-accent);
+}
+
+body .accordeon.accordeon-genummerd details[open] summary::after {
+	background:           var(--context-accent);
+}
+
+body .accordeon.accordeon-genummerd .accordeon-tekst {
+	padding-left:         44px;
+}
+
+/*Accordeon -- Vragen*/
+/* Donkere kaarten, voor veelgestelde vragen op een donkere sectie. */
+body .accordeon.accordeon-vragen {
+	gap:                  var(--ruimte-4);
+}
+
+body .accordeon.accordeon-vragen details {
+	padding:              22px 26px;
+	border:               0;
+	border-radius:        var(--hoek-m);
+	background:           var(--kleur-vlak-donker-verhoogd);
+}
+
+body .accordeon.accordeon-vragen summary {
+	color:                var(--kleur-tekst-op-donker);
+	font-size:            var(--maat-groot);
+}
+
+body .accordeon.accordeon-vragen .accordeon-tekst {
+	color:                var(--kleur-tekst-op-donker-gedempt);
+}
+
+/**Componenten -- Tabs**/
+body .tabs {
+	display:              flex;
+	flex-wrap:            wrap;
+	gap:                  var(--ruimte-3);
+}
+
+body .tabs .tab {
+	min-height:           44px;
+	padding:              11px 20px;
+	border:               1px solid var(--kleur-rand-subtiel);
+	border-radius:        var(--hoek-knop);
+	background:           transparent;
+	color:                var(--kleur-tekst-kop);
+	font-family:          var(--letter-tekst);
+	font-size:            var(--maat-lopend);
+	line-height:          1;
+	cursor:               pointer;
+	transition:           var(--overgang-knop);
+}
+
+body .tabs .tab[aria-selected="true"],
+body .tabs .tab.is-actief {
+	border-color:         var(--kleur-accent-500);
+	background:           var(--kleur-accent-500);
+	color:                var(--kleur-donker-800);
+	font-weight:          var(--gewicht-medium);
+}
+
+body .achtergrond-donker .tabs .tab,
+body .tabs.tabs-op-donker .tab {
+	border-color:         var(--kleur-rand-op-donker);
+	color:                var(--kleur-tekst-op-donker);
+}
+
+body .achtergrond-donker .tabs .tab[aria-selected="true"],
+body .tabs.tabs-op-donker .tab[aria-selected="true"] {
+	border-color:         var(--kleur-accent-500);
+	color:                var(--kleur-donker-800);
+}
+
+/**Componenten -- Sliderbediening**/
+body .slider-bediening {
+	display:              flex;
+	align-items:          center;
+	justify-content:      space-between;
+	gap:                  var(--ruimte-4);
+}
+
+body .slider-bediening .slider-voortgang {
+	display:              flex;
+	gap:                  var(--ruimte-2);
+}
+
+body .slider-bediening .slider-voortgang span {
+	width:                22px;
+	height:               3px;
+	border-radius:        2px;
+	background:           var(--kleur-rand-sterk);
+	transition:           width var(--duur-basis) var(--curve-standaard);
+}
+
+body .slider-bediening .slider-voortgang span.is-actief {
+	width:                38px;
+	background:           var(--kleur-actie-500);
+}
+
+body .slider-bediening .slider-pijlen {
+	display:              flex;
+	gap:                  var(--ruimte-2);
+	margin-left:          auto;
+}
+
+body .ronde-knop {
+	display:              inline-flex;
+	align-items:          center;
+	justify-content:      center;
+	width:                44px;
+	height:               44px;
+	padding:              0;
+	border:               1px solid var(--kleur-rand-sterk);
+	border-radius:        50%;
+	background:           transparent;
+	color:                var(--kleur-tekst-kop);
+	cursor:               pointer;
+	transition:           var(--overgang-knop);
+}
+
+body .ronde-knop:hover {
+	border-color:         var(--context-accent);
+	color:                var(--context-accent);
+}
+
+body .ronde-knop .icoon {
+	width:                18px;
+	height:               18px;
+}
+
+body .achtergrond-donker .ronde-knop,
+body .is-donker .ronde-knop {
+	border-color:         var(--kleur-rand-op-donker);
+	color:                var(--kleur-tekst-op-donker);
+}
+
+body .achtergrond-donker .slider-bediening .slider-voortgang span:not(.is-actief),
+body .is-donker .slider-bediening .slider-voortgang span:not(.is-actief) {
+	background:           var(--kleur-rand-op-donker);
+}
+
+/**Site -- Kop**/
+body .kop-site {
+	background:           var(--kleur-vlak-donker);
+}
+
+body .kop-site .kop-site-binnen {
+	display:              flex;
+	align-items:          center;
+	gap:                  var(--ruimte-10);
+	max-width:            var(--ruimte-container);
+	margin:               0 auto;
+	padding:              22px var(--ruimte-goot);
+}
+
+body .kop-site .kop-site-logo img,
+body .kop-site .kop-site-logo svg {
+	width:                auto;
+	height:               34px;
+}
+
+body .kop-site .kop-site-menu {
+	margin-left:          auto;
+}
+
+body .kop-site .kop-site-menu ul {
+	display:              flex;
+	align-items:          center;
+	gap:                  var(--ruimte-8);
+	margin:               0;
+	padding:              0;
+	list-style:           none;
+}
+
+body .kop-site .kop-site-logo {
+	display:              inline-flex;
+	align-items:          center;
+	min-height:           44px;
+}
+
+/* Klikdoelen minimaal 44px hoog, zonder de opmaak te verschuiven. */
+body .kop-site .kop-site-menu a {
+	display:              inline-flex;
+	align-items:          center;
+	min-height:           44px;
+	color:                var(--kleur-tekst-op-donker);
+	font-size:            var(--maat-lopend);
+}
+
+body .kop-site .knop.knop-klein {
+	min-height:           44px;
+}
+
+body .kop-site .kop-site-menu a:hover,
+body .kop-site .kop-site-menu .current-menu-item > a {
+	color:                var(--context-accent);
+}
+
+body .kop-site .kop-site-taal {
+	display:              inline-flex;
+	align-items:          center;
+	gap:                  5px;
+	color:                var(--kleur-tekst-op-donker);
+}
+
+body .kop-site .kop-site-taal .icoon {
+	width:                15px;
+	height:               15px;
+}
+
+@media (max-width: 960px) {
+	body .kop-site .kop-site-menu {
+		display:              none;
+	}
+
+	body .kop-site .knop {
+		margin-left:          auto;
+	}
+}
+
+/**Site -- Footer**/
+body .voet-site {
+	background:           var(--kleur-vlak-donker);
+}
+
+body .voet-site .voet-site-hoofd {
+	display:              grid;
+	grid-template-columns: 1.6fr repeat(3, 1fr) 1.2fr;
+	gap:                  var(--ruimte-8);
+	max-width:            var(--ruimte-container);
+	margin:               0 auto;
+	padding:              var(--ruimte-20) var(--ruimte-goot) var(--ruimte-8);
+}
+
+body .voet-site .voet-site-logo {
+	width:                auto;
+	height:               44px;
+}
+
+body .voet-site .voet-site-slogan {
+	max-width:            230px;
+	margin-top:           var(--ruimte-6);
+	color:                var(--kleur-tekst-op-donker);
+	font-family:          var(--letter-accent);
+	font-size:            18px;
+	font-style:           italic;
+	line-height:          1.45;
+}
+
+body .voet-site .voet-site-kop {
+	margin-bottom:        var(--ruimte-4);
+	color:                var(--context-accent);
+	font-size:            var(--maat-klein);
+	font-weight:          var(--gewicht-medium);
+}
+
+body .voet-site .voet-site-links,
+body .voet-site .voet-site-links ul {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  var(--ruimte-3);
+	margin:               0;
+	padding:              0;
+	list-style:           none;
+}
+
+body .voet-site .voet-site-links a,
+body .voet-site .voet-site-links span {
+	color:                var(--kleur-tekst-op-donker);
+	font-size:            var(--maat-klein);
+}
+
+body .voet-site .voet-site-links a,
+body .voet-site .voet-site-juridisch a {
+	display:              inline-flex;
+	align-items:          center;
+	min-height:           44px;
+}
+
+body .voet-site .voet-site-links,
+body .voet-site .voet-site-links ul {
+	gap:                  0;
+}
+
+body .voet-site .voet-site-links a:hover {
+	color:                var(--context-accent);
+}
+
+body .voet-site .voet-site-juridisch {
+	display:              flex;
+	justify-content:      space-between;
+	gap:                  var(--ruimte-6);
+	max-width:            var(--ruimte-container);
+	margin:               0 auto;
+	padding:              var(--ruimte-6) var(--ruimte-goot) var(--ruimte-10);
+	color:                var(--kleur-tekst-op-donker-gedempt);
+	font-family:          var(--letter-kop);
+	font-size:            var(--maat-bovenkop);
+	letter-spacing:       var(--spatiering-hoofdletters);
+	text-transform:       uppercase;
+}
+
+body .voet-site .voet-site-juridisch ul {
+	display:              flex;
+	gap:                  var(--ruimte-4);
+	margin:               0;
+	padding:              0;
+	list-style:           none;
+}
+
+body .voet-site .voet-site-juridisch a {
+	color:                inherit;
+}
+
+@media (max-width: 960px) {
+	body .voet-site .voet-site-hoofd {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	body .voet-site .voet-site-juridisch {
+		flex-direction:       column;
+	}
+}
+
+/**Site -- Kruimelpad**/
+body .kruimelpad {
+	max-width:            var(--ruimte-container);
+	margin:               0 auto;
+	padding:              var(--ruimte-4) var(--ruimte-goot) 0;
+	font-size:            var(--maat-klein);
+}
+
+/**Blokken -- Hero**/
+body .sectie.sectie-hero .hero-raster {
+	display:              grid;
+	grid-template-columns: 1.1fr 0.9fr;
+	gap:                  var(--ruimte-12);
+	align-items:          center;
+}
+
+body .sectie.sectie-hero .hero-intro {
+	max-width:            36ch;
+	margin-top:           var(--ruimte-6);
+}
+
+body .sectie.sectie-hero .knoppen {
+	margin-top:           var(--ruimte-8);
+}
+
+body .sectie.sectie-hero .hero-beeld img {
+	border-radius:        var(--hoek-paneel) var(--hoek-paneel) var(--hoek-paneel) var(--hoek-s);
+}
+
+@media (max-width: 900px) {
+	body .sectie.sectie-hero .hero-raster {
+		grid-template-columns: 1fr;
+	}
+}
+
+/**Blokken -- Tekst**/
+body .sectie.sectie-tekst .tekst-smal {
+	max-width:            760px;
+}
+
+body .sectie.sectie-tekst .opmaak {
+	margin-top:           var(--ruimte-6);
+}
+
+body .sectie.sectie-tekst .opmaak p + p {
+	margin-top:           var(--ruimte-4);
+}
+
+body .sectie.sectie-tekst .knop {
+	margin-top:           var(--ruimte-8);
+}
+
+/**Basis -- Beweging**/
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		transition:           none !important;
+	}
+}

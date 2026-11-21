@@ -1,0 +1,439 @@
+/**Toegankelijkheid -- Rapport**/
+/* Gebruikt in Powerhub (wp-admin) en op /designsysteem/. Eigen neutrale kleuren, los van het thema. */
+.toegankelijkheid {
+	--tg-tekst:           #1f2328;
+	--tg-zacht:           #59636e;
+	--tg-lijn:            #e4e6e8;
+	--tg-vlak:            #ffffff;
+	--tg-achtergrond:     #f6f7f8;
+	--tg-goed:            #116b3e;
+	--tg-goed-vlak:       #e3f4ea;
+	--tg-fout:            #b42318;
+	--tg-fout-vlak:       #fdeceb;
+	--tg-handmatig:       #4f5862;
+	--tg-handmatig-vlak:  #eceff2;
+	--tg-focus:           #1f6feb;
+	--tg-hoek:            10px;
+	--tg-letter:          ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+	--tg-mono:            ui-monospace, SFMono-Regular, Menlo, monospace;
+
+	margin-top:           2rem;
+	color:                var(--tg-tekst);
+	font-family:          var(--tg-letter);
+}
+
+.toegankelijkheid .screen-reader-text {
+	position:             absolute;
+	width:                1px;
+	height:               1px;
+	overflow:             hidden;
+	clip:                 rect(0 0 0 0);
+	clip-path:            inset(50%);
+	white-space:          nowrap;
+}
+
+.toegankelijkheid .toegankelijkheid-titel {
+	margin:               0 0 0.4rem;
+	padding-top:          1.5rem;
+	border-top:           1px solid var(--tg-lijn);
+	font-size:            1.3rem;
+}
+
+.toegankelijkheid .toegankelijkheid-uitleg {
+	max-width:            70ch;
+	margin:               0 0 0.9rem;
+	color:                var(--tg-zacht);
+	font-size:            14px;
+	line-height:          1.5;
+}
+
+/*Rapport -- Onderdeel*/
+.toegankelijkheid .toegankelijkheid-onderdeel {
+	margin-top:           1.25rem;
+	padding:              1.25rem 1.4rem;
+	border:               1px solid var(--tg-lijn);
+	border-radius:        var(--tg-hoek);
+	background:           var(--tg-vlak);
+}
+
+.toegankelijkheid .toegankelijkheid-onderdeel .toegankelijkheid-kop {
+	margin:               0 0 0.35rem;
+	color:                var(--tg-tekst);
+	font-family:          var(--tg-letter);
+	font-size:            1.05rem;
+	font-weight:          600;
+}
+
+/*Rapport -- Samenvatting*/
+.toegankelijkheid .toegankelijkheid-samenvatting {
+	display:              flex;
+	flex-wrap:            wrap;
+	gap:                  0.5rem;
+	margin:               0 0 0.9rem;
+}
+
+.toegankelijkheid .toegankelijkheid-samenvatting .toegankelijkheid-teller {
+	padding:              0.3rem 0.75rem;
+	border-radius:        999px;
+	background:           var(--tg-handmatig-vlak);
+	color:                var(--tg-handmatig);
+	font-size:            14px;
+}
+
+.toegankelijkheid .toegankelijkheid-samenvatting .toegankelijkheid-teller.is-goed {
+	background:           var(--tg-goed-vlak);
+	color:                var(--tg-goed);
+}
+
+.toegankelijkheid .toegankelijkheid-samenvatting .toegankelijkheid-teller.is-fout {
+	background:           var(--tg-fout-vlak);
+	color:                var(--tg-fout);
+}
+
+/*Rapport -- Tabel*/
+.toegankelijkheid .toegankelijkheid-scroll {
+	overflow-x:           auto;
+}
+
+.toegankelijkheid .toegankelijkheid-tabel {
+	width:                100%;
+	border-collapse:      collapse;
+	font-size:            14px;
+}
+
+.toegankelijkheid .toegankelijkheid-tabel th,
+.toegankelijkheid .toegankelijkheid-tabel td {
+	padding:              0.5rem 0.6rem;
+	border-bottom:        1px solid var(--tg-lijn);
+	text-align:           left;
+	vertical-align:       middle;
+}
+
+.toegankelijkheid .toegankelijkheid-tabel th {
+	color:                var(--tg-zacht);
+	font-size:            13px;
+	font-weight:          600;
+	white-space:          nowrap;
+}
+
+.toegankelijkheid .toegankelijkheid-tabel tr.is-fout td {
+	background:           var(--tg-fout-vlak);
+}
+
+.toegankelijkheid .toegankelijkheid-tabel small {
+	color:                var(--tg-zacht);
+	font-size:            13px;
+}
+
+.toegankelijkheid .toegankelijkheid-tabel code {
+	padding:              0.1rem 0.3rem;
+	border-radius:        4px;
+	background:           var(--tg-achtergrond);
+	font-family:          var(--tg-mono);
+	font-size:            13px;
+}
+
+.toegankelijkheid .toegankelijkheid-tabel small code {
+	white-space:          nowrap;
+}
+
+.toegankelijkheid .toegankelijkheid-tabel .toegankelijkheid-paar {
+	display:              inline-grid;
+	place-items:          center;
+	width:                2.1rem;
+	height:               1.6rem;
+	margin-right:         0.35rem;
+	border:               1px solid var(--tg-lijn);
+	border-radius:        6px;
+	font-size:            14px;
+	font-weight:          600;
+	vertical-align:       middle;
+}
+
+.toegankelijkheid .toegankelijkheid-tabel .toegankelijkheid-bolletje {
+	display:              inline-block;
+	width:                0.9rem;
+	height:               0.9rem;
+	margin-right:         0.15rem;
+	border:               1px solid rgba(0, 0, 0, 0.15);
+	border-radius:        50%;
+	vertical-align:       middle;
+}
+
+/*Rapport -- Status*/
+.toegankelijkheid .toegankelijkheid-status {
+	display:              inline-block;
+	padding:              0.15rem 0.55rem;
+	border-radius:        999px;
+	background:           var(--tg-handmatig-vlak);
+	color:                var(--tg-handmatig);
+	font-size:            13px;
+	font-weight:          600;
+	white-space:          nowrap;
+}
+
+.toegankelijkheid .toegankelijkheid-status.is-goed {
+	background:           var(--tg-goed-vlak);
+	color:                var(--tg-goed);
+}
+
+.toegankelijkheid .toegankelijkheid-status.is-fout {
+	background:           var(--tg-fout);
+	color:                #ffffff;
+}
+
+/*Rapport -- Controlelijst*/
+.toegankelijkheid .toegankelijkheid-lijst {
+	margin:               0.5rem 0 0;
+	padding:              0;
+	list-style:           none;
+}
+
+.toegankelijkheid .toegankelijkheid-lijst li {
+	display:              grid;
+	grid-template-columns: 7.5rem minmax(0, 1fr);
+	gap:                  0.75rem;
+	align-items:          start;
+	margin:               0;
+	padding:              0.65rem 0;
+	border-bottom:        1px solid var(--tg-lijn);
+	font-size:            14px;
+	line-height:          1.5;
+}
+
+.toegankelijkheid .toegankelijkheid-lijst li:last-child {
+	border-bottom:        0;
+}
+
+.toegankelijkheid .toegankelijkheid-lijst li .toegankelijkheid-status {
+	justify-self:         start;
+}
+
+.toegankelijkheid .toegankelijkheid-lijst li strong {
+	display:              block;
+	color:                var(--tg-tekst);
+}
+
+.toegankelijkheid .toegankelijkheid-lijst li span:not(.toegankelijkheid-status) {
+	color:                var(--tg-zacht);
+}
+
+/*Rapport -- Media*/
+.toegankelijkheid .toegankelijkheid-media {
+	display:              grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap:                  0.5rem;
+	margin:               0;
+	padding:              0;
+	list-style:           none;
+}
+
+.toegankelijkheid .toegankelijkheid-media li {
+	display:              flex;
+	gap:                  0.6rem;
+	align-items:          center;
+	margin:               0;
+	font-size:            14px;
+}
+
+.toegankelijkheid .toegankelijkheid-media li img {
+	width:                48px;
+	height:               48px;
+	border-radius:        6px;
+	object-fit:           cover;
+}
+
+/**Toegankelijkheid -- Kleurchecker**/
+.toegankelijkheid .kleurchecker {
+	display:              grid;
+	gap:                  1.25rem;
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-velden {
+	display:              grid;
+	grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+	gap:                  1rem;
+	align-items:          start;
+}
+
+@media (max-width: 782px) {
+	.toegankelijkheid .kleurchecker .kleurchecker-velden {
+		grid-template-columns: 1fr;
+	}
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-veld .kleurchecker-label {
+	display:              block;
+	margin-bottom:        0.4rem;
+	font-size:            14px;
+	font-weight:          600;
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-veld .kleurchecker-invoer {
+	display:              flex;
+	gap:                  0.5rem;
+	align-items:          center;
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-veld .kleurchecker-invoer input[type="color"] {
+	width:                44px;
+	height:               44px;
+	padding:              2px;
+	border:               1px solid var(--tg-lijn);
+	border-radius:        8px;
+	background:           var(--tg-vlak);
+	cursor:               pointer;
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-veld .kleurchecker-invoer input[type="text"] {
+	width:                8.5rem;
+	min-height:           44px;
+	padding:              0 0.7rem;
+	border:               1px solid var(--tg-lijn);
+	border-radius:        8px;
+	background:           var(--tg-vlak);
+	color:                var(--tg-tekst);
+	font-family:          var(--tg-mono);
+	font-size:            15px;
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-veld .kleurchecker-invoer input[type="text"][aria-invalid="true"] {
+	border-color:         var(--tg-fout);
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-veld .kleurchecker-palet {
+	display:              flex;
+	flex-wrap:            wrap;
+	gap:                  4px;
+	margin-top:           0.6rem;
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-veld .kleurchecker-palet .kleurchecker-staal {
+	width:                24px;
+	height:               24px;
+	min-height:           0;
+	margin:               0;
+	padding:              0;
+	border:               1px solid rgba(0, 0, 0, 0.18);
+	border-radius:        50%;
+	cursor:               pointer;
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-veld .kleurchecker-palet .kleurchecker-staal[aria-pressed="true"] {
+	box-shadow:           0 0 0 2px var(--tg-vlak), 0 0 0 4px var(--tg-tekst);
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-omdraaien {
+	display:              inline-flex;
+	gap:                  0.4rem;
+	align-items:          center;
+	align-self:           center;
+	min-height:           44px;
+	margin:               0;
+	padding:              0 0.9rem;
+	border:               1px solid var(--tg-lijn);
+	border-radius:        999px;
+	background:           var(--tg-achtergrond);
+	color:                var(--tg-tekst);
+	font-family:          var(--tg-letter);
+	font-size:            14px;
+	cursor:               pointer;
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-omdraaien:hover {
+	border-color:         var(--tg-zacht);
+}
+
+.toegankelijkheid .kleurchecker button:focus-visible,
+.toegankelijkheid .kleurchecker input:focus-visible {
+	outline:              2px solid var(--tg-focus);
+	outline-offset:       2px;
+}
+
+/*Kleurchecker -- Uitslag*/
+.toegankelijkheid .kleurchecker .kleurchecker-uitslag {
+	display:              grid;
+	grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+	gap:                  1rem;
+}
+
+@media (max-width: 782px) {
+	.toegankelijkheid .kleurchecker .kleurchecker-uitslag {
+		grid-template-columns: 1fr;
+	}
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-voorbeeld {
+	padding:              1.25rem 1.4rem;
+	border:               1px solid var(--tg-lijn);
+	border-radius:        var(--tg-hoek);
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-voorbeeld p {
+	margin:               0;
+	color:                inherit;
+	font-family:          var(--tg-letter);
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-voorbeeld .kleurchecker-voorbeeld-normaal {
+	font-size:            16px;
+	line-height:          1.5;
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-voorbeeld .kleurchecker-voorbeeld-groot {
+	margin-top:           0.5rem;
+	font-size:            24px;
+	font-weight:          600;
+	line-height:          1.2;
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-score .kleurchecker-verhouding {
+	margin:               0 0 0.6rem;
+	color:                var(--tg-zacht);
+	font-size:            16px;
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-score .kleurchecker-verhouding strong {
+	color:                var(--tg-tekst);
+	font-size:            2rem;
+	font-variant-numeric: tabular-nums;
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-score .kleurchecker-badges {
+	display:              flex;
+	flex-wrap:            wrap;
+	gap:                  0.4rem;
+	margin:               0;
+	padding:              0;
+	list-style:           none;
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-score .kleurchecker-badges li {
+	margin:               0;
+	padding:              0.3rem 0.65rem;
+	border-radius:        999px;
+	background:           var(--tg-handmatig-vlak);
+	color:                var(--tg-handmatig);
+	font-size:            13px;
+	font-weight:          600;
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-score .kleurchecker-badges li span {
+	font-weight:          400;
+	opacity:              0.8;
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-score .kleurchecker-badges li.is-goed {
+	background:           var(--tg-goed-vlak);
+	color:                var(--tg-goed);
+}
+
+.toegankelijkheid .kleurchecker .kleurchecker-score .kleurchecker-badges li.is-fout {
+	background:           var(--tg-fout);
+	color:                #ffffff;
+}
+
+/**Toegankelijkheid -- Designsysteem**/
+body.designsysteem-pagina .designsysteem .toegankelijkheid {
+	margin-top:           0;
+}

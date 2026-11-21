@@ -70,3 +70,13 @@ add_filter( 'powerhub_knop_pijl', '__return_empty_string' );
 add_filter( 'powerhub_logo_terugval', function () {
 	return '<span class="woordmerk"><span class="woordmerk-tal">TAL</span><span class="woordmerk-naam">leadership</span></span>';
 } );
+
+/* Rank Math ziet de designsysteempagina als 404 en zet daar "Page not found" boven. Juiste titel terugzetten. */
+$tal_designsysteem_titel = function ( $titel ) {
+	return function_exists( 'powerhub_is_designsysteem' ) && powerhub_is_designsysteem() ? 'Designsysteem · ' . get_bloginfo( 'name' ) : $titel;
+};
+add_filter( 'pre_get_document_title', $tal_designsysteem_titel, 99 );
+add_filter( 'rank_math/frontend/title', $tal_designsysteem_titel, 99 );
+add_filter( 'rank_math/frontend/robots', function ( $robots ) {
+	return function_exists( 'powerhub_is_designsysteem' ) && powerhub_is_designsysteem() ? array( 'index' => 'noindex', 'follow' => 'nofollow' ) : $robots;
+}, 99 );

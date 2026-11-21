@@ -17,35 +17,41 @@
 	if (lenis && lenis.options) lenis.options.lerp = 0.15;
 
 	/* ---------- Mobiel menu ---------- */
+	/* De hamburger in de kop opent en sluit het paneel en draait daarbij naar een kruis (CSS). */
 	var paneel = document.getElementById('menupaneel');
-	var openKnop = document.querySelector('.kop-site .menuknop');
+	var knop = document.querySelector('.kop-site .menuknop');
+	var sluitTimer = null;
+	function isOpen() { return document.body.classList.contains('menu-open'); }
 	function menuOpen() {
 		if (!paneel) return;
+		clearTimeout(sluitTimer);
+		paneel.classList.remove('is-sluiten');
 		paneel.hidden = false;
 		paneel.classList.add('is-open');
 		document.body.classList.add('menu-open');
-		if (openKnop) openKnop.setAttribute('aria-expanded', 'true');
+		knop.setAttribute('aria-expanded', 'true');
+		knop.setAttribute('aria-label', 'Menu sluiten');
 		if (lenis) lenis.stop();
-		var sluit = paneel.querySelector('.sluitknop');
-		if (sluit) sluit.focus();
 	}
-	function menuDicht() {
-		if (!paneel || paneel.hidden) return;
-		paneel.hidden = true;
-		paneel.classList.remove('is-open');
+	function menuDicht(terugFocus) {
+		if (!paneel || !isOpen()) return;
 		document.body.classList.remove('menu-open');
-		if (openKnop) { openKnop.setAttribute('aria-expanded', 'false'); openKnop.focus({ preventScroll: true }); }
+		knop.setAttribute('aria-expanded', 'false');
+		knop.setAttribute('aria-label', 'Menu openen');
 		if (lenis) lenis.start();
+		paneel.classList.remove('is-open');
+		paneel.classList.add('is-sluiten');
+		sluitTimer = setTimeout(function () { paneel.hidden = true; paneel.classList.remove('is-sluiten'); }, rustig ? 0 : 450);
+		if (terugFocus) knop.focus({ preventScroll: true });
 	}
-	if (openKnop) openKnop.addEventListener('click', menuOpen);
-	if (paneel) {
-		paneel.querySelector('.sluitknop').addEventListener('click', menuDicht);
+	if (knop && paneel) {
+		knop.addEventListener('click', function () { if (isOpen()) menuDicht(); else menuOpen(); });
 		paneel.addEventListener('click', function (e) { if (e.target.closest('a')) menuDicht(); });
-		document.addEventListener('keydown', function (e) { if (e.key === 'Escape') menuDicht(); });
-		/* Focus binnen het paneel houden. */
-		paneel.addEventListener('keydown', function (e) {
-			if (e.key !== 'Tab') return;
-			var items = paneel.querySelectorAll('a, button');
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape') menuDicht(true);
+			/* Focus blijft bij de knop en de links in het paneel. */
+			if (e.key !== 'Tab' || !isOpen()) return;
+			var items = [knop].concat(Array.prototype.slice.call(paneel.querySelectorAll('a, button')));
 			var eerste = items[0], laatste = items[items.length - 1];
 			if (e.shiftKey && document.activeElement === eerste) { e.preventDefault(); laatste.focus(); }
 			else if (!e.shiftKey && document.activeElement === laatste) { e.preventDefault(); eerste.focus(); }

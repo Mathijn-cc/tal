@@ -1087,9 +1087,14 @@ body.admin-bar .kop-site {
 	top:                  var(--wp-admin--admin-bar--height, 32px);
 }
 
+body.admin-bar .menupaneel {
+	top:                  var(--wp-admin--admin-bar--height, 32px);
+}
+
 /* Onder 600px scrollt de WordPress-balk mee weg: de kop plakt dan gewoon tegen de bovenkant. */
 @media (max-width: 600px) {
-	body.admin-bar .kop-site {
+	body.admin-bar .kop-site,
+	body.admin-bar .menupaneel {
 		top:                  0;
 	}
 }
@@ -1198,10 +1203,27 @@ body .kop-site .menuknop span {
 	width:                24px;
 	height:               1.5px;
 	background:           var(--kleur-tekst-kop);
+	transform-origin:     center;
+	transition:           transform var(--duur-traag) var(--curve-uit), width var(--duur-traag) var(--curve-uit);
 }
 
 body .kop-site .menuknop span + span {
 	width:                15px;
+}
+
+/*Kop -- Hamburger wordt een kruis*/
+/* De twee streepjes draaien naar elkaar toe (7px tussenruimte plus 1,5px dikte, dus 4,25px naar het midden). */
+body.menu-open .kop-site .menuknop span:first-child {
+	transform:            translateY(4.25px) rotate(45deg);
+}
+
+body.menu-open .kop-site .menuknop span + span {
+	width:                24px;
+	transform:            translateY(-4.25px) rotate(-45deg);
+}
+
+body.menu-open .kop-site {
+	background:           var(--kleur-vlak-tint);
 }
 
 @media (max-width: 960px) {
@@ -1220,10 +1242,10 @@ body .kop-site .menuknop span + span {
 body .menupaneel {
 	position:             fixed;
 	inset:                0;
-	z-index:              60;
+	z-index:              25;
 	display:              flex;
 	flex-direction:       column;
-	padding:              0 var(--goot) 28px;
+	padding:              var(--ruimte-kop-balk) var(--goot) 28px;
 	overflow-y:           auto;
 	background:           var(--kleur-vlak-tint);
 	color:                var(--kleur-tekst-kop);
@@ -1237,25 +1259,8 @@ body .menupaneel.is-open {
 	animation:            menupaneel-open 600ms var(--curve-uit) both;
 }
 
-body .menupaneel .menupaneel-kop {
-	display:              flex;
-	flex:                 none;
-	align-items:          center;
-	justify-content:      space-between;
-	height:               var(--ruimte-kop-balk);
-}
-
-body .menupaneel .sluitknop {
-	display:              inline-flex;
-	align-items:          center;
-	justify-content:      center;
-	width:                48px;
-	height:               48px;
-	padding:              0;
-	border:               0;
-	background:           transparent;
-	color:                var(--kleur-tekst-kop);
-	cursor:               pointer;
+body .menupaneel.is-sluiten {
+	animation:            menupaneel-dicht 450ms var(--curve-standaard) both;
 }
 
 body .menupaneel .menupaneel-menu ul {
@@ -1305,6 +1310,11 @@ body.menu-open {
 @keyframes menupaneel-open {
 	from { clip-path: inset(0 0 100% 0); }
 	to   { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes menupaneel-dicht {
+	from { clip-path: inset(0 0 0 0); }
+	to   { clip-path: inset(0 0 100% 0); }
 }
 
 @keyframes menupaneel-punt {

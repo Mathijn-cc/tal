@@ -38,14 +38,6 @@ $tal_knop = powerhub_hoofdknop();
 </header>
 
 <div class="menupaneel" id="menupaneel" role="dialog" aria-modal="true" aria-label="Menu" hidden>
-	<div class="menupaneel-kop">
-		<a class="kop-site-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>, naar de homepage">
-			<?php echo powerhub_logo(); // phpcs:ignore ?>
-		</a>
-		<button class="sluitknop" type="button" aria-label="Menu sluiten">
-			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M5 5l14 14M19 5L5 19"/></svg>
-		</button>
-	</div>
 	<?php if ( $tal_menu ) : ?>
 		<nav class="menupaneel-menu" aria-label="Mobiel menu">
 			<ul><?php echo $tal_menu; // phpcs:ignore ?></ul>

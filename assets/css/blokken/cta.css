@@ -52,7 +52,7 @@ body .sectie-cta.is-donker .cta-label {
 /* Breedte in em: de vraag valt altijd in drie regels (Ben jij klaar om jouw / leiderschapsreis met / mij te starten?). */
 body .sectie-cta .cta-kop {
 	grid-column:          1 / span 10;
-	max-width:            8em;
+	max-width:            9.2em;
 	font-size:            clamp(var(--minimaal-afsluiter), var(--vloeiend-afsluiter), var(--maat-afsluiter));
 	line-height:          var(--regel-afsluiter);
 	letter-spacing:       var(--spatiering-groot);

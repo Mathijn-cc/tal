@@ -15,6 +15,10 @@ $kop = str_replace( '{foto}', $mini, $kop );
 <section <?php echo powerhub_sectie( $blok, 'hero' ); // phpcs:ignore ?>>
 	<div class="rij hero-kop">
 		<?php echo $kop; // phpcs:ignore ?>
+		<?php if ( ! empty( $blok['kop_beeld'] ) ) : ?>
+			<?php /* Op desktop staat de kleine foto als grote foto rechts naast de kop; op mobiel in de zin. */ ?>
+			<?php echo tal_foto( $blok['kop_beeld'], 'large', 'hero-foto', array( 'beeld_x' => $blok['kop_beeld_x'] ?? '', 'beeld_positie' => $blok['kop_beeld_y'] ?? '' ), array( 'loading' => 'eager', 'sizes' => '(max-width: 860px) 1px, 32vw', 'alt' => '' ) ); // phpcs:ignore ?>
+		<?php endif; ?>
 		<?php if ( ! empty( $blok['naschrift'] ) ) : ?>
 			<p class="hero-naschrift"><?php echo esc_html( $blok['naschrift'] ); ?></p>
 		<?php endif; ?>

@@ -3,71 +3,81 @@
    Niet met de hand aanpassen: wijzig tokens.json en genereer opnieuw. */
 :root {
 	/*Tokens -- Kleur*/
-	--kleur-donker-900:            #141b24;
-	--kleur-donker-800:            #1d2733;
-	--kleur-donker-700:            #28333f;
-	--kleur-donker-600:            #35414e;
-	--kleur-donker-500:            #56616d;
-	--kleur-donker-400:            #8a939c;
-	--kleur-donker-300:            #c0c5ca;
-	--kleur-donker-200:            #dcdfe2;
-	--kleur-accent-700:            #1d4f9f;
-	--kleur-accent-600:            #2563c9;
-	--kleur-accent-500:            #2f74e0;
-	--kleur-accent-300:            #8db5f0;
-	--kleur-accent-200:            #c4daf8;
-	--kleur-accent-100:            #e1ecfc;
-	--kleur-accent-50:             #f0f6fe;
-	--kleur-actie-700:             #c99a00;
-	--kleur-actie-600:             #f0bd1a;
-	--kleur-actie-500:             #ffd23f;
-	--kleur-actie-300:             #ffe48a;
-	--kleur-actie-100:             #fff6d6;
-	--kleur-wit:                   #ffffff;
-	--kleur-grijs-50:              #f8f8f8;
-	--kleur-grijs-100:             #f3f3f3;
-	--kleur-grijs-200:             #eaeaea;
-	--kleur-grijs-300:             #dddddd;
-	--kleur-grijs-500:             #7c8691;
-	--kleur-grijs-700:             #475666;
-	--kleur-rood-500:              #e5484d;
-	--kleur-oranje-500:            #f0a020;
+	--kleur-donker-900:            #14151F;
+	--kleur-donker-800:            #1D1F2E;
+	--kleur-donker-700:            #33354A;
+	--kleur-donker-600:            #3A3D4D;
+	--kleur-donker-500:            #5E6170;
+	--kleur-donker-400:            #8B8D9A;
+	--kleur-donker-300:            #C3C4CC;
+	--kleur-donker-200:            #E2E2E7;
+	--kleur-accent-700:            #8E4E4C;
+	--kleur-accent-600:            #94524F;
+	--kleur-accent-500:            #A35D5B;
+	--kleur-accent-300:            #C9A3A1;
+	--kleur-accent-200:            #DFC9C5;
+	--kleur-accent-100:            #F3E3E0;
+	--kleur-accent-50:             #F8EEEC;
+	--kleur-actie-700:             #B85A42;
+	--kleur-actie-600:             #D06A50;
+	--kleur-actie-500:             #E07A5F;
+	--kleur-actie-300:             #EDA894;
+	--kleur-actie-100:             #FBE6DF;
+	--kleur-bordeaux-700:          #5A1420;
+	--kleur-bordeaux-500:          #7B1D2A;
+	--kleur-wit:                   #FFFFFF;
+	--kleur-grijs-50:              #FBF9F8;
+	--kleur-grijs-100:             #F7F3F1;
+	--kleur-grijs-200:             #E9DAD6;
+	--kleur-grijs-300:             #DDD3D0;
+	--kleur-grijs-500:             #8B8D9A;
+	--kleur-grijs-700:             #3A3D4D;
+	--kleur-rood-500:              #C2413B;
+	--kleur-oranje-500:            #E07A5F;
 	--kleur-vlak-pagina:           var(--kleur-grijs-100);
 	--kleur-vlak-kaart:            var(--kleur-wit);
 	--kleur-vlak-donker:           var(--kleur-donker-800);
-	--kleur-vlak-donker-verhoogd:  var(--kleur-donker-600);
-	--kleur-vlak-tint:             var(--kleur-accent-200);
-	--kleur-vlak-tint-zacht:       var(--kleur-accent-100);
+	--kleur-vlak-donker-verhoogd:  var(--kleur-donker-700);
+	--kleur-vlak-tint:             var(--kleur-accent-100);
+	--kleur-vlak-tint-zacht:       var(--kleur-grijs-200);
 	--kleur-vlak-subtiel:          var(--kleur-grijs-50);
+	--kleur-vlak-citaat:           var(--kleur-bordeaux-700);
 	--kleur-tekst-kop:             var(--kleur-donker-800);
-	--kleur-tekst-lopend:          var(--kleur-grijs-700);
-	--kleur-tekst-gedempt:         var(--kleur-grijs-700);
+	--kleur-tekst-lopend:          var(--kleur-donker-600);
+	--kleur-tekst-gedempt:         var(--kleur-donker-500);
 	--kleur-tekst-accent:          var(--kleur-accent-300);
-	--kleur-tekst-accent-op-licht: var(--kleur-accent-600);
-	--kleur-tekst-op-donker:       var(--kleur-wit);
-	--kleur-tekst-op-donker-gedempt: var(--kleur-donker-300);
+	--kleur-tekst-accent-op-licht: var(--kleur-accent-500);
+	--kleur-tekst-op-donker:       var(--kleur-grijs-100);
+	--kleur-tekst-op-donker-gedempt: #C9C6D0;
 	--kleur-tekst-link:            var(--kleur-accent-700);
 	--kleur-tekst-link-op-donker:  var(--kleur-accent-300);
-	--kleur-actie-primair:         var(--kleur-actie-500);
-	--kleur-actie-primair-hover:   var(--kleur-actie-600);
-	--kleur-actie-primair-tekst:   var(--kleur-donker-800);
+	--kleur-actie-primair:         var(--kleur-donker-800);
+	--kleur-actie-primair-hover:   var(--kleur-actie-500);
+	--kleur-actie-primair-tekst:   var(--kleur-grijs-100);
+	--kleur-actie-primair-hover-tekst: var(--kleur-donker-800);
 	--kleur-actie-secundair:       #00000000;
 	--kleur-actie-secundair-tekst: var(--kleur-donker-800);
 	--kleur-actie-secundair-rand:  var(--kleur-donker-300);
-	--kleur-actie-donker:          var(--kleur-donker-800);
-	--kleur-actie-donker-tekst:    var(--kleur-wit);
-	--kleur-rand-subtiel:          var(--kleur-grijs-200);
+	--kleur-actie-donker:          var(--kleur-grijs-100);
+	--kleur-actie-donker-tekst:    var(--kleur-donker-800);
+	--kleur-actie-rond:            var(--kleur-actie-500);
+	--kleur-actie-rond-tekst:      var(--kleur-donker-800);
+	--kleur-rand-subtiel:          rgba(29,31,46,.14);
 	--kleur-rand-sterk:            var(--kleur-donker-300);
-	--kleur-rand-op-donker:        rgba(255,255,255,.14);
-	--kleur-focus:                 var(--kleur-accent-300);
+	--kleur-rand-op-donker:        rgba(247,243,241,.14);
+	--kleur-focus:                 var(--kleur-actie-500);
 	--kleur-focus-op-licht:        var(--kleur-donker-800);
 	--kleur-tegel-accent:          var(--kleur-accent-500);
-	--kleur-tegel-accent-tekst:    var(--kleur-wit);
+	--kleur-tegel-accent-tekst:    var(--kleur-grijs-100);
 	--kleur-tegel-actie:           var(--kleur-actie-500);
 	--kleur-tegel-actie-tekst:     var(--kleur-donker-800);
 	--kleur-stip:                  var(--kleur-actie-500);
+	--kleur-stiftstreep:           var(--kleur-actie-500);
 	--kleur-markering-positief:    var(--kleur-actie-500);
 	--kleur-markering-negatief:    var(--kleur-rood-500);
+	--kleur-waas-donker:           rgba(29,31,46,.38);
+	--kleur-waas-donker-mobiel:    rgba(29,31,46,.72);
+	--kleur-kop-balk:              rgba(247,243,241,.86);
 
 	/*Tokens -- Ruimte*/
 	--ruimte-1:                    4px;
@@ -83,33 +93,50 @@
 	--ruimte-20:                   80px;
 	--ruimte-24:                   96px;
 	--ruimte-32:                   128px;
-	--ruimte-goot:                 28px;
-	--ruimte-container:            1100px;
-	--ruimte-sectie:               104px;
-	--ruimte-kaart-binnen:         28px;
+	--ruimte-goot:                 56px;
+	--ruimte-kolomgat:             32px;
+	--ruimte-container:            1440px;
+	--ruimte-sectie:               176px;
+	--ruimte-kaart-binnen:         40px;
+	--ruimte-kop-balk:             84px;
+
+	/*Tokens -- Vloeiend*/
+	--vloeiend-hero:               8.3vw;
+	--vloeiend-groot:              7cqi;
+	--vloeiend-h2:                 5.6vw;
+	--vloeiend-h3:                 3.4vw;
+	--vloeiend-lead:               1.6vw;
+	--vloeiend-laag:               6.4vw;
+	--vloeiend-citaat:             7.4vw;
+	--vloeiend-afsluiter:          7vw;
+	--vloeiend-toch:               9vw;
+	--vloeiend-sectie:             11vw;
 
 	/*Tokens -- Hoek*/
-	--hoek-xs:                     6px;
-	--hoek-s:                      10px;
+	--hoek-geen:                   0;
+	--hoek-xs:                     4px;
+	--hoek-s:                      8px;
 	--hoek-m:                      14px;
 	--hoek-l:                      20px;
 	--hoek-xl:                     28px;
-	--hoek-paneel:                 36px;
+	--hoek-paneel:                 0;
 	--hoek-rond:                   999px;
-	--hoek-knop:                   14px 14px 14px 4px;
+	--hoek-knop:                   0;
+	--hoek-inline-foto:            0.36em;
 
 	/*Tokens -- Schaduw*/
-	--schaduw-kaart:               0 2px 4px rgba(29,39,51,.04),0 8px 24px rgba(29,39,51,.06);
-	--schaduw-kaart-hover:         0 4px 8px rgba(29,39,51,.06),0 16px 40px rgba(29,39,51,.10);
-	--schaduw-zwevend:             0 18px 60px rgba(29,39,51,.16);
+	--schaduw-kaart:               none;
+	--schaduw-kaart-hover:         0 18px 40px rgba(29,31,46,.08);
+	--schaduw-zwevend:             0 18px 60px rgba(29,31,46,.16);
 	--schaduw-geen:                none;
+	--schaduw-laag:                0 -1px 0 rgba(29,31,46,.08);
 
 	/*Tokens -- Beweging*/
 	--curve-standaard:             cubic-bezier(.4,0,.2,1);
-	--curve-uit:                   cubic-bezier(.16,1,.3,1);
+	--curve-uit:                   cubic-bezier(.22,1,.36,1);
 	--duur-snel:                   120ms;
-	--duur-basis:                  200ms;
-	--duur-traag:                  420ms;
+	--duur-basis:                  250ms;
+	--duur-traag:                  450ms;
 
 	/*Tokens -- Gewicht*/
 	--gewicht-dun:                 100;
@@ -123,44 +150,57 @@
 	--gewicht-zwart:               900;
 
 	/*Tokens -- Letter*/
-	--letter-tekst:                system-ui,-apple-system,"Segoe UI",sans-serif;
-	--letter-kop:                  var(--letter-tekst);
+	--letter-tekst:                "General Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+	--letter-kop:                  "DM Serif Display",Georgia,"Times New Roman",serif;
 	--letter-smal:                 var(--letter-tekst);
 	--letter-extrasmal:            var(--letter-tekst);
-	--letter-accent:               Georgia,serif;
+	--letter-accent:               var(--letter-kop);
+	--letter-logo:                 Kalnia,Georgia,serif;
 	--letter-mono:                 ui-monospace,SFMono-Regular,Menlo,monospace;
 
 	/*Tokens -- Tekst*/
-	--maat-hero:                   66px;
-	--regel-hero:                  1.06;
-	--maat-h1:                     56px;
-	--regel-h1:                    1.08;
-	--maat-h2:                     44px;
-	--regel-h2:                    1.1;
-	--maat-h3:                     28px;
-	--regel-h3:                    1.2;
-	--maat-h4:                     21px;
-	--regel-h4:                    1.3;
-	--maat-cijfer:                 46px;
-	--regel-cijfer:                1.05;
-	--maat-groot:                  19px;
-	--regel-groot:                 1.55;
-	--maat-lopend:                 16px;
+	--maat-hero:                   130px;
+	--regel-hero:                  0.96;
+	--maat-groot:                  100px;
+	--regel-groot:                 0.96;
+	--maat-citaat:                 136px;
+	--regel-citaat:                0.96;
+	--maat-h1:                     96px;
+	--regel-h1:                    0.96;
+	--maat-h2:                     80px;
+	--regel-h2:                    0.85;
+	--maat-h3:                     58px;
+	--regel-h3:                    1.04;
+	--maat-h4:                     28px;
+	--regel-h4:                    1.15;
+	--maat-laag:                   112px;
+	--regel-laag:                  0.96;
+	--maat-toch:                   150px;
+	--regel-toch:                  0.85;
+	--maat-cijfer:                 56px;
+	--regel-cijfer:                1;
+	--maat-lead:                   24px;
+	--regel-lead:                  1.45;
+	--maat-groot-tekst:            21px;
+	--regel-groot-tekst:           1.45;
+	--maat-lopend:                 18px;
 	--regel-lopend:                1.6;
-	--maat-klein:                  14px;
-	--regel-klein:                 1.55;
+	--maat-klein:                  15px;
+	--regel-klein:                 1.5;
 	--maat-onderschrift:           14px;
 	--regel-onderschrift:          1.45;
-	--maat-bovenkop:               14px;
-	--regel-bovenkop:              1.2;
+	--maat-bovenkop:               15px;
+	--regel-bovenkop:              1.4;
+	--maat-knop:                   16px;
+	--regel-knop:                  1.25;
 
 	/*Tokens -- Spatiering*/
 	--spatiering-hoofdletters:     .06em;
-	--spatiering-strak:            -.02em;
-	--spatiering-bovenkop:         .10em;
+	--spatiering-strak:            -.03em;
+	--spatiering-bovenkop:         0;
 
 	/*Tokens -- Overgang*/
-	--overgang-knop:               background-color var(--duur-basis) var(--curve-standaard),transform var(--duur-snel) var(--curve-standaard);
+	--overgang-knop:               background-color var(--duur-traag) var(--curve-uit),color var(--duur-traag) var(--curve-uit);
 	--overgang-kaart:              box-shadow var(--duur-basis) var(--curve-standaard),transform var(--duur-basis) var(--curve-standaard);
 }
 
@@ -168,11 +208,20 @@
 @media (max-width: 768px) {
 	:root {
 		--ruimte-goot:                 20px;
-		--ruimte-sectie:               64px;
-		--maat-hero:                   42px;
-		--maat-h1:                     38px;
-		--maat-h2:                     32px;
-		--maat-h3:                     24px;
-		--maat-cijfer:                 38px;
+		--ruimte-kolomgat:             16px;
+		--ruimte-sectie:               104px;
+		--ruimte-kaart-binnen:         28px;
+		--ruimte-kop-balk:             68px;
+		--maat-hero:                   48px;
+		--maat-groot:                  36px;
+		--maat-citaat:                 46px;
+		--maat-h1:                     44px;
+		--maat-h2:                     40px;
+		--maat-h3:                     30px;
+		--maat-laag:                   44px;
+		--maat-toch:                   64px;
+		--maat-cijfer:                 40px;
+		--maat-lead:                   19px;
+		--maat-groot-tekst:            18px;
 	}
 }

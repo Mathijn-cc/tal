@@ -1,6 +1,6 @@
 <?php
 /**
- * __NAAM__, thema-functies.
+ * TAL Leadership, thema-functies.
  *
  * powerhub/  het vaste skelet van Creators Connect. Niet aanpassen in een project.
  * inc/       alles wat specifiek is voor deze klant.

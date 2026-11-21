@@ -3,6 +3,16 @@
    Geen losse kleuren of maten in dit bestand: ontbreekt er iets, voeg dan een token toe.
    Basiscomponenten van het startthema, aangepast aan TAL Leadership. Blokstijlen staan in assets/css/blokken. */
 
+/**Basis -- Logoletter**/
+/* Kalnia alleen voor TAL in het logo. De andere letters laadt Powerhub (inc/instellingen.php). */
+@font-face {
+	font-family:          "Kalnia";
+	src:                  url("../fonts/kalnia-variabel.woff2") format("woff2");
+	font-weight:          100 700;
+	font-style:           normal;
+	font-display:         swap;
+}
+
 /**Basis -- Context**/
 /* Accent, link en focus wisselen mee met de ondergrond, zodat het contrast altijd voldoet (zie /designsysteem/, Toegankelijkheid).
    Licht is de standaard; donkere vlakken zetten hun eigen waarden. */

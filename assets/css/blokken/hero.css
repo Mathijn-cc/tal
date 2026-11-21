@@ -61,3 +61,44 @@ body .sectie-hero .hero-beeld {
 		aspect-ratio:         4 / 5;
 	}
 }
+
+/**Hero -- Mobiel**/
+/* Op een smal scherm vult de kop de breedte, staat Toch? rechts als antwoord en loopt de foto tot de rand. */
+@media (max-width: 860px) {
+	body .sectie-hero .hero-kop {
+		row-gap:              0;
+	}
+
+	body .sectie-hero .hero-kop > h1,
+	body .sectie-hero .hero-kop > h2,
+	body .sectie-hero .hero-naschrift {
+		font-size:            clamp(var(--minimaal-hero), 14vw, 80px);
+		line-height:          0.92;
+	}
+
+	body .sectie-hero .hero-mini {
+		width:                1.7em;
+		height:               0.78em;
+	}
+
+	body .sectie-hero .hero-naschrift {
+		justify-self:         end;
+		margin-top:           0.08em;
+	}
+
+	body .sectie-hero .hero-tekst {
+		gap:                  14px;
+		margin-top:           48px;
+		padding-top:          24px;
+		border-top:           1px solid var(--kleur-rand-subtiel);
+	}
+
+	body .sectie-hero .rij + .rij {
+		margin-top:           48px;
+		padding:              0;
+	}
+
+	body .sectie-hero .hero-beeld {
+		aspect-ratio:         4 / 5;
+	}
+}

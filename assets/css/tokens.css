@@ -120,7 +120,7 @@
 	--vloeiend-kolomgat:           2vw;
 	--vloeiend-sectie:             11vw;
 	--vloeiend-tussen:             8vw;
-	--vloeiend-afsluiter:          8.4vw;
+	--vloeiend-afsluiter:          7vw;
 
 	/*Tokens -- Hoek*/
 	--hoek-geen:                   0;
@@ -211,7 +211,7 @@
 	--regel-lijst:                 1.45;
 	--maat-menu:                   64px;
 	--regel-menu:                  1;
-	--maat-afsluiter:              124px;
+	--maat-afsluiter:              100px;
 	--regel-afsluiter:             0.96;
 	--maat-groot:                  21px;
 	--regel-groot:                 1.45;

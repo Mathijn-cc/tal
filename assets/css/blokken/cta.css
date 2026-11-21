@@ -49,8 +49,10 @@ body .sectie-cta.is-donker .cta-label {
 	color:                var(--kleur-accent-200);
 }
 
+/* Breedte in em: de vraag valt altijd in drie regels (Ben jij klaar om jouw / leiderschapsreis met / mij te starten?). */
 body .sectie-cta .cta-kop {
 	grid-column:          1 / span 10;
+	max-width:            8em;
 	font-size:            clamp(var(--minimaal-afsluiter), var(--vloeiend-afsluiter), var(--maat-afsluiter));
 	line-height:          var(--regel-afsluiter);
 	letter-spacing:       var(--spatiering-groot);
@@ -78,13 +80,13 @@ body .sectie-cta .magneet {
 	display:              inline-flex;
 	align-items:          center;
 	justify-content:      center;
-	width:                clamp(168px, 16vw, 240px);
+	width:                clamp(136px, 12vw, 184px);
 	aspect-ratio:         1 / 1;
-	padding:              24px;
+	padding:              20px;
 	border-radius:        var(--hoek-rond);
 	background:           var(--kleur-actie-rond);
 	color:                var(--kleur-actie-rond-tekst);
-	font-size:            17px;
+	font-size:            var(--maat-knop);
 	font-weight:          var(--gewicht-medium);
 	line-height:          1.25;
 	text-align:           center;

@@ -103,7 +103,6 @@
 
 	/*Tokens -- Vloeiend*/
 	--vloeiend-hero:               8.3vw;
-	--vloeiend-groot:              8.4vw;
 	--vloeiend-citaat:             7.4vw;
 	--vloeiend-h1:                 6.6vw;
 	--vloeiend-h2:                 5.6vw;
@@ -121,6 +120,7 @@
 	--vloeiend-kolomgat:           2vw;
 	--vloeiend-sectie:             11vw;
 	--vloeiend-tussen:             8vw;
+	--vloeiend-afsluiter:          8.4vw;
 
 	/*Tokens -- Hoek*/
 	--hoek-geen:                   0;
@@ -171,8 +171,6 @@
 	/*Tokens -- Tekst*/
 	--maat-hero:                   130px;
 	--regel-hero:                  0.96;
-	--maat-groot:                  124px;
-	--regel-groot:                 0.96;
 	--maat-citaat:                 136px;
 	--regel-citaat:                0.96;
 	--maat-h1:                     96px;
@@ -191,8 +189,6 @@
 	--regel-cijfer:                1;
 	--maat-lead:                   24px;
 	--regel-lead:                  1.45;
-	--maat-groot-tekst:            21px;
-	--regel-groot-tekst:           1.45;
 	--maat-lopend:                 18px;
 	--regel-lopend:                1.6;
 	--maat-klein:                  15px;
@@ -215,6 +211,10 @@
 	--regel-lijst:                 1.45;
 	--maat-menu:                   64px;
 	--regel-menu:                  1;
+	--maat-afsluiter:              124px;
+	--regel-afsluiter:             0.96;
+	--maat-groot:                  21px;
+	--regel-groot:                 1.45;
 
 	/*Tokens -- Spatiering*/
 	--spatiering-hoofdletters:     .06em;
@@ -229,7 +229,6 @@
 
 	/*Tokens -- Minimaal*/
 	--minimaal-hero:               48px;
-	--minimaal-groot:              40px;
 	--minimaal-citaat:             46px;
 	--minimaal-h1:                 44px;
 	--minimaal-h2:                 40px;
@@ -247,6 +246,7 @@
 	--minimaal-kolomgat:           16px;
 	--minimaal-sectie:             104px;
 	--minimaal-tussen:             64px;
+	--minimaal-afsluiter:          40px;
 }
 
 /*Tokens -- Mobiel*/
@@ -254,7 +254,6 @@
 	:root {
 		--ruimte-kaart-binnen:         28px;
 		--maat-hero:                   48px;
-		--maat-groot:                  40px;
 		--maat-citaat:                 46px;
 		--maat-h1:                     44px;
 		--maat-h2:                     40px;
@@ -263,11 +262,12 @@
 		--maat-toch:                   64px;
 		--maat-cijfer:                 40px;
 		--maat-lead:                   19px;
-		--maat-groot-tekst:            18px;
 		--maat-claim:                  28px;
 		--maat-vraag:                  26px;
 		--maat-uitkomst:               24px;
 		--maat-tegel:                  40px;
 		--maat-lijst:                  18px;
+		--maat-afsluiter:              40px;
+		--maat-groot:                  18px;
 	}
 }

@@ -50,8 +50,8 @@ body .sectie-cta.is-donker .cta-label {
 
 body .sectie-cta .cta-kop {
 	grid-column:          1 / span 10;
-	font-size:            clamp(var(--minimaal-groot), var(--vloeiend-groot), var(--maat-groot));
-	line-height:          var(--regel-groot);
+	font-size:            clamp(var(--minimaal-afsluiter), var(--vloeiend-afsluiter), var(--maat-afsluiter));
+	line-height:          var(--regel-afsluiter);
 	letter-spacing:       var(--spatiering-groot);
 }
 

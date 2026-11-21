@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
 <section <?php echo powerhub_sectie( $blok, 'academy' ); // phpcs:ignore ?>>
 	<?php if ( ! empty( $blok['beeld'] ) ) : ?>
 		<div class="rij">
-			<?php echo tal_foto( $blok['beeld'], 'breed', 'academy-beeld', $blok['beeld_positie'] ?? 35, array( 'sizes' => '100vw' ) ); // phpcs:ignore ?>
+			<?php echo tal_foto( $blok['beeld'], 'breed', 'academy-beeld', $blok, array( 'sizes' => '100vw' ) ); // phpcs:ignore ?>
 		</div>
 	<?php endif; ?>
 	<div class="rij academy-tekst">

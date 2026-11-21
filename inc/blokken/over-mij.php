@@ -16,7 +16,6 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 			array(
 				powerhub_acf_tab( $p, 'Inhoud' ),
 				tal_acf_beeld( $p, 'beeld', 'Foto', powerhub_acf_breed( 50 ) ),
-				tal_acf_positie( $p, 'beeld_positie', 30 ),
 				powerhub_acf_veld( $p, 'label', 'Bovenkop', 'text', powerhub_acf_breed( 50 ) ),
 				powerhub_acf_veld( $p, 'kop', 'Kop', 'text', array_merge( powerhub_acf_breed( 50 ), array( 'instructions' => TAL_KOP_UITLEG ) ) ),
 				powerhub_acf_veld( $p, 'lead', 'Introzin', 'textarea', array( 'rows' => 3 ) ),
@@ -24,6 +23,7 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 				powerhub_acf_veld( $p, 'naam', 'Naam', 'text', powerhub_acf_breed( 50 ) ),
 				powerhub_acf_veld( $p, 'knop', 'Knop', 'link', powerhub_acf_breed( 50 ) ),
 			),
+			tal_acf_uitsnede( $p, 30, 50 ),
 			powerhub_acf_weergave( $p, 'pagina' )
 		),
 	);

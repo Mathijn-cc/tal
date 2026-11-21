@@ -174,3 +174,23 @@ function tal_uitrol_spotify() {
 	echo 'Spotify-speler gezet (blok ' . ( $plek + 1 ) . ").\n";
 	return true;
 }
+
+/* Hero op mobiel: uitsnede naar rechts, zodat Chantal in beeld staat. */
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['hero-uitsnede-v1'] = 'tal_uitrol_hero_uitsnede';
+	return $taken;
+} );
+
+function tal_uitrol_hero_uitsnede() {
+	if ( ! function_exists( 'update_sub_field' ) ) {
+		return false;
+	}
+	$id    = (int) get_option( 'page_on_front' );
+	$rijen = $id ? (array) get_post_meta( $id, 'blokken', true ) : array();
+	$plek  = array_search( 'hero', $rijen, true );
+	if ( false !== $plek ) {
+		update_sub_field( array( 'field_powerhub_blokken', $plek + 1, 'field_hero_beeld_x_mobiel' ), 70, $id );
+		update_sub_field( array( 'field_powerhub_blokken', $plek + 1, 'field_hero_beeld_x' ), 50, $id );
+	}
+	return true;
+}

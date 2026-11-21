@@ -36,7 +36,7 @@ $kop = str_replace( '{foto}', $mini, $kop );
 	</div>
 	<?php if ( ! empty( $blok['beeld'] ) ) : ?>
 		<div class="rij">
-			<?php echo tal_foto( $blok['beeld'], 'breed', 'hero-beeld', $blok['beeld_positie'] ?? 45, array( 'loading' => 'eager', 'fetchpriority' => 'high', 'sizes' => '100vw', 'alt' => '' ) ); // phpcs:ignore ?>
+			<?php echo tal_foto( $blok['beeld'], 'breed', 'hero-beeld', $blok, array( 'loading' => 'eager', 'fetchpriority' => 'high', 'sizes' => '100vw', 'alt' => '' ) ); // phpcs:ignore ?>
 		</div>
 	<?php endif; ?>
 </section>

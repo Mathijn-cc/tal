@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 ?>
 <section <?php echo powerhub_sectie( $blok, 'over-mij' ); // phpcs:ignore ?>>
 	<div class="rij">
-		<?php echo tal_foto( $blok['beeld'] ?? '', 'large', 'overmij-beeld', $blok['beeld_positie'] ?? 30, array( 'sizes' => '(max-width: 860px) 100vw, 40vw', 'alt' => $blok['naam'] ?? '' ) ); // phpcs:ignore ?>
+		<?php echo tal_foto( $blok['beeld'] ?? '', 'large', 'overmij-beeld', $blok, array( 'sizes' => '(max-width: 860px) 100vw, 40vw', 'alt' => $blok['naam'] ?? '' ) ); // phpcs:ignore ?>
 		<div class="overmij-tekst">
 			<?php if ( ! empty( $blok['label'] ) ) : ?>
 				<p class="bovenkop-tal"><?php echo esc_html( $blok['label'] ); ?></p>

@@ -23,6 +23,7 @@ body .sectie-cta .cta-beeld .foto-beeld {
 	max-width:            none;
 	height:               116%;
 	object-fit:           cover;
+	object-position:      var(--x, 55%) var(--y, 35%);
 }
 
 body .sectie-cta .cta-waas {
@@ -103,5 +104,9 @@ body .sectie-cta .magneet:hover {
 
 	body .sectie-cta .cta-waas {
 		background:           var(--kleur-waas-donker-mobiel);
+	}
+
+	body .sectie-cta .cta-beeld .foto-beeld {
+		object-position:      var(--x-mobiel, var(--x, 55%)) var(--y-mobiel, var(--y, 35%));
 	}
 }

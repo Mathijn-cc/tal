@@ -26,8 +26,8 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 				powerhub_acf_veld( $p, 'knop', 'Knop', 'link', powerhub_acf_breed( 50 ) ),
 				powerhub_acf_veld( $p, 'link', 'Tekstlink', 'link', powerhub_acf_breed( 50 ) ),
 				tal_acf_beeld( $p, 'beeld', 'Brede foto', powerhub_acf_breed( 50 ) ),
-				tal_acf_positie( $p ),
 			),
+			tal_acf_uitsnede( $p, 45, 50 ),
 			powerhub_acf_weergave( $p, 'pagina' )
 		),
 	);
@@ -45,7 +45,8 @@ add_filter( 'powerhub_blok_voorbeelden', function ( $voorbeelden ) {
 		'knop'          => array( 'url' => '#traject', 'title' => 'Bekijk ons traject' ),
 		'link'          => array( 'url' => '#over-mij', 'title' => 'Leer mij kennen' ),
 		'beeld'         => tal_beeld_url( 'tal-16.jpg' ),
-		'beeld_positie' => 45,
+		'beeld_positie'  => 45,
+		'beeld_x_mobiel' => 70,
 		'achtergrond'   => 'pagina',
 		'ruimte_boven'  => 'klein',
 		'anker'         => 'top',

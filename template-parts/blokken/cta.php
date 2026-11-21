@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
 <section <?php echo powerhub_sectie( $blok, 'cta' ); // phpcs:ignore ?>>
 	<?php if ( ! empty( $blok['beeld'] ) ) : ?>
 		<div class="cta-beeld" aria-hidden="true">
-			<?php echo powerhub_beeld( $blok['beeld'], 'breed', array( 'class' => 'foto-beeld', 'alt' => '', 'sizes' => '(max-width: 860px) 100vw, 66vw', 'style' => 'object-position: 55% ' . (int) ( $blok['beeld_positie'] ?? 35 ) . '%;' ) ); // phpcs:ignore ?>
+			<?php echo powerhub_beeld( $blok['beeld'], 'breed', array( 'class' => 'foto-beeld', 'alt' => '', 'sizes' => '(max-width: 860px) 100vw, 66vw', 'style' => tal_uitsnede_stijl( $blok, 55, 35 ) ) ); // phpcs:ignore ?>
 		</div>
 		<div class="cta-waas" aria-hidden="true"></div>
 	<?php endif; ?>

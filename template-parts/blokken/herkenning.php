@@ -27,7 +27,7 @@ $vragen = array_filter( wp_list_pluck( (array) ( $blok['vragen'] ?? array() ), '
 	</div>
 	<?php if ( ! empty( $blok['slot'] ) || ! empty( $blok['beeld'] ) ) : ?>
 		<div class="rij herkenning-slot">
-			<?php echo tal_foto( $blok['beeld'] ?? '', 'large', 'herkenning-beeld', $blok['beeld_positie'] ?? 40 ); // phpcs:ignore ?>
+			<?php echo tal_foto( $blok['beeld'] ?? '', 'large', 'herkenning-beeld', $blok ); // phpcs:ignore ?>
 			<div class="herkenning-actie">
 				<?php if ( ! empty( $blok['slot'] ) ) : ?>
 					<p class="kop-m"><?php echo esc_html( $blok['slot'] ); ?></p>

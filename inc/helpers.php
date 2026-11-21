@@ -27,7 +27,7 @@ function tal_regel( $tekst ) {
 
 /**
  * Foto in een kader. Het beeld is iets hoger dan het kader, zodat het kan meebewegen bij scrollen.
- * $positie: verticale uitsnede in procenten (0 is boven, 100 is onder).
+ * $positie: verticale uitsnede in procenten (0 is boven, 100 is onder), of het hele blok voor de uitsnede (zie tal_acf_uitsnede).
  */
 function tal_foto( $beeld, $maat = 'large', $class = '', $positie = 40, $attr = array() ) {
 	if ( empty( $beeld ) ) {
@@ -35,7 +35,7 @@ function tal_foto( $beeld, $maat = 'large', $class = '', $positie = 40, $attr = 
 	}
 	$attr = wp_parse_args( $attr, array(
 		'class' => 'foto-beeld',
-		'style' => 'object-position: 50% ' . (int) $positie . '%;',
+		'style' => tal_uitsnede_stijl( is_array( $positie ) ? $positie : array( 'beeld_positie' => $positie ) ),
 		'sizes' => '(max-width: 860px) 100vw, 60vw',
 	) );
 	return '<div class="' . esc_attr( trim( 'foto ' . $class ) ) . '">' . powerhub_beeld( $beeld, $maat, $attr ) . '</div>';
@@ -109,7 +109,44 @@ function tal_acf_beeld( $prefix, $naam, $label, $extra = array() ) {
 }
 
 /**
- * Uitsnede van een beeld: waar het midden van de foto ligt, van boven (0) tot onder (100).
+ * Uitsnede van een beeld: horizontaal en verticaal, met een eigen uitsnede voor mobiel (leeg is gelijk aan desktop).
+ * Velden: beeld_x, beeld_positie (verticaal, bestaande naam), beeld_x_mobiel, beeld_y_mobiel.
+ */
+function tal_acf_uitsnede( $prefix, $standaard_y = 40, $standaard_x = 50 ) {
+	$getal = function ( $naam, $label, $standaard, $uitleg ) use ( $prefix ) {
+		return powerhub_acf_veld( $prefix, $naam, $label, 'number', array_merge( powerhub_acf_breed( 25 ), array(
+			'min'           => 0,
+			'max'           => 100,
+			'step'          => 5,
+			'append'        => '%',
+			'default_value' => $standaard,
+			'instructions'  => $uitleg,
+		) ) );
+	};
+	return array(
+		$getal( 'beeld_x', 'Uitsnede horizontaal', $standaard_x, '0 is links, 100 is rechts.' ),
+		$getal( 'beeld_positie', 'Uitsnede verticaal', $standaard_y, '0 is boven, 100 is onder.' ),
+		$getal( 'beeld_x_mobiel', 'Mobiel horizontaal', '', 'Leeg: gelijk aan desktop.' ),
+		$getal( 'beeld_y_mobiel', 'Mobiel verticaal', '', 'Leeg: gelijk aan desktop.' ),
+	);
+}
+
+/**
+ * Inline stijl met de uitsnede als CSS-variabelen (--x, --y, --x-mobiel, --y-mobiel). De CSS kiest per schermbreedte.
+ */
+function tal_uitsnede_stijl( $blok, $standaard_x = 50, $standaard_y = 40 ) {
+	$waarde = function ( $sleutel, $anders ) use ( $blok ) {
+		return isset( $blok[ $sleutel ] ) && '' !== $blok[ $sleutel ] && null !== $blok[ $sleutel ] ? max( 0, min( 100, (int) $blok[ $sleutel ] ) ) : $anders;
+	};
+	$x  = $waarde( 'beeld_x', $standaard_x );
+	$y  = $waarde( 'beeld_positie', $standaard_y );
+	$xm = $waarde( 'beeld_x_mobiel', $x );
+	$ym = $waarde( 'beeld_y_mobiel', $y );
+	return sprintf( '--x: %d%%; --y: %d%%; --x-mobiel: %d%%; --y-mobiel: %d%%;', $x, $y, $xm, $ym );
+}
+
+/**
+ * Oude enkele schuif voor de verticale uitsnede (niet meer in gebruik in de blokken).
  */
 function tal_acf_positie( $prefix, $naam = 'beeld_positie', $standaard = 40 ) {
 	return powerhub_acf_veld( $prefix, $naam, 'Uitsnede (verticaal)', 'range', array_merge( powerhub_acf_breed( 50 ), array(

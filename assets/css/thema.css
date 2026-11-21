@@ -394,7 +394,14 @@ body .foto .foto-beeld {
 	max-width:            none;
 	height:               114%;
 	object-fit:           cover;
+	object-position:      var(--x, 50%) var(--y, 50%);
 	will-change:          transform;
+}
+
+@media (max-width: 860px) {
+	body .foto .foto-beeld {
+		object-position:      var(--x-mobiel, var(--x, 50%)) var(--y-mobiel, var(--y, 50%));
+	}
 }
 
 /**Componenten -- Korrel**/

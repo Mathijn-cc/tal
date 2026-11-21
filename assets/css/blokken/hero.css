@@ -21,14 +21,15 @@ body .sectie-hero .hero-mini {
 }
 
 /*Hero -- Naschrift*/
+/* Even groot als de kop erboven. */
 body .sectie-hero .hero-naschrift {
 	grid-column:          1 / span 4;
 	align-self:           start;
 	color:                var(--kleur-tekst-accent-op-licht);
 	font-family:          var(--letter-kop);
-	font-size:            clamp(var(--minimaal-toch), var(--vloeiend-toch), var(--maat-toch));
-	line-height:          var(--regel-toch);
-	letter-spacing:       var(--spatiering-strak);
+	font-size:            clamp(var(--minimaal-hero), var(--vloeiend-hero), var(--maat-hero));
+	line-height:          var(--regel-hero);
+	letter-spacing:       var(--spatiering-groot);
 }
 
 /*Hero -- Tekst*/

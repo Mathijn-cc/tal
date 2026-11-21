@@ -78,9 +78,10 @@ body .sectie-hero .hero-beeld {
 
 	/* Op mobiel een grotere, hogere foto in de zin, zodat je echt iets ziet. */
 	body .sectie-hero .hero-mini {
-		width:                1.9em;
-		height:               0.86em;
-		vertical-align:       -0.06em;
+		width:                2.5em;
+		height:               1.12em;
+		margin:               0.04em 0.06em;
+		vertical-align:       -0.2em;
 	}
 
 	body .sectie-hero .hero-naschrift {

@@ -157,8 +157,9 @@
 			});
 			gsap.from(split.lines, {
 				yPercent: 105, duration: 1.2, ease: 'power4.out', stagger: 0.08, scrollTrigger: opScroll(kop),
-				/* koppen met een stiftstreep niet terugzetten, anders verliest de streep zijn animatie */
-				onComplete: function () { if (!kop.querySelector('.onderstreep')) split.revert(); }
+				/* Niet terugzetten bij een stiftstreep (die animeert nog) of een foto in de kop:
+				   terugzetten verandert daar de hoogte van de kop en dan verspringt de tekst eronder. */
+				onComplete: function () { if (!kop.querySelector('.onderstreep, .hero-mini')) split.revert(); }
 			});
 		});
 

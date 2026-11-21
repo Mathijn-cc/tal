@@ -147,6 +147,7 @@
 
 		/* Koppen en ondertitels (tussenkoppen, labels): regel voor regel omhoog uit een masker. */
 		if (Split) alle('main h1, main h2, main .kop-m, main .marge, main .bovenkop-tal').forEach(function (kop) {
+			var hoogteVoor = kop.getBoundingClientRect().height;
 			var split = Split.create(kop, { type: 'lines', mask: 'lines' });
 			/* Ruimte boven en onder elke regel, zodat j, g, p en accenten niet worden afgesneden. */
 			(split.masks || []).forEach(function (m) {
@@ -155,6 +156,10 @@
 				m.style.paddingBottom = '0.28em';
 				m.style.marginBottom = '-0.28em';
 			});
+			/* Een foto in de regel kan de opgesplitste kop iets hoger maken: dat verschil opvangen,
+			   zodat de tekst eronder niet verspringt. */
+			var verschil = kop.getBoundingClientRect().height - hoogteVoor;
+			if (Math.abs(verschil) > 0.5) kop.style.marginBottom = (-verschil) + 'px';
 			gsap.from(split.lines, {
 				yPercent: 105, duration: 1.2, ease: 'power4.out', stagger: 0.08, scrollTrigger: opScroll(kop),
 				/* Niet terugzetten bij een stiftstreep (die animeert nog) of een foto in de kop:

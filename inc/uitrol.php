@@ -194,3 +194,30 @@ function tal_uitrol_hero_uitsnede() {
 	}
 	return true;
 }
+
+/* Hero-knop "Bekijk het traject" en de Apple Podcasts-knop in het podcastblok. */
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['knoppen-v1'] = 'tal_uitrol_knoppen';
+	return $taken;
+} );
+
+function tal_uitrol_knoppen() {
+	if ( ! function_exists( 'update_sub_field' ) ) {
+		return false;
+	}
+	$id    = (int) get_option( 'page_on_front' );
+	$rijen = $id ? (array) get_post_meta( $id, 'blokken', true ) : array();
+	$hero  = array_search( 'hero', $rijen, true );
+	if ( false !== $hero ) {
+		$knop = get_post_meta( $id, 'blokken_' . $hero . '_knop', true );
+		$knop = is_array( $knop ) ? $knop : array( 'url' => '#traject', 'target' => '' );
+		$knop['title'] = 'Bekijk het traject';
+		update_sub_field( array( 'field_powerhub_blokken', $hero + 1, 'field_hero_knop' ), $knop, $id );
+	}
+	$podcast = array_search( 'podcast', $rijen, true );
+	if ( false !== $podcast ) {
+		update_sub_field( array( 'field_powerhub_blokken', $podcast + 1, 'field_podcast_knop_2' ), array( 'url' => TAL_APPLE_PODCAST, 'title' => 'Luister op Apple Podcasts', 'target' => '_blank' ), $id );
+	}
+	echo "Knoppen bijgewerkt.\n";
+	return true;
+}

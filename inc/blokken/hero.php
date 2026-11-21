@@ -42,7 +42,7 @@ add_filter( 'powerhub_blok_voorbeelden', function ( $voorbeelden ) {
 		'lead'          => 'Als je goed bent in wat je doet, hard werkt en je nek uitsteekt word je leider.',
 		'tekst'         => 'Zo ging het althans bij mij. En bij de meesten om me heen.',
 		'nadruk'        => 'Maar hoe moet dat dan? Wie helpt je hierbij?',
-		'knop'          => array( 'url' => '#traject', 'title' => 'Bekijk ons traject' ),
+		'knop'          => array( 'url' => '#traject', 'title' => 'Bekijk het traject' ),
 		'link'          => array( 'url' => '#over-mij', 'title' => 'Leer mij kennen' ),
 		'beeld'         => tal_beeld_url( 'tal-16.jpg' ),
 		'beeld_positie'  => 45,

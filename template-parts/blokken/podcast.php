@@ -26,8 +26,11 @@ if ( ! empty( $blok['spotify'] ) && preg_match( '#open\.spotify\.com/(?:embed/)?
 			<?php if ( ! empty( $blok['tekst'] ) ) : ?>
 				<p class="podcast-uitleg"><?php echo esc_html( $blok['tekst'] ); ?></p>
 			<?php endif; ?>
-			<?php if ( ! empty( $link['url'] ) ) : ?>
-				<div class="podcast-knop"><?php echo powerhub_knop( $link, 'actie' ); // phpcs:ignore ?></div>
+			<?php if ( ! empty( $link['url'] ) || ! empty( $blok['knop_2']['url'] ) ) : ?>
+				<div class="knoppen podcast-knop">
+					<?php echo powerhub_knop( $link, 'actie' ); // phpcs:ignore ?>
+					<?php echo powerhub_knop( $blok['knop_2'] ?? array(), 'secundair' ); // phpcs:ignore ?>
+				</div>
 			<?php endif; ?>
 		</div>
 		<?php if ( $embed ) : ?>

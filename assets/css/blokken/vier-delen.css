@@ -40,6 +40,12 @@ body.admin-bar .sectie-vier-delen .laag {
 	top:                  calc(var(--ruimte-kop-balk) + var(--laag) * 22px + var(--wp-admin--admin-bar--height, 32px));
 }
 
+@media (max-width: 600px) {
+	body.admin-bar .sectie-vier-delen .laag {
+		top:                  calc(var(--ruimte-kop-balk) + var(--laag) * 22px);
+	}
+}
+
 body .sectie-vier-delen .laag:nth-child(4n+2) {
 	background:           var(--kleur-vlak-tint);
 }

@@ -1071,6 +1071,13 @@ body.admin-bar .kop-site {
 	top:                  var(--wp-admin--admin-bar--height, 32px);
 }
 
+/* Onder 600px scrollt de WordPress-balk mee weg: de kop plakt dan gewoon tegen de bovenkant. */
+@media (max-width: 600px) {
+	body.admin-bar .kop-site {
+		top:                  0;
+	}
+}
+
 body .kop-site .kop-site-binnen {
 	display:              flex;
 	align-items:          center;

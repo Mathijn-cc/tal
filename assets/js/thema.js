@@ -5,9 +5,12 @@
 	var instellingen = window.powerhub || {};
 	var rustig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 	var lenis = window.powerhubLenis || null;
+	/* Onderkant van de vaste kop: hoogte van de kop plus de WordPress-balk als die vast staat (ingelogd). */
 	var kopHoogte = function () {
 		var kop = document.querySelector('.kop-site');
-		return kop ? kop.offsetHeight : 76;
+		var balk = document.getElementById('wpadminbar');
+		var extra = balk && getComputedStyle(balk).position === 'fixed' ? balk.offsetHeight : 0;
+		return (kop ? kop.offsetHeight : 76) + extra;
 	};
 
 	/* Vloeiend scrollen iets minder zwevend dan de standaard van Lenis. */
@@ -189,7 +192,7 @@
 			var tl = gsap.timeline({
 				scrollTrigger: {
 					trigger: sectie.querySelector('.herkenning-podium'),
-					start: function () { return 'top top+=' + (kopHoogte() + (breed() ? 72 : 32)); },
+					start: function () { return 'top top+=' + (kopHoogte() + (breed() ? 72 : 56)); },
 					end: '+=' + (vragen.length * 60) + '%',
 					pin: true,
 					refreshPriority: 2,

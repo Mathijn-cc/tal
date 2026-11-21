@@ -226,7 +226,8 @@
 		/* Claim: kleurt woord voor woord in met het scrollen. */
 		if (Split) alle('.traject-claim').forEach(function (claim) {
 			var woorden = Split.create(claim, { type: 'words' }).words;
-			var start = getComputedStyle(document.documentElement).getPropertyValue('--kleur-grijs-300').trim() || '#DDD3D0';
+			/* Beginkleur haalt 3:1 op crème, zodat ook de nog niet ingekleurde woorden leesbaar zijn. */
+			var start = getComputedStyle(document.documentElement).getPropertyValue('--kleur-donker-400').trim() || '#888A97';
 			var eind = getComputedStyle(claim).color;
 			gsap.fromTo(woorden, { color: start }, { color: eind, stagger: 0.1, ease: 'none',
 				scrollTrigger: { trigger: claim, start: 'top 80%', end: 'bottom 45%', scrub: 0.8 } });

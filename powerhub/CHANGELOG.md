@@ -5,6 +5,7 @@ Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, 
 ## 1.2.1 (21-11-2026)
 
 - Paginacontrole Toegankelijkheid: knop Kopiëren zet alle bevindingen als platte tekst op het klembord (pagina, datum, per soort genummerd, met de grenzen), om te plakken in een ticket of mail. Ook via `powerhubControle.rapport()`.
+- Paginacontrole: een achtergrondbeeld dat alleen een streep is (onderstreping van een link, stiftstreep) telt niet meer als 'handmatig controleren'.
 
 ## 1.2.0 (20-11-2026)
 

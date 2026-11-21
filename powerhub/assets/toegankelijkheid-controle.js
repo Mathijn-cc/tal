@@ -75,12 +75,25 @@
 		return '#' + rgb.slice(0, 3).map(function (x) { return ('0' + Math.round(x).toString(16)).slice(-2); }).join('');
 	}
 
-	/* Effectieve achtergrond: omhoog door de ouders tot een dekkende kleur. Achtergrondbeeld: handmatig. */
+	/* Een achtergrondbeeld dat alleen een streep is (onderstreping van een link, stiftstreep onder een woord)
+	   staat niet achter de letters: niet herhaald en hooguit een kwart van de tekstgrootte hoog. */
+	function alleenStreep(cs) {
+		var nietHerhaald = cs.backgroundRepeat.split(',').every(function (r) { return r.trim() === 'no-repeat'; });
+		if (!nietHerhaald) return false;
+		var grens = Math.max(8, parseFloat(cs.fontSize) * 0.35);
+		return cs.backgroundSize.split(',').every(function (laag) {
+			var delen = laag.trim().split(/\s+/);
+			var hoogte = delen[1] || '';
+			return /px$/.test(hoogte) && parseFloat(hoogte) <= grens;
+		});
+	}
+
+	/* Effectieve achtergrond: omhoog door de ouders tot een dekkende kleur. Achtergrondbeeld: handmatig, behalve een streep. */
 	function achtergrond(el) {
 		var lagen = [];
 		for (var n = el; n && n.nodeType === 1; n = n.parentElement) {
 			var cs = getComputedStyle(n);
-			if (cs.backgroundImage && cs.backgroundImage !== 'none') return { beeld: n };
+			if (cs.backgroundImage && cs.backgroundImage !== 'none' && !alleenStreep(cs)) return { beeld: n };
 			var k = kleur(cs.backgroundColor);
 			if (k && k[3] > 0) {
 				lagen.push(k);

@@ -113,6 +113,7 @@ body .sectie-herkenning .herkenning-actie {
 	}
 
 	body .sectie-herkenning .herkenning-beeld {
-		display:              none;
+		width:                72%;
+		aspect-ratio:         4 / 5;
 	}
 }

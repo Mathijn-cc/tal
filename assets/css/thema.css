@@ -534,6 +534,10 @@ body .lijnlink {
 	transition:           background-size var(--duur-traag) var(--curve-uit);
 }
 
+body .lijnlink.lijnlink-groot:hover {
+	background-position:  100% calc(100% - 4px);
+}
+
 body .lijnlink:hover {
 	color:                var(--kleur-tekst-kop);
 	background-position:  100% calc(100% - 10px);
@@ -546,6 +550,8 @@ body .is-donker .lijnlink:hover {
 }
 
 body .lijnlink.lijnlink-groot {
+	padding-bottom:       8px;
+	background-position:  0 calc(100% - 4px);
 	font-family:          var(--letter-kop);
 	font-size:            var(--maat-h4);
 	font-weight:          var(--gewicht-normaal);

@@ -28,3 +28,11 @@ body .sectie-traject .traject-tekst {
 body .sectie-traject .traject-slot {
 	padding-top:          8px;
 }
+
+@media (max-width: 860px) {
+	body .sectie-traject .traject-claim {
+		font-size:            clamp(var(--maat-claim), 8.6vw, 40px);
+		line-height:          1.12;
+		letter-spacing:       var(--spatiering-strak);
+	}
+}

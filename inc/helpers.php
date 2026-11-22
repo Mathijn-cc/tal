@@ -117,7 +117,7 @@ function tal_acf_uitsnede( $prefix, $standaard_y = 40, $standaard_x = 50, $voor 
 		return powerhub_acf_veld( $prefix, $naam, $voor ? $voor . ': ' . lcfirst( $label ) : $label, 'number', array_merge( powerhub_acf_breed( 25 ), array(
 			'min'           => 0,
 			'max'           => 100,
-			'step'          => 5,
+			'step'          => 1,
 			'append'        => '%',
 			'default_value' => $standaard,
 			'instructions'  => $uitleg,
@@ -152,7 +152,7 @@ function tal_acf_positie( $prefix, $naam = 'beeld_positie', $standaard = 40 ) {
 	return powerhub_acf_veld( $prefix, $naam, 'Uitsnede (verticaal)', 'range', array_merge( powerhub_acf_breed( 50 ), array(
 		'min'           => 0,
 		'max'           => 100,
-		'step'          => 5,
+		'step'          => 1,
 		'append'        => '%',
 		'default_value' => $standaard,
 		'instructions'  => '0 toont de bovenkant van de foto, 100 de onderkant.',

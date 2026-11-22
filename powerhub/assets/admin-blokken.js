@@ -138,6 +138,14 @@
 	if ( window.MutationObserver ) {
 		new MutationObserver( function ( lijst ) {
 			lijst.forEach( function ( m ) {
+				/* ACF zet de kopbalk van een blok opnieuw neer (na klikken of inklappen): icoon terugzetten. */
+				var handle = m.target && m.target.closest ? m.target.closest( '.acf-fc-layout-handle' ) : null;
+				if ( handle && ! handle.querySelector( ':scope > .blok-icoon' ) ) {
+					var $layout = $( handle ).closest( '.layout' );
+					if ( $layout.length ) {
+						versierBlok( $layout );
+					}
+				}
 				m.addedNodes.forEach( function ( node ) {
 					if ( node.nodeType !== 1 ) {
 						return;

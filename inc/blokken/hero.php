@@ -1,7 +1,7 @@
 <?php
 /**
  * Blok Hero: de opening van de homepage. Grote kop met een kleine foto in de zin, een naschrift links,
- * intro en knoppen rechts, en een brede foto eronder.
+ * intro en knoppen. De brede foto eronder is een apart blok (Brede foto).
  * Het eerste blok op een pagina krijgt een h1, elk volgend blok een h2.
  */
 
@@ -12,7 +12,7 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 	$layouts[ $p ] = array(
 		'label'      => 'Hero',
 		'icoon'      => 'sparkles',
-		'uitleg'     => 'De opening: grote kop met een kleine foto in de zin, intro, knoppen en een brede foto.',
+		'uitleg'     => 'De opening: grote kop met een foto, naschrift, intro en knoppen.',
 		'volgorde'   => 10,
 		'sub_fields' => array_merge(
 			array(
@@ -27,9 +27,7 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 				powerhub_acf_veld( $p, 'nadruk', 'Slotvraag', 'text', array( 'instructions' => 'Komt donker en iets zwaarder onder de tekst.' ) ),
 				powerhub_acf_veld( $p, 'knop', 'Knop', 'link', powerhub_acf_breed( 50 ) ),
 				powerhub_acf_veld( $p, 'link', 'Tekstlink', 'link', powerhub_acf_breed( 50 ) ),
-				tal_acf_beeld( $p, 'beeld', 'Brede foto' ),
 			),
-			tal_acf_uitsnede( $p, 45, 50, 'Brede foto' ),
 			powerhub_acf_weergave( $p, 'pagina' )
 		),
 	);
@@ -48,11 +46,9 @@ add_filter( 'powerhub_blok_voorbeelden', function ( $voorbeelden ) {
 		'nadruk'        => 'Maar hoe moet dat dan? Wie helpt je hierbij?',
 		'knop'          => array( 'url' => '#traject', 'title' => 'Bekijk het traject' ),
 		'link'          => array( 'url' => '#over-mij', 'title' => 'Leer mij kennen' ),
-		'beeld'         => tal_beeld_url( 'tal-16.jpg' ),
-		'beeld_positie'  => 45,
-		'beeld_x_mobiel' => 70,
 		'achtergrond'   => 'pagina',
 		'ruimte_boven'  => 'klein',
+		'ruimte_onder'  => 'klein',
 		'anker'         => 'top',
 	);
 	return $voorbeelden;

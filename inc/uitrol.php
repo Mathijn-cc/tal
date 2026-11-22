@@ -13,7 +13,7 @@ add_filter( 'powerhub_uitroltaken', function ( $taken ) {
 } );
 
 /* De blokken van de homepage, in volgorde. De inhoud komt uit de voorbeelden van elk blok. */
-const TAL_HOMEPAGE_BLOKKEN = array( 'hero', 'herkenning', 'traject', 'programma', 'vier-delen', 'academy', 'resultaten', 'voor-wie', 'over-mij', 'citaat', 'podcast', 'cta' );
+const TAL_HOMEPAGE_BLOKKEN = array( 'hero', 'beeld', 'herkenning', 'traject', 'programma', 'vier-delen', 'academy', 'resultaten', 'voor-wie', 'over-mij', 'citaat', 'podcast', 'cta' );
 
 /**
  * Homepage, foto's en menu aanmaken. Geeft false als ACF Pro nog ontbreekt, dan probeert de volgende uitrol het opnieuw.
@@ -239,5 +239,54 @@ function tal_uitrol_hero_kleine_foto() {
 		update_sub_field( array( 'field_powerhub_blokken', $hero + 1, 'field_hero_kop_beeld_x' ), 50, $id );
 		update_sub_field( array( 'field_powerhub_blokken', $hero + 1, 'field_hero_kop_beeld_y' ), 22, $id );
 	}
+	return true;
+}
+
+/* De brede foto uit de hero wordt een eigen blok direct na de hero, met dezelfde foto en uitsnede. */
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['brede-foto-blok-v1'] = 'tal_uitrol_brede_foto';
+	return $taken;
+} );
+
+function tal_uitrol_brede_foto() {
+	if ( ! function_exists( 'get_field' ) ) {
+		return false;
+	}
+	$id = (int) get_option( 'page_on_front' );
+	if ( ! $id ) {
+		return true;
+	}
+	$namen = (array) get_post_meta( $id, 'blokken', true );
+	if ( in_array( 'beeld', $namen, true ) ) {
+		return true;
+	}
+	$hero = array_search( 'hero', $namen, true );
+	if ( false === $hero ) {
+		return true;
+	}
+	$lees = function ( $veld ) use ( $id, $hero ) {
+		return get_post_meta( $id, 'blokken_' . $hero . '_' . $veld, true );
+	};
+	$foto = (int) $lees( 'beeld' );
+	if ( ! $foto ) {
+		$foto = tal_uitrol_bijlage( 'tal-16.jpg' );
+	}
+	$rijen = (array) get_field( 'field_powerhub_blokken', $id, false );
+	$nieuw = array(
+		'acf_fc_layout'              => 'beeld',
+		'field_beeld_beeld'          => $foto,
+		'field_beeld_verhouding'     => '16-8',
+		'field_beeld_beeld_x'        => '' !== $lees( 'beeld_x' ) ? (int) $lees( 'beeld_x' ) : 50,
+		'field_beeld_beeld_positie'  => '' !== $lees( 'beeld_positie' ) ? (int) $lees( 'beeld_positie' ) : 45,
+		'field_beeld_beeld_x_mobiel' => '' !== $lees( 'beeld_x_mobiel' ) ? $lees( 'beeld_x_mobiel' ) : 70,
+		'field_beeld_beeld_y_mobiel' => $lees( 'beeld_y_mobiel' ),
+		'field_beeld_achtergrond'    => 'pagina',
+		'field_beeld_ruimte_boven'   => 'geen',
+		'field_beeld_ruimte_onder'   => 'normaal',
+	);
+	array_splice( $rijen, $hero + 1, 0, array( $nieuw ) );
+	update_field( 'field_powerhub_blokken', $rijen, $id );
+	update_sub_field( array( 'field_powerhub_blokken', $hero + 1, 'field_hero_ruimte_onder' ), 'klein', $id );
+	echo 'Blok Brede foto toegevoegd na de hero.' . "\n";
 	return true;
 }

@@ -14,7 +14,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'POWERHUB_VERSIE', '1.2.1' );
+define( 'POWERHUB_VERSIE', '1.2.2' );
 define( 'POWERHUB_PAD', __DIR__ );
 define( 'POWERHUB_URL', get_template_directory_uri() . '/powerhub' );
 const POWERHUB_OPTIE = 'powerhub';

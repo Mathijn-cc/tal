@@ -2,6 +2,10 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.2.2 (22-11-2026)
+
+- Blokken in de editor: het icoon in de kopbalk van een blok verdwijnt niet meer na aanklikken of inklappen (ACF zet die kopbalk opnieuw neer; Powerhub zet het icoon terug).
+
 ## 1.2.1 (21-11-2026)
 
 - Paginacontrole Toegankelijkheid: knop Kopiëren zet alle bevindingen als platte tekst op het klembord (pagina, datum, per soort genummerd, met de grenzen), om te plakken in een ticket of mail. Ook via `powerhubControle.rapport()`.

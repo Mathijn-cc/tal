@@ -75,20 +75,8 @@ body .sectie-hero .knoppen {
 	padding-top:          14px;
 }
 
-/*Hero -- Brede foto*/
-body .sectie-hero .hero-beeld {
-	grid-column:          1 / -1;
-	aspect-ratio:         16 / 8;
-}
-
-@media (max-width: 860px) {
-	body .sectie-hero .hero-beeld {
-		aspect-ratio:         4 / 5;
-	}
-}
-
 /**Hero -- Mobiel**/
-/* Op een smal scherm vult de kop de breedte, staat Toch? eronder en loopt de foto tot de rand. */
+/* Op een smal scherm vult de kop de breedte en staat Toch? eronder. */
 @media (max-width: 860px) {
 	body .sectie-hero .hero-kop {
 		row-gap:              0;
@@ -134,14 +122,6 @@ body .sectie-hero .hero-beeld {
 		border-top:           1px solid var(--kleur-rand-subtiel);
 	}
 
-	body .sectie-hero .rij + .rij {
-		margin-top:           48px;
-		padding:              0;
-	}
-
-	body .sectie-hero .hero-beeld {
-		aspect-ratio:         4 / 5;
-	}
 }
 
 /**Hero -- Boven de vouw**/

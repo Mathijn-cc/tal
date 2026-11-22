@@ -1,0 +1,26 @@
+/**Brede foto -- Opbouw**/
+/* Volle breedte van het raster, dus met de zijmarge van de pagina. Op mobiel tot de rand, staand. */
+body .sectie-beeld .beeld-foto {
+	grid-column:          1 / -1;
+	aspect-ratio:         16 / 8;
+}
+
+body .sectie-beeld .beeld-foto.verhouding-21-9 {
+	aspect-ratio:         21 / 9;
+}
+
+body .sectie-beeld .beeld-foto.verhouding-16-9 {
+	aspect-ratio:         16 / 9;
+}
+
+@media (max-width: 860px) {
+	body .sectie-beeld .rij {
+		padding:              0;
+	}
+
+	body .sectie-beeld .beeld-foto,
+	body .sectie-beeld .beeld-foto.verhouding-21-9,
+	body .sectie-beeld .beeld-foto.verhouding-16-9 {
+		aspect-ratio:         4 / 5;
+	}
+}

@@ -219,9 +219,50 @@
 }
 
 /*Blok -- Velden*/
+/* Velden staan in een raster van twaalf kolommen. De breedte uit ACF (wrapper width) bepaalt het aantal kolommen,
+   zodat velden netjes naast en onder elkaar uitlijnen, zonder scheidingslijnen of verspringende inspringing. */
+#acf-group_powerhub_blokken .layout > .acf-fields,
+#acf-group_powerhub_blokken .layout .acf-repeater.-block .acf-row > .acf-fields {
+	display:              grid;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	column-gap:           20px;
+	align-items:          start;
+	padding:              6px 16px 12px;
+}
+
+#acf-group_powerhub_blokken .layout > .acf-fields > *,
+#acf-group_powerhub_blokken .layout .acf-repeater.-block .acf-row > .acf-fields > * {
+	grid-column:          1 / -1;
+}
+
 #acf-group_powerhub_blokken .layout .acf-fields > .acf-field {
-	padding:              12px 14px;
+	float:                none;
+	width:                auto !important;
+	min-height:           0 !important;
+	padding:              12px 0;
 	border-top:           0;
+	border-left:          0 !important;
+}
+
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="25"] { grid-column: span 3; }
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="33"],
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="34"] { grid-column: span 4; }
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="50"] { grid-column: span 6; }
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="66"],
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="67"] { grid-column: span 8; }
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="75"] { grid-column: span 9; }
+
+@media (max-width: 1100px) {
+	#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="25"] { grid-column: span 6; }
+	#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="33"],
+	#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="34"],
+	#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="66"],
+	#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="67"],
+	#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="75"] { grid-column: 1 / -1; }
+}
+
+@media (max-width: 782px) {
+	#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width] { grid-column: 1 / -1; }
 }
 
 #acf-group_powerhub_blokken .layout .acf-field .acf-label label {

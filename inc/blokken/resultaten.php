@@ -19,8 +19,8 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 				powerhub_acf_veld( $p, 'label', 'Label in de marge', 'text', powerhub_acf_breed( 50 ) ),
 				powerhub_acf_veld( $p, 'kop', 'Kop', 'text', array_merge( powerhub_acf_breed( 50 ), array( 'instructions' => TAL_KOP_UITLEG ) ) ),
 				tal_acf_lijst( $p, 'uitkomsten', 'Uitkomsten', array(
-					'icoon' => array( 'Icoon', 'select', array( 'choices' => $iconen, 'default_value' => 'zon', 'wrapper' => array( 'width' => 30 ) ) ),
-					'tekst' => array( 'Uitkomst', 'textarea', array( 'rows' => 2, 'wrapper' => array( 'width' => 70 ) ) ),
+					'icoon' => array( 'Icoon', 'select', array( 'choices' => $iconen, 'default_value' => 'zon', 'wrapper' => array( 'width' => 25 ) ) ),
+					'tekst' => array( 'Uitkomst', 'textarea', array( 'rows' => 2, 'wrapper' => array( 'width' => 75 ) ) ),
 				), array( 'layout' => 'table', 'button_label' => 'Uitkomst toevoegen' ) ),
 			),
 			powerhub_acf_weergave( $p, 'pagina' )

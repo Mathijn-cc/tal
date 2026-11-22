@@ -18,12 +18,11 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 				powerhub_acf_tab( $p, 'Inhoud' ),
 				powerhub_acf_veld( $p, 'label', 'Label', 'text', powerhub_acf_breed( 50 ) ),
 				powerhub_acf_veld( $p, 'kop', 'Kop', 'text', array_merge( powerhub_acf_breed( 50 ), array( 'instructions' => TAL_KOP_UITLEG ) ) ),
-				powerhub_acf_veld( $p, 'knop', 'Ronde knop', 'link', powerhub_acf_breed( 50 ) ),
-				powerhub_acf_veld( $p, 'email', 'E-mailadres', 'email', powerhub_acf_breed( 50 ) ),
-				powerhub_acf_veld( $p, 'regel', 'Regel onder het e-mailadres', 'text', powerhub_acf_breed( 50 ) ),
-				tal_acf_beeld( $p, 'beeld', 'Achtergrondfoto', array_merge( powerhub_acf_breed( 50 ), array( 'instructions' => 'Staat rechts op twee derde van de breedte, met een lichte donkere laag erover.' ) ) ),
+				powerhub_acf_veld( $p, 'knop', 'Ronde knop', 'link', powerhub_acf_breed( 33 ) ),
+				powerhub_acf_veld( $p, 'email', 'E-mailadres', 'email', powerhub_acf_breed( 33 ) ),
+				powerhub_acf_veld( $p, 'regel', 'Regel onder het e-mailadres', 'text', powerhub_acf_breed( 33 ) ),
+				...tal_acf_beeld_uitsnede( $p, 'Achtergrondfoto', 35, 55, array( 'instructions' => 'Staat rechts op twee derde van de breedte, met een lichte donkere laag erover.' ) ),
 			),
-			tal_acf_uitsnede( $p, 35, 55 ),
 			powerhub_acf_weergave( $p, 'donker' )
 		),
 	);

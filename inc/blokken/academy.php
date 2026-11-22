@@ -16,13 +16,12 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 		'sub_fields' => array_merge(
 			array(
 				powerhub_acf_tab( $p, 'Inhoud' ),
-				tal_acf_beeld( $p, 'beeld', 'Brede foto', array_merge( powerhub_acf_breed( 50 ), array( 'instructions' => 'Liggende foto.' ) ) ),
+				...tal_acf_beeld_uitsnede( $p, 'Brede foto', 35, 50, array( 'instructions' => 'Liggende foto.' ) ),
 				powerhub_acf_veld( $p, 'label', 'Label in de marge', 'text', powerhub_acf_breed( 50 ) ),
 				powerhub_acf_veld( $p, 'kop', 'Kop', 'text', array_merge( powerhub_acf_breed( 50 ), array( 'instructions' => TAL_KOP_UITLEG ) ) ),
 				powerhub_acf_veld( $p, 'ondertitel', 'Ondertitel', 'text' ),
 				powerhub_acf_veld( $p, 'tekst', 'Tekst', 'textarea', array( 'rows' => 5 ) ),
 			),
-			tal_acf_uitsnede( $p, 35, 50 ),
 			powerhub_acf_weergave( $p, 'donker' )
 		),
 	);

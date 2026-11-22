@@ -2,6 +2,10 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.2.3 (22-11-2026)
+
+- Blokken in de editor: velden staan in een raster van twaalf kolommen. De breedte van een veld (25, 33, 50, 66, 75 of 100) is een vast aantal kolommen, zodat velden over rijen heen uitlijnen. Geen scheidingslijnen en verspringende inspringing meer. Regel voor projecten: laat de breedtes per rij optellen tot 100.
+
 ## 1.2.2 (22-11-2026)
 
 - Blokken in de editor: het icoon in de kopbalk van een blok verdwijnt niet meer na aanklikken of inklappen (ACF zet die kopbalk opnieuw neer; Powerhub zet het icoon terug).

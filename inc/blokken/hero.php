@@ -21,7 +21,7 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 				tal_acf_beeld( $p, 'kop_beeld', 'Kleine foto in de kop', powerhub_acf_breed( 50 ) ),
 				powerhub_acf_veld( $p, 'kop_beeld_x', 'Kleine foto: uitsnede horizontaal', 'number', array_merge( powerhub_acf_breed( 25 ), array( 'min' => 0, 'max' => 100, 'step' => 1, 'append' => '%', 'default_value' => 50, 'instructions' => '0 is links, 100 is rechts.' ) ) ),
 				powerhub_acf_veld( $p, 'kop_beeld_y', 'Kleine foto: uitsnede verticaal', 'number', array_merge( powerhub_acf_breed( 25 ), array( 'min' => 0, 'max' => 100, 'step' => 1, 'append' => '%', 'default_value' => 22, 'instructions' => '0 is boven, 100 is onder. Zet het gezicht in beeld.' ) ) ),
-				powerhub_acf_veld( $p, 'naschrift', 'Naschrift', 'text', array_merge( powerhub_acf_breed( 50 ), array( 'instructions' => 'Kort woord in roze onder de kop. Bijvoorbeeld "Toch?".' ) ) ),
+				powerhub_acf_veld( $p, 'naschrift', 'Naschrift', 'text', array_merge( array(), array( 'instructions' => 'Kort woord in roze onder de kop. Bijvoorbeeld "Toch?".' ) ) ),
 				powerhub_acf_veld( $p, 'lead', 'Introzin', 'textarea', array( 'rows' => 2 ) ),
 				powerhub_acf_veld( $p, 'tekst', 'Tekst', 'textarea', array( 'rows' => 3, 'instructions' => 'Een lege regel begint een nieuwe alinea.' ) ),
 				powerhub_acf_veld( $p, 'nadruk', 'Slotvraag', 'text', array( 'instructions' => 'Komt donker en iets zwaarder onder de tekst.' ) ),

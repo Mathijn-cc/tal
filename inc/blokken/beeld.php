@@ -16,14 +16,13 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 		'sub_fields' => array_merge(
 			array(
 				powerhub_acf_tab( $p, 'Inhoud' ),
-				tal_acf_beeld( $p, 'beeld', 'Foto', array( 'instructions' => 'Liggende foto, minimaal 2400 pixels breed.' ) ),
+				...tal_acf_beeld_uitsnede( $p, 'Foto', 45, 50, array( 'instructions' => 'Liggende foto, minimaal 2400 pixels breed.' ) ),
 				powerhub_acf_veld( $p, 'alt', 'Beschrijving voor schermlezers', 'text', array( 'instructions' => 'Leeg: de beschrijving uit de mediabibliotheek.' ) ),
 				powerhub_acf_veld( $p, 'verhouding', 'Verhouding op desktop', 'button_group', array(
 					'choices'       => array( '16-8' => 'Breed (2:1)', '21-9' => 'Extra breed (21:9)', '16-9' => 'Film (16:9)' ),
 					'default_value' => '16-8',
 				) ),
 			),
-			tal_acf_uitsnede( $p, 45, 50 ),
 			powerhub_acf_weergave( $p, 'pagina' )
 		),
 	);

@@ -25,8 +25,8 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 				powerhub_acf_veld( $p, 'knop', 'Knop', 'link', array_merge( powerhub_acf_breed( 50 ), array( 'instructions' => 'Link naar de podcast. De afbeelding of tegel linkt hier ook naartoe.' ) ) ),
 				powerhub_acf_veld( $p, 'knop_2', 'Tweede knop', 'link', array_merge( powerhub_acf_breed( 50 ), array( 'instructions' => 'Bijvoorbeeld Apple Podcasts. Komt als lijnknop naast de eerste.' ) ) ),
 				powerhub_acf_veld( $p, 'spotify', 'Spotify-link voor de speler', 'url', array( 'instructions' => 'Link naar de show of een aflevering op open.spotify.com. Dan staat de echte Spotify-speler op de pagina.' ) ),
-				tal_acf_beeld( $p, 'beeld', 'Afbeelding van de speler', array_merge( powerhub_acf_breed( 50 ), array( 'instructions' => 'Alleen als er geen Spotify-link is. Leeg: een roze tegel met de titel.' ) ) ),
-				powerhub_acf_veld( $p, 'tegel_onderschrift', 'Onderschrift op de tegel', 'text', array_merge( powerhub_acf_breed( 50 ), powerhub_acf_als( $p, 'beeld', '', '==empty' ) ) ),
+				tal_acf_beeld( $p, 'beeld', 'Afbeelding van de speler', array_merge( array(), array( 'instructions' => 'Alleen als er geen Spotify-link is. Leeg: een roze tegel met de titel.' ) ) ),
+				powerhub_acf_veld( $p, 'tegel_onderschrift', 'Onderschrift op de tegel', 'text', array_merge( array(), powerhub_acf_als( $p, 'beeld', '', '==empty' ) ) ),
 			),
 			powerhub_acf_weergave( $p, 'wit' )
 		),

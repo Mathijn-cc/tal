@@ -19,8 +19,8 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 				powerhub_acf_veld( $p, 'kop', 'Kop', 'text', array( 'instructions' => TAL_KOP_UITLEG ) ),
 				powerhub_acf_veld( $p, 'intro', 'Intro', 'textarea', array( 'rows' => 4 ) ),
 				tal_acf_lijst( $p, 'lagen', 'Lagen', array(
-					'naam'  => array( 'Naam', 'text', array( 'wrapper' => array( 'width' => 40 ) ) ),
-					'vraag' => array( 'Vraag of uitleg', 'textarea', array( 'rows' => 2, 'wrapper' => array( 'width' => 60 ) ) ),
+					'naam'  => array( 'Naam', 'text', array( 'wrapper' => array( 'width' => 33 ) ) ),
+					'vraag' => array( 'Vraag of uitleg', 'textarea', array( 'rows' => 2, 'wrapper' => array( 'width' => 67 ) ) ),
 				), array( 'min' => 2, 'max' => 6, 'layout' => 'table', 'button_label' => 'Laag toevoegen' ) ),
 			),
 			powerhub_acf_weergave( $p, 'pagina' )

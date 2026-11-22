@@ -18,11 +18,10 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 				powerhub_acf_tab( $p, 'Inhoud' ),
 				powerhub_acf_veld( $p, 'kop', 'Kop', 'text', array( 'instructions' => TAL_KOP_UITLEG ) ),
 				tal_acf_lijst( $p, 'vragen', 'Vragen', array( 'vraag' => array( 'Vraag', 'textarea', array( 'rows' => 2 ) ) ), array( 'min' => 1, 'max' => 6, 'layout' => 'table', 'button_label' => 'Vraag toevoegen' ) ),
-				tal_acf_beeld( $p, 'beeld', 'Foto', array_merge( powerhub_acf_breed( 50 ), array( 'instructions' => 'Staande foto, alleen op desktop.' ) ) ),
+				...tal_acf_beeld_uitsnede( $p, 'Foto', 40, 50, array( 'instructions' => 'Staande foto.' ) ),
 				powerhub_acf_veld( $p, 'slot', 'Slotvraag', 'textarea', array( 'rows' => 2 ) ),
 				powerhub_acf_veld( $p, 'knop', 'Knop', 'link' ),
 			),
-			tal_acf_uitsnede( $p, 40, 50 ),
 			powerhub_acf_weergave( $p, 'tint' )
 		),
 	);

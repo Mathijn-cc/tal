@@ -18,7 +18,7 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 				powerhub_acf_tab( $p, 'Inhoud' ),
 				powerhub_acf_veld( $p, 'label', 'Label in de marge', 'text', powerhub_acf_breed( 50 ) ),
 				powerhub_acf_veld( $p, 'kop', 'Kop', 'text', array_merge( powerhub_acf_breed( 50 ), array( 'instructions' => TAL_KOP_UITLEG ) ) ),
-				powerhub_acf_veld( $p, 'kop_roze', 'Kop in roze', 'true_false', array_merge( powerhub_acf_breed( 50 ), array( 'ui' => 1 ) ) ),
+				powerhub_acf_veld( $p, 'kop_roze', 'Kop in roze', 'true_false', array( 'ui' => 1 ) ),
 				powerhub_acf_veld( $p, 'claim', 'Claim', 'textarea', array( 'rows' => 3, 'instructions' => 'Grote zin die bij scrollen inkleurt. ' . TAL_KOP_UITLEG ) ),
 				powerhub_acf_veld( $p, 'lead', 'Introzin', 'textarea', array( 'rows' => 3 ) ),
 				powerhub_acf_veld( $p, 'tekst', 'Tekst', 'wysiwyg', array( 'media_upload' => 0, 'toolbar' => 'basic', 'tabs' => 'visual' ) ),

@@ -132,6 +132,13 @@ function tal_acf_uitsnede( $prefix, $standaard_y = 40, $standaard_x = 50, $voor 
 }
 
 /**
+ * Beeldveld op volle breedte met de vier uitsnede-velden er direct onder (één rij van vier).
+ */
+function tal_acf_beeld_uitsnede( $prefix, $label, $standaard_y = 40, $standaard_x = 50, $extra = array() ) {
+	return array_merge( array( tal_acf_beeld( $prefix, 'beeld', $label, $extra ) ), tal_acf_uitsnede( $prefix, $standaard_y, $standaard_x ) );
+}
+
+/**
  * Inline stijl met de uitsnede als CSS-variabelen (--x, --y, --x-mobiel, --y-mobiel). De CSS kiest per schermbreedte.
  */
 function tal_uitsnede_stijl( $blok, $standaard_x = 50, $standaard_y = 40 ) {

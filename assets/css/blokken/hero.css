@@ -28,9 +28,11 @@ body .sectie-hero .hero-kop:has(.hero-foto) .hero-mini {
 	display:              none;
 }
 
+/* Tekst begint op kolom 4, dezelfde lijn als de inhoud van de andere secties (na het label in de marge). */
 body .sectie-hero .hero-kop:has(.hero-foto) .hero-tekst {
-	grid-column:          5 / span 6;
+	grid-column:          4 / span 6;
 	grid-row:             3;
+	padding-top:          clamp(32px, 4vw, 72px);
 }
 
 /*Hero -- Kleine foto in de kop*/
@@ -93,6 +95,10 @@ body .sectie-hero .knoppen {
 	body .sectie-hero .hero-kop > *,
 	body .sectie-hero .hero-kop:has(.hero-foto) .hero-tekst {
 		grid-row:             auto;
+	}
+
+	body .sectie-hero .hero-kop:has(.hero-foto) .hero-tekst {
+		padding-top:          24px;
 	}
 
 	body .sectie-hero .hero-kop > h1,

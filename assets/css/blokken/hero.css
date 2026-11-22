@@ -143,3 +143,22 @@ body .sectie-hero .hero-beeld {
 		aspect-ratio:         4 / 5;
 	}
 }
+
+/**Hero -- Boven de vouw**/
+/* Op desktop past de kop met Toch? altijd in het eerste scherm: de lettergrootte schaalt ook mee met de schermhoogte
+   (kopbalk, ruimte boven en de tussenruimte gaan eraf, de rest gedeeld door ruim vier regels). */
+@media (min-width: 861px) {
+	body .sectie-hero .hero-kop > h1,
+	body .sectie-hero .hero-kop > h2,
+	body .sectie-hero .hero-naschrift {
+		font-size:            clamp(var(--minimaal-hero), min(var(--vloeiend-hero), calc((100svh - 250px) / 4)), var(--maat-hero));
+	}
+
+	body .sectie-hero .hero-kop {
+		row-gap:              clamp(24px, 4svh, 56px);
+	}
+
+	body .sectie-hero .hero-naschrift {
+		margin-top:           -0.1em;
+	}
+}

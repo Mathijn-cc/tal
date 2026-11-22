@@ -151,22 +151,27 @@
 			if (!kop) return;
 			var hoogteVoor = kop.getBoundingClientRect().height;
 			var split = Split.create(kop, { type: 'words', mask: 'words' });
-			(split.masks || []).forEach(function (m) {
-				m.style.paddingTop = '0.12em';
-				m.style.marginTop = '-0.12em';
-				m.style.paddingBottom = '0.28em';
-				m.style.marginBottom = '-0.28em';
-			});
+			/* Ruimte rondom elk woord in het masker, zodat schreven en uitlopers (s, j, g, t) niet worden afgekapt. */
+			var ruimte = function (m) {
+				m.style.padding = '0.12em 0.1em 0.28em';
+				m.style.margin = '-0.12em -0.1em -0.28em';
+			};
+			(split.masks || []).forEach(ruimte);
 			var verschil = kop.getBoundingClientRect().height - hoogteVoor;
 			if (Math.abs(verschil) > 0.5) kop.style.marginBottom = (-verschil) + 'px';
 			var tl = gsap.timeline({ delay: 0.15 });
 			tl.from(split.words, { yPercent: 110, duration: 1, ease: 'power4.out', stagger: 0.045 });
 			var naschrift = heroKop.querySelector('.hero-naschrift');
+			var nsplit = null;
 			if (naschrift) {
-				var nsplit = Split.create(naschrift, { type: 'words', mask: 'words' });
-				(nsplit.masks || []).forEach(function (m) { m.style.paddingBottom = '0.28em'; m.style.marginBottom = '-0.28em'; });
+				nsplit = Split.create(naschrift, { type: 'words', mask: 'words' });
+				(nsplit.masks || []).forEach(ruimte);
 				tl.from(nsplit.words, { yPercent: 110, duration: 1.1, ease: 'power4.out' }, '-=0.35');
 			}
+			/* Na de animatie de maskers openzetten: niets kan meer worden afgekapt. */
+			tl.eventCallback('onComplete', function () {
+				(split.masks || []).concat(naschrift && nsplit ? nsplit.masks || [] : []).forEach(function (m) { m.style.overflow = 'visible'; });
+			});
 		});
 
 		/* Koppen en ondertitels (tussenkoppen, labels): regel voor regel omhoog uit een masker. */

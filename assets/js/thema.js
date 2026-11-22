@@ -160,13 +160,14 @@
 			var verschil = kop.getBoundingClientRect().height - hoogteVoor;
 			if (Math.abs(verschil) > 0.5) kop.style.marginBottom = (-verschil) + 'px';
 			var tl = gsap.timeline({ delay: 0.15 });
-			tl.from(split.words, { yPercent: 110, duration: 1, ease: 'power4.out', stagger: 0.045 });
+			/* Start ruim onder het masker (dat heeft ruimte voor uitlopers), zodat er vooraf niets van de letters zichtbaar is. */
+			tl.from(split.words, { yPercent: 140, duration: 1, ease: 'power4.out', stagger: 0.045 });
 			var naschrift = heroKop.querySelector('.hero-naschrift');
 			var nsplit = null;
 			if (naschrift) {
 				nsplit = Split.create(naschrift, { type: 'words', mask: 'words' });
 				(nsplit.masks || []).forEach(ruimte);
-				tl.from(nsplit.words, { yPercent: 110, duration: 1.1, ease: 'power4.out' }, '-=0.35');
+				tl.from(nsplit.words, { yPercent: 140, duration: 1.1, ease: 'power4.out' }, '-=0.35');
 			}
 			/* Na de animatie de maskers openzetten: niets kan meer worden afgekapt. */
 			tl.eventCallback('onComplete', function () {
@@ -216,8 +217,9 @@
 		var mini = document.querySelector('.sectie-hero .hero-mini');
 		if (mini) {
 			var mb = mini.querySelector('.foto-beeld');
-			gsap.fromTo(mini, { clipPath: 'inset(0% 50% 0% 50% round 0.36em)' },
-				{ clipPath: 'inset(0% 0% 0% 0% round 0.36em)', duration: 1.3, delay: 0.5, ease: 'expo.inOut', clearProps: 'clipPath' });
+			/* Ook onzichtbaar bij de start: een dichtgeknepen foto laat anders een dun streepje zien. */
+			gsap.fromTo(mini, { clipPath: 'inset(0% 50% 0% 50% round 0.36em)', autoAlpha: 0 },
+				{ clipPath: 'inset(0% 0% 0% 0% round 0.36em)', autoAlpha: 1, duration: 1.3, delay: 0.5, ease: 'expo.inOut', clearProps: 'clipPath' });
 			if (mb) gsap.fromTo(mb, { scale: 1.25 }, { scale: 1, duration: 1.6, delay: 0.5, ease: 'expo.out', force3D: true });
 		}
 

@@ -29,6 +29,7 @@ body .sectie-hero .hero-kop:has(.hero-foto) .hero-mini {
 }
 
 body .sectie-hero .hero-kop:has(.hero-foto) .hero-tekst {
+	grid-column:          5 / span 6;
 	grid-row:             3;
 }
 
@@ -123,7 +124,7 @@ body .sectie-hero .hero-beeld {
 
 	body .sectie-hero .hero-naschrift {
 		justify-self:         start;
-		margin-top:           0.12em;
+		margin-top:           0.35em;
 	}
 
 	body .sectie-hero .hero-tekst {

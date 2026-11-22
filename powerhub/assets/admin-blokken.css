@@ -225,9 +225,9 @@
 #acf-group_powerhub_blokken .layout .acf-repeater.-block .acf-row > .acf-fields {
 	display:              grid;
 	grid-template-columns: repeat(12, minmax(0, 1fr));
-	column-gap:           20px;
-	align-items:          start;
-	padding:              6px 16px 12px;
+	column-gap:           0;
+	align-items:          stretch;
+	padding:              6px 4px 12px;
 }
 
 #acf-group_powerhub_blokken .layout > .acf-fields > *,
@@ -235,13 +235,46 @@
 	grid-column:          1 / -1;
 }
 
+/* Elk veld is een kolom: label boven, invoer onderaan. Velden in één rij zijn even hoog, dus de invoer staat
+   altijd op dezelfde lijn, ook als het ene veld een uitleg heeft en het andere niet. Een dunne lijn scheidt de rijen. */
 #acf-group_powerhub_blokken .layout .acf-fields > .acf-field {
+	display:              flex;
+	flex-direction:       column;
 	float:                none;
 	width:                auto !important;
 	min-height:           0 !important;
-	padding:              12px 0;
-	border-top:           0;
+	padding:              16px 12px;
+	border-top:           1px solid var(--bh-lijn);
 	border-left:          0 !important;
+}
+
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field > .acf-input {
+	margin-top:           auto;
+}
+
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-tab-wrap + .acf-field,
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field.acf-field-tab + .acf-field {
+	border-top-color:     transparent;
+}
+
+/*Blok -- Groepen*/
+/* Velden die bij elkaar horen (50/50-instellingen, uitsnede van een foto) staan samen op een getint vlak. */
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field.veld-groep {
+	margin:               10px 0;
+	border-top-color:     transparent;
+	background:           var(--bh-pagina);
+}
+
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field.groep-begin {
+	border-radius:        12px 0 0 12px;
+}
+
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field.groep-eind {
+	border-radius:        0 12px 12px 0;
+}
+
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field.veld-groep + .acf-field:not(.veld-groep) {
+	border-top-color:     transparent;
 }
 
 #acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="25"] { grid-column: span 3; }

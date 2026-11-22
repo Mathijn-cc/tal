@@ -109,16 +109,16 @@ function powerhub_acf_weergave( $prefix, $achtergrond = '', $extra_weergave = ar
 				'default_value' => $standaard,
 				'instructions'  => '50/50 verdeelt het blok in twee vlakken met een harde overgang, bijvoorbeeld om een beeld over de grens te laten vallen.',
 			) ) ),
-			powerhub_acf_veld( $prefix, 'vlak_1', 'Eerste helft', 'button_group', array_merge( $gedeeld, powerhub_acf_breed( 34, 'kleurkeuze alleen-bolletjes' ), array(
+			powerhub_acf_veld( $prefix, 'vlak_1', 'Eerste helft', 'button_group', array_merge( $gedeeld, powerhub_acf_breed( 34, 'kleurkeuze alleen-bolletjes veld-groep groep-begin' ), array(
 				'choices'       => $keuzes,
 				'default_value' => $standaard,
 				'instructions'  => 'De tekst staat in deze helft en krijgt een passende kleur.',
 			) ) ),
-			powerhub_acf_veld( $prefix, 'vlak_2', 'Tweede helft', 'button_group', array_merge( $gedeeld, powerhub_acf_breed( 33, 'kleurkeuze alleen-bolletjes' ), array(
+			powerhub_acf_veld( $prefix, 'vlak_2', 'Tweede helft', 'button_group', array_merge( $gedeeld, powerhub_acf_breed( 33, 'kleurkeuze alleen-bolletjes veld-groep' ), array(
 				'choices'       => $keuzes,
 				'default_value' => (string) array_key_first( $keuzes ),
 			) ) ),
-			powerhub_acf_veld( $prefix, 'verdeling', 'Verdeling', 'button_group', array_merge( $gedeeld, powerhub_acf_breed( 33 ), array(
+			powerhub_acf_veld( $prefix, 'verdeling', 'Verdeling', 'button_group', array_merge( $gedeeld, powerhub_acf_breed( 33, 'veld-groep groep-eind' ), array(
 				'choices'       => array( 'boven' => 'Boven / onder', 'links' => 'Links / rechts' ),
 				'default_value' => 'boven',
 			) ) ),

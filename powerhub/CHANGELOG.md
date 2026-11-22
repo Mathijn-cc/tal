@@ -2,6 +2,11 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.2.4 (22-11-2026)
+
+- Blokken in de editor: velden in één rij zijn even hoog en de invoer staat onderaan, zodat invoervelden op één lijn staan, ook als maar één veld een uitleg heeft. Dunne lijn tussen rijen.
+- Velden die bij elkaar horen staan samen op een getint vlak: geef ze de wrapper-class `veld-groep`, het eerste ook `groep-begin`, het laatste `groep-eind`. De 50/50-instellingen gebruiken dit al.
+
 ## 1.2.3 (22-11-2026)
 
 - Blokken in de editor: velden staan in een raster van twaalf kolommen. De breedte van een veld (25, 33, 50, 66, 75 of 100) is een vast aantal kolommen, zodat velden over rijen heen uitlijnen. Geen scheidingslijnen en verspringende inspringing meer. Regel voor projecten: laat de breedtes per rij optellen tot 100.

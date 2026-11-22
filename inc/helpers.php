@@ -113,8 +113,8 @@ function tal_acf_beeld( $prefix, $naam, $label, $extra = array() ) {
  * Velden: beeld_x, beeld_positie (verticaal, bestaande naam), beeld_x_mobiel, beeld_y_mobiel.
  */
 function tal_acf_uitsnede( $prefix, $standaard_y = 40, $standaard_x = 50, $voor = '' ) {
-	$getal = function ( $naam, $label, $standaard, $uitleg ) use ( $prefix, $voor ) {
-		return powerhub_acf_veld( $prefix, $naam, $voor ? $voor . ': ' . lcfirst( $label ) : $label, 'number', array_merge( powerhub_acf_breed( 25 ), array(
+	$getal = function ( $naam, $label, $standaard, $uitleg, $groep = 'veld-groep' ) use ( $prefix, $voor ) {
+		return powerhub_acf_veld( $prefix, $naam, $voor ? $voor . ': ' . lcfirst( $label ) : $label, 'number', array_merge( powerhub_acf_breed( 25, $groep ), array(
 			'min'           => 0,
 			'max'           => 100,
 			'step'          => 1,
@@ -124,10 +124,10 @@ function tal_acf_uitsnede( $prefix, $standaard_y = 40, $standaard_x = 50, $voor 
 		) ) );
 	};
 	return array(
-		$getal( 'beeld_x', 'Uitsnede horizontaal', $standaard_x, '0 is links, 100 is rechts.' ),
+		$getal( 'beeld_x', 'Uitsnede horizontaal', $standaard_x, '0 is links, 100 is rechts.', 'veld-groep groep-begin' ),
 		$getal( 'beeld_positie', 'Uitsnede verticaal', $standaard_y, '0 is boven, 100 is onder.' ),
 		$getal( 'beeld_x_mobiel', 'Mobiel horizontaal', '', 'Leeg: gelijk aan desktop.' ),
-		$getal( 'beeld_y_mobiel', 'Mobiel verticaal', '', 'Leeg: gelijk aan desktop.' ),
+		$getal( 'beeld_y_mobiel', 'Mobiel verticaal', '', 'Leeg: gelijk aan desktop.', 'veld-groep groep-eind' ),
 	);
 }
 

@@ -18,9 +18,9 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 			array(
 				powerhub_acf_tab( $p, 'Inhoud' ),
 				powerhub_acf_veld( $p, 'kop', 'Kop', 'text', array( 'instructions' => 'Typ {foto} op de plek waar de kleine foto in de zin staat. ' . TAL_KOP_UITLEG ) ),
-				tal_acf_beeld( $p, 'kop_beeld', 'Kleine foto in de kop', powerhub_acf_breed( 50 ) ),
-				powerhub_acf_veld( $p, 'kop_beeld_x', 'Kleine foto: uitsnede horizontaal', 'number', array_merge( powerhub_acf_breed( 25 ), array( 'min' => 0, 'max' => 100, 'step' => 1, 'append' => '%', 'default_value' => 50, 'instructions' => '0 is links, 100 is rechts.' ) ) ),
-				powerhub_acf_veld( $p, 'kop_beeld_y', 'Kleine foto: uitsnede verticaal', 'number', array_merge( powerhub_acf_breed( 25 ), array( 'min' => 0, 'max' => 100, 'step' => 1, 'append' => '%', 'default_value' => 22, 'instructions' => '0 is boven, 100 is onder. Zet het gezicht in beeld.' ) ) ),
+				tal_acf_beeld( $p, 'kop_beeld', 'Foto naast de kop', array_merge( powerhub_acf_breed( 50, 'veld-groep groep-begin' ), array( 'instructions' => 'Op desktop groot rechts naast de kop, op mobiel klein in de zin.' ) ) ),
+				powerhub_acf_veld( $p, 'kop_beeld_x', 'Uitsnede horizontaal', 'number', array_merge( powerhub_acf_breed( 25, 'veld-groep' ), array( 'min' => 0, 'max' => 100, 'step' => 1, 'append' => '%', 'default_value' => 50, 'instructions' => '0 is links, 100 is rechts.' ) ) ),
+				powerhub_acf_veld( $p, 'kop_beeld_y', 'Uitsnede verticaal', 'number', array_merge( powerhub_acf_breed( 25, 'veld-groep groep-eind' ), array( 'min' => 0, 'max' => 100, 'step' => 1, 'append' => '%', 'default_value' => 22, 'instructions' => '0 is boven, 100 is onder. Zet het gezicht in beeld.' ) ) ),
 				powerhub_acf_veld( $p, 'naschrift', 'Naschrift', 'text', array_merge( array(), array( 'instructions' => 'Kort woord in roze onder de kop. Bijvoorbeeld "Toch?".' ) ) ),
 				powerhub_acf_veld( $p, 'lead', 'Introzin', 'textarea', array( 'rows' => 2 ) ),
 				powerhub_acf_veld( $p, 'tekst', 'Tekst', 'textarea', array( 'rows' => 3, 'instructions' => 'Een lege regel begint een nieuwe alinea.' ) ),

@@ -145,8 +145,33 @@
 	var klaar = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
 	klaar.then(function () {
 
+		/* Hero: de kop woord voor woord omhoog uit een masker, kort na elkaar; daarna komt Toch? erachteraan. */
+		if (Split) alle('.sectie-hero .hero-kop').forEach(function (heroKop) {
+			var kop = heroKop.querySelector('h1, h2');
+			if (!kop) return;
+			var hoogteVoor = kop.getBoundingClientRect().height;
+			var split = Split.create(kop, { type: 'words', mask: 'words' });
+			(split.masks || []).forEach(function (m) {
+				m.style.paddingTop = '0.12em';
+				m.style.marginTop = '-0.12em';
+				m.style.paddingBottom = '0.28em';
+				m.style.marginBottom = '-0.28em';
+			});
+			var verschil = kop.getBoundingClientRect().height - hoogteVoor;
+			if (Math.abs(verschil) > 0.5) kop.style.marginBottom = (-verschil) + 'px';
+			var tl = gsap.timeline({ delay: 0.15 });
+			tl.from(split.words, { yPercent: 110, duration: 1, ease: 'power4.out', stagger: 0.045 });
+			var naschrift = heroKop.querySelector('.hero-naschrift');
+			if (naschrift) {
+				var nsplit = Split.create(naschrift, { type: 'words', mask: 'words' });
+				(nsplit.masks || []).forEach(function (m) { m.style.paddingBottom = '0.28em'; m.style.marginBottom = '-0.28em'; });
+				tl.from(nsplit.words, { yPercent: 110, duration: 1.1, ease: 'power4.out' }, '-=0.35');
+			}
+		});
+
 		/* Koppen en ondertitels (tussenkoppen, labels): regel voor regel omhoog uit een masker. */
 		if (Split) alle('main h1, main h2, main .kop-m, main .marge, main .bovenkop-tal').forEach(function (kop) {
+			if (kop.closest('.hero-kop')) return;
 			var hoogteVoor = kop.getBoundingClientRect().height;
 			var split = Split.create(kop, { type: 'lines', mask: 'lines' });
 			/* Ruimte boven en onder elke regel, zodat j, g, p en accenten niet worden afgesneden. */

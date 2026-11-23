@@ -180,6 +180,10 @@
 			if (kop.closest('.hero-kop')) return;
 			var hoogteVoor = kop.getBoundingClientRect().height;
 			var split = Split.create(kop, { type: 'lines', mask: 'lines' });
+			/* De regels onder elkaar als flex-kolom: dan tellen de negatieve marges van de maskers gewoon op
+			   in plaats van in elkaar te vallen, en is de opgeknipte kop exact even hoog als de gewone kop. */
+			kop.style.display = 'flex';
+			kop.style.flexDirection = 'column';
 			/* Ruimte boven en onder elke regel, zodat j, g, p en accenten niet worden afgesneden. */
 			(split.masks || []).forEach(function (m) {
 				m.style.paddingTop = '0.12em';
@@ -195,7 +199,7 @@
 				yPercent: 105, duration: 1.2, ease: 'power4.out', stagger: 0.08, scrollTrigger: opScroll(kop),
 				/* Niet terugzetten bij een stiftstreep (die animeert nog) of een foto in de kop:
 				   terugzetten verandert daar de hoogte van de kop en dan verspringt de tekst eronder. */
-				onComplete: function () { if (!kop.querySelector('.onderstreep, .hero-mini')) { split.revert(); kop.style.marginBottom = ''; } }
+				onComplete: function () { if (!kop.querySelector('.onderstreep, .hero-mini')) { split.revert(); kop.style.marginBottom = ''; kop.style.display = ''; kop.style.flexDirection = ''; } }
 			});
 		});
 

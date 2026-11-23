@@ -1406,6 +1406,50 @@ body .sectie.sectie-tekst .knop {
 	margin-top:           var(--ruimte-8);
 }
 
+/**Site -- 404**/
+/* Groot getal links als decoratie, rechts de tekst uit Powerhub > 404. */
+body .sectie-niet-gevonden {
+	display:              flex;
+	align-items:          center;
+	min-height:           calc(100vh - var(--ruimte-kop-balk));
+}
+
+body .sectie-niet-gevonden .rij {
+	width:                100%;
+	row-gap:              24px;
+	align-items:          center;
+}
+
+body .sectie-niet-gevonden .niet-gevonden-code {
+	grid-column:          1 / span 5;
+	color:                var(--kleur-accent-200);
+	font-family:          var(--letter-kop);
+	font-size:            clamp(140px, 22vw, 340px);
+	line-height:          0.85;
+	letter-spacing:       var(--spatiering-groot);
+}
+
+body .sectie-niet-gevonden .niet-gevonden-tekst {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  var(--ruimte-5);
+	grid-column:          6 / span 7;
+	min-width:            0;
+}
+
+body .sectie-niet-gevonden .niet-gevonden-tekst h1 {
+	font-size:            clamp(var(--minimaal-h1), var(--vloeiend-h1), var(--maat-h1));
+	line-height:          var(--regel-h1);
+}
+
+body .sectie-niet-gevonden .niet-gevonden-tekst .lead {
+	max-width:            46ch;
+}
+
+body .sectie-niet-gevonden .niet-gevonden-tekst .knoppen {
+	padding-top:          var(--ruimte-3);
+}
+
 /**Basis -- Beweging**/
 @media (prefers-reduced-motion: reduce) {
 	*,

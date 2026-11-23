@@ -80,3 +80,32 @@ add_filter( 'rank_math/frontend/title', $tal_designsysteem_titel, 99 );
 add_filter( 'rank_math/frontend/robots', function ( $robots ) {
 	return function_exists( 'powerhub_is_designsysteem' ) && powerhub_is_designsysteem() ? array( 'index' => 'noindex', 'follow' => 'nofollow' ) : $robots;
 }, 99 );
+
+/* Tab 404: titel, tekst en knoptekst van de pagina die niet bestaat. De knop gaat altijd naar de homepage. */
+const TAL_404_STANDAARD = array(
+	'niet_gevonden_titel' => 'Even de *weg kwijt*?',
+	'niet_gevonden_tekst' => 'Dat overkomt de beste leiders. Deze pagina bestaat niet (meer), maar je hoeft niet onnodig te zwemmen. Even pauze, richting kiezen en met vertrouwen verder. Zo werkt het in leiderschap, en zo werkt het hier.',
+	'niet_gevonden_knop'  => 'Terug naar de homepage',
+);
+
+add_action( 'powerhub_registreren', function () {
+	powerhub_tab( 'niet-gevonden', array(
+		'titel'    => '404',
+		'uitleg'   => 'De pagina die bezoekers zien als een link niet (meer) werkt',
+		'niveau'   => 'klant',
+		'volgorde' => 30,
+		'velden'   => array(
+			'niet_gevonden_titel' => array( 'type' => 'tekst', 'label' => 'Titel', 'standaard' => TAL_404_STANDAARD['niet_gevonden_titel'], 'uitleg' => 'Zet *sterretjes* om woorden voor de koraal stiftstreep.' ),
+			'niet_gevonden_tekst' => array( 'type' => 'tekstvak', 'label' => 'Tekst', 'standaard' => TAL_404_STANDAARD['niet_gevonden_tekst'] ),
+			'niet_gevonden_knop'  => array( 'type' => 'tekst', 'label' => 'Knoptekst', 'standaard' => TAL_404_STANDAARD['niet_gevonden_knop'], 'uitleg' => 'De knop gaat altijd naar de homepage.' ),
+		),
+	) );
+} );
+
+/**
+ * Waarde voor de 404-pagina: uit Powerhub, of de standaardtekst als het veld leeg is gelaten.
+ */
+function tal_404( $sleutel ) {
+	$waarde = trim( (string) powerhub( $sleutel ) );
+	return '' !== $waarde ? $waarde : TAL_404_STANDAARD[ $sleutel ];
+}

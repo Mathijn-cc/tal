@@ -60,6 +60,46 @@ body .sectie-contact .contact-gegevens li {
 	gap:                  var(--ruimte-4);
 }
 
+/*Contact -- Persoon*/
+/* Ronde foto met naam en e-mailadres, zodat contact opnemen persoonlijk voelt. */
+body .sectie-contact .contact-gegevens .contact-persoon {
+	gap:                  var(--ruimte-5);
+	padding-bottom:       var(--ruimte-2);
+}
+
+body .sectie-contact .contact-gegevens .contact-foto {
+	display:              block;
+	flex-shrink:          0;
+	width:                72px;
+	height:               72px;
+	overflow:             hidden;
+	border-radius:        var(--hoek-rond);
+	background:           var(--kleur-accent-200);
+}
+
+body .sectie-contact .contact-gegevens .contact-foto img {
+	width:                100%;
+	height:               100%;
+	object-fit:           cover;
+}
+
+body .sectie-contact .contact-gegevens .contact-persoon-tekst {
+	display:              flex;
+	flex-direction:       column;
+	align-items:          flex-start;
+}
+
+body .sectie-contact .contact-gegevens .contact-naam {
+	color:                var(--kleur-tekst-kop);
+	font-family:          var(--letter-kop);
+	font-size:            var(--maat-h4);
+	line-height:          var(--regel-h4);
+}
+
+body .sectie-contact .contact-gegevens .contact-persoon .lijnlink {
+	min-height:           36px;
+}
+
 body .sectie-contact .contact-gegevens address {
 	color:                var(--kleur-tekst-kop);
 	font-style:           normal;

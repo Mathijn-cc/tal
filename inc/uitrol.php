@@ -439,3 +439,31 @@ function tal_uitrol_contactformulier_email() {
 	echo is_wp_error( $uit ) ? "E-mailveld bijwerken mislukt.\n" : "E-mailveld bijgewerkt.\n";
 	return ! is_wp_error( $uit );
 }
+
+/* Contactblok: foto van Chantal met haar naam bij het e-mailadres. */
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['contact-foto-v1'] = 'tal_uitrol_contact_foto';
+	return $taken;
+} );
+
+function tal_uitrol_contact_foto() {
+	if ( ! function_exists( 'update_sub_field' ) ) {
+		return false;
+	}
+	$pagina = get_page_by_path( 'contact' );
+	if ( ! $pagina ) {
+		return true;
+	}
+	$rijen = (array) get_post_meta( $pagina->ID, 'blokken', true );
+	$plek  = array_search( 'contact', $rijen, true );
+	if ( false === $plek ) {
+		return true;
+	}
+	$foto = tal_uitrol_bijlage( 'tal-1.jpg' );
+	if ( $foto ) {
+		update_sub_field( array( 'field_powerhub_blokken', $plek + 1, 'field_contact_foto' ), $foto, $pagina->ID );
+	}
+	update_sub_field( array( 'field_powerhub_blokken', $plek + 1, 'field_contact_naam' ), 'Chantal Strijbos', $pagina->ID );
+	echo "Foto bij het e-mailadres op de contactpagina gezet.\n";
+	return true;
+}

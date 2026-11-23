@@ -25,7 +25,18 @@ $anker    = sanitize_title( ! empty( $blok['agenda_anker'] ) ? $blok['agenda_ank
 
 			<?php if ( $email || $telefoon || $adres || $social ) : ?>
 				<ul class="contact-gegevens">
-					<?php if ( $email ) : ?>
+					<?php if ( $email && ! empty( $blok['foto'] ) ) : ?>
+						<?php /* Persoonlijk: foto met naam, het e-mailadres eronder. */ ?>
+						<li class="contact-persoon">
+							<span class="contact-foto"><?php echo powerhub_beeld( $blok['foto'], 'medium', array( 'alt' => '', 'sizes' => '72px', 'style' => 'object-position: 50% 25%;' ) ); // phpcs:ignore ?></span>
+							<span class="contact-persoon-tekst">
+								<?php if ( ! empty( $blok['naam'] ) ) : ?>
+									<span class="contact-naam"><?php echo esc_html( $blok['naam'] ); ?></span>
+								<?php endif; ?>
+								<a class="lijnlink" href="mailto:<?php echo esc_attr( antispambot( $email ) ); ?>"><?php echo esc_html( antispambot( $email ) ); ?></a>
+							</span>
+						</li>
+					<?php elseif ( $email ) : ?>
 						<li>
 							<span class="contact-icoon"><?php echo powerhub_icoon( 'mail' ); // phpcs:ignore ?></span>
 							<a class="lijnlink" href="mailto:<?php echo esc_attr( antispambot( $email ) ); ?>"><?php echo esc_html( antispambot( $email ) ); ?></a>

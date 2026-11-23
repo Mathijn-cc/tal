@@ -153,6 +153,18 @@ body .is-donker .kop-m {
 	color:                var(--kleur-tekst-op-donker);
 }
 
+/*Typografie -- Koppen die animeren*/
+/* De animatie knipt koppen in regels met een masker (negatieve marge plus padding). Een eigen opmaakcontext
+   voorkomt dat die marges door de kop heen lekken: de kop houdt tijdens en na de animatie exact dezelfde hoogte,
+   dus niets springt op als de animatie klaar is. */
+body main h1,
+body main h2,
+body main .kop-m,
+body main .marge,
+body main .bovenkop-tal {
+	display:              flow-root;
+}
+
 /*Typografie -- Tekststijlen*/
 body .lead {
 	color:                var(--kleur-tekst-kop);

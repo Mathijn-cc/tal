@@ -467,3 +467,22 @@ function tal_uitrol_contact_foto() {
 	echo "Foto bij het e-mailadres op de contactpagina gezet.\n";
 	return true;
 }
+
+/* Contactblok: knop onder de naam die naar de agenda springt. */
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['contact-plan-knop-v1'] = 'tal_uitrol_contact_plan_knop';
+	return $taken;
+} );
+
+function tal_uitrol_contact_plan_knop() {
+	if ( ! function_exists( 'update_sub_field' ) ) {
+		return false;
+	}
+	$pagina = get_page_by_path( 'contact' );
+	$rijen  = $pagina ? (array) get_post_meta( $pagina->ID, 'blokken', true ) : array();
+	$plek   = array_search( 'contact', $rijen, true );
+	if ( false !== $plek ) {
+		update_sub_field( array( 'field_powerhub_blokken', $plek + 1, 'field_contact_plan_knop' ), 'Plan direct een kennismaking', $pagina->ID );
+	}
+	return true;
+}

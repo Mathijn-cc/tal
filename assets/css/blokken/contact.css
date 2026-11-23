@@ -100,6 +100,28 @@ body .sectie-contact .contact-gegevens .contact-persoon .lijnlink {
 	min-height:           36px;
 }
 
+/*Contact -- Knop naar de agenda*/
+/* Het pijltje wipt zacht op en neer en schuift bij hover iets omlaag: de agenda staat verderop. */
+body .sectie-contact .contact-gegevens .contact-plan {
+	margin-top:           var(--ruimte-3);
+}
+
+body .sectie-contact .contact-gegevens .contact-plan .contact-plan-pijl {
+	flex-shrink:          0;
+	animation:            contact-pijl 1.8s ease-in-out infinite;
+}
+
+body .sectie-contact .contact-gegevens .contact-plan:hover .contact-plan-pijl {
+	animation:            none;
+	transform:            translateY(3px);
+	transition:           transform var(--duur-basis) var(--curve-uit);
+}
+
+@keyframes contact-pijl {
+	0%, 100% { transform: translateY(-1px); }
+	50%      { transform: translateY(2px); }
+}
+
 body .sectie-contact .contact-gegevens address {
 	color:                var(--kleur-tekst-kop);
 	font-style:           normal;

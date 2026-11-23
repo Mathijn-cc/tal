@@ -14,7 +14,8 @@
 		document.head.appendChild(script);
 	}
 
-	var doel = window.location.hash ? document.getElementById(decodeURIComponent(window.location.hash.slice(1))) : null;
+	var anker = window.talStartAnker || (window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : '');
+	var doel = anker ? document.getElementById(anker) : null;
 	if (doel && doel.classList.contains('contact-agenda')) {
 		laden();
 		return;

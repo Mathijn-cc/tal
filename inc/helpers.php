@@ -183,3 +183,14 @@ function tal_alineas( $tekst, $class = '' ) {
 	}
 	return $uit;
 }
+
+/**
+ * Anker in de link (bijvoorbeeld /contact/#kennismaking): vóór de pagina opbouwt uit de adresbalk halen,
+ * zodat de browser niet direct naar beneden springt. thema.js begint bovenaan en scrolt daarna vloeiend naar het anker.
+ */
+add_action( 'wp_head', function () {
+	if ( is_admin() || powerhub_is_designsysteem() ) {
+		return;
+	}
+	echo "<script>(function(){var h=location.hash;if(!h||h.length<2||!history.replaceState)return;window.talStartAnker=decodeURIComponent(h.slice(1));if('scrollRestoration' in history)history.scrollRestoration='manual';history.replaceState(null,'',location.pathname+location.search);})();</script>\n";
+}, 1 );

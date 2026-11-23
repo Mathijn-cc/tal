@@ -97,15 +97,19 @@
 		}, document.body.classList.contains('menu-open') ? 60 : 0);
 	});
 
-	/* Binnenkomen met een anker in de link (bijvoorbeeld vanaf /contact/ naar /#traject): de browser springt al
-	   voordat koppen, foto's en vastgezette secties hun plek hebben. Daarom zelf scrollen zodra alles staat. */
-	var startAnker = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : '';
-	if (startAnker && 'scrollRestoration' in history) history.scrollRestoration = 'manual';
+	/* Binnenkomen met een anker in de link (bijvoorbeeld /contact/#kennismaking): de pagina begint bovenaan en scrolt
+	   daarna vloeiend naar het anker, zodat de bezoeker ziet waar hij is. Het anker is al uit de adresbalk gehaald
+	   in de <head> (inc/helpers.php), anders springt de browser er direct heen. */
+	var startAnker = window.talStartAnker || (window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : '');
 	window.talNaarStartAnker = function () {
 		if (!startAnker) return;
-		naarAnker(startAnker, true);
-		/* nog één keer na late beelden of de Calendly-agenda */
-		setTimeout(function () { naarAnker(startAnker, true); startAnker = ''; }, 500);
+		var id = startAnker;
+		startAnker = '';
+		if (lenis) lenis.scrollTo(0, { immediate: true, force: true }); else window.scrollTo(0, 0);
+		/* even bovenaan laten staan, dan vloeiend naar het anker; het anker komt terug in de adresbalk */
+		setTimeout(function () {
+			if (naarAnker(id, false) && history.replaceState) history.replaceState(null, '', '#' + id);
+		}, rustig ? 0 : 450);
 	};
 
 	/* ---------- Accordeon en tabs (componenten van het startthema) ---------- */

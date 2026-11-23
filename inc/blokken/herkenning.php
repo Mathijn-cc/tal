@@ -40,7 +40,7 @@ add_filter( 'powerhub_blok_voorbeelden', function ( $voorbeelden ) {
 		'beeld'         => tal_beeld_url( 'tal-10.jpg' ),
 		'beeld_positie' => 40,
 		'slot'          => 'Ben jij klaar om jouw rol als leider met meer plezier, rust en vertrouwen uit te voeren?',
-		'knop'          => array( 'url' => 'https://calendly.com/chantal-tal-leadership/30min', 'title' => 'Plan een kennismaking' ),
+		'knop'          => array( 'url' => TAL_KENNISMAKING_URL, 'title' => 'Plan een kennismaking' ),
 		'achtergrond'   => 'tint',
 	);
 	return $voorbeelden;

@@ -8,6 +8,11 @@ defined( 'ABSPATH' ) || exit;
 /* Uitleg bij kopvelden: TAL gebruikt geen cursief accent maar een stiftstreep. */
 define( 'TAL_KOP_UITLEG', 'Zet *sterretjes* om woorden voor de koraal stiftstreep. &lt;br&gt; is een nieuwe regel.' );
 
+/* Contact. Alle knoppen op de site gaan naar de contactpagina; Plan een kennismaking gaat direct naar de agenda daarop. */
+const TAL_CALENDLY         = 'https://calendly.com/chantal-tal-leadership/30min';
+const TAL_CONTACT_URL      = '/contact/';
+const TAL_KENNISMAKING_URL = '/contact/#kennismaking';
+
 /**
  * Kop in de TAL-stijl: *woorden* krijgen de stiftstreep, <br> blijft een nieuwe regel.
  */

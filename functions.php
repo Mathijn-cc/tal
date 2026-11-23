@@ -15,8 +15,9 @@ define( 'THEMA_URL', get_template_directory_uri() );
 
 require THEMA_PAD . '/powerhub/powerhub.php';
 
-require THEMA_PAD . '/inc/instellingen.php';
 require THEMA_PAD . '/inc/helpers.php';
+require THEMA_PAD . '/inc/instellingen.php';
+require THEMA_PAD . '/inc/formulieren.php';
 require THEMA_PAD . '/inc/uitrol.php';
 require THEMA_PAD . '/inc/toegankelijkheid.php';
 

@@ -38,7 +38,7 @@ add_filter( 'powerhub_blok_voorbeelden', function ( $voorbeelden ) {
 		'claim'       => 'Het is geen algemene leiderschapsopleiding, het is geen coachingstraject. Het is jouw *persoonlijke traineeship*.',
 		'lead'        => 'TAL leader journey is hét programma voor leiders die meer plezier en rust willen in hun werk en met minder stress willen leidinggeven.',
 		'tekst'       => '<p>Waarin jouw praktijk centraal staat en je hulp krijgt bij de uitdagingen waar jij tegenaan loopt. Met daaronder een fundament van handvatten vanuit de concrete vertaling van theorie in handige filmpjes.</p><p>Want zeg nou eerlijk, wie heeft zin om eindeloze stapels boeken te lezen? En wie wil eindeloze details over modellen?</p><p>Door intervisie leer je van andere leiders, vind je herkenning en kan je samen sparren over uitdagingen.</p>',
-		'slotlink'    => array( 'url' => 'https://calendly.com/chantal-tal-leadership/30min', 'title' => 'Waar wacht je nog op?' ),
+		'slotlink'    => array( 'url' => TAL_CONTACT_URL, 'title' => 'Waar wacht je nog op?' ),
 		'achtergrond' => 'pagina',
 		'anker'       => 'traject',
 	);

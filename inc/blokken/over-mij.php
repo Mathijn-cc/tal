@@ -38,7 +38,7 @@ add_filter( 'powerhub_blok_voorbeelden', function ( $voorbeelden ) {
 		'lead'          => 'Als je goed bent in wat je doet, hard werkt en je nek uitsteekt word je leider. Toch? Zo ging het althans bij mij. En bij de meesten om me heen. En dan ben je ineens leidinggevende en stuur je mensen aan. Maar hoe moet dat dan? Wie helpt je hierbij?',
 		'tekst'         => '<p>Die zoektocht ken ik maar al te goed. Op mijn 26e was ik ineens operations manager en moest 2 fabrieken aansturen. Hierna heb ik in diverse managementrollen ervaren hoe uitdagend het is om leiding te geven. Door hulp te zoeken bij coaches en uit boeken, maar vooral veel doen, uitproberen en vallen en opstaan, ontdekte ik mijn kracht: anderen helpen om in hun leiderschap te groeien.</p><p>Ik zag in al deze rollen 1 ding: er is onvoldoende tijd of capaciteit in organisaties om leiders te begeleiden. Daarom zie ik het als mijn missie om leiders sneller te laten groeien, in hun eigen praktijk, met de juiste handvatten en iemand naast zich. Zodat ze niet onnodig hoeven te zwemmen.</p>',
 		'naam'          => 'Chantal Strijbos',
-		'knop'          => array( 'url' => 'https://calendly.com/chantal-tal-leadership/30min', 'title' => 'Plan een kennismaking' ),
+		'knop'          => array( 'url' => TAL_KENNISMAKING_URL, 'title' => 'Plan een kennismaking' ),
 		'achtergrond'   => 'pagina',
 		'anker'         => 'over-mij',
 	);

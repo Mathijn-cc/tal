@@ -290,3 +290,128 @@ function tal_uitrol_brede_foto() {
 	echo 'Blok Brede foto toegevoegd na de hero.' . "\n";
 	return true;
 }
+
+/* Contactformulier uit inc/formulieren/contact.json in Gravity Forms zetten. Zonder Gravity Forms: volgende uitrol opnieuw. */
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['contactformulier-v1'] = 'tal_uitrol_contactformulier';
+	return $taken;
+} );
+
+function tal_uitrol_contactformulier() {
+	$id = tal_formulier_importeren( 'contact', 'tal_contactformulier' );
+	if ( ! $id ) {
+		echo "Gravity Forms ontbreekt nog, contactformulier volgt bij de volgende uitrol.\n";
+		return false;
+	}
+	echo 'Contactformulier klaar (formulier ' . (int) $id . ").\n";
+	return true;
+}
+
+/* Pagina Contact met het contactblok (gegevens, formulier en Calendly). Een bestaande pagina /contact/ wordt gebruikt. */
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['contactpagina-v1'] = 'tal_uitrol_contactpagina';
+	return $taken;
+} );
+
+function tal_uitrol_contactpagina() {
+	if ( ! function_exists( 'update_field' ) ) {
+		echo "ACF Pro ontbreekt nog.\n";
+		return false;
+	}
+	$pagina = get_page_by_path( 'contact' );
+	$id     = $pagina ? (int) $pagina->ID : wp_insert_post( array(
+		'post_type'   => 'page',
+		'post_title'  => 'Contact',
+		'post_name'   => 'contact',
+		'post_status' => 'publish',
+	) );
+	if ( ! $id || is_wp_error( $id ) ) {
+		echo "Contactpagina aanmaken mislukt.\n";
+		return false;
+	}
+	$namen = (array) get_post_meta( $id, 'blokken', true );
+	if ( ! in_array( 'contact', $namen, true ) ) {
+		$voorbeelden = (array) apply_filters( 'powerhub_blok_voorbeelden', array() );
+		update_field( 'field_powerhub_blokken', array( array( 'acf_fc_layout' => 'contact' ) + (array) ( $voorbeelden['contact'] ?? array() ) ), $id );
+	}
+	if ( $pagina && 'publish' !== $pagina->post_status ) {
+		wp_update_post( array( 'ID' => $id, 'post_status' => 'publish' ) );
+	}
+	echo 'Contactpagina klaar (pagina ' . (int) $id . ").\n";
+	return true;
+}
+
+/* Alle Calendly-links op de homepage en de hoofdknop gaan naar de contactpagina; Contact komt in het hoofdmenu. */
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['contactlinks-v1'] = 'tal_uitrol_contactlinks';
+	return $taken;
+} );
+
+function tal_uitrol_contactlinks() {
+	if ( ! function_exists( 'update_sub_field' ) ) {
+		return false;
+	}
+
+	/* Homepage: per blok het linkveld dat naar Calendly wees. De slotlink van het traject gaat naar de contactpagina zelf. */
+	$velden = array(
+		'herkenning' => array( 'knop' => TAL_KENNISMAKING_URL ),
+		'traject'    => array( 'slotlink' => TAL_CONTACT_URL ),
+		'voor-wie'   => array( 'knop' => TAL_KENNISMAKING_URL ),
+		'over-mij'   => array( 'knop' => TAL_KENNISMAKING_URL ),
+		'cta'        => array( 'knop' => TAL_KENNISMAKING_URL ),
+	);
+	$id      = (int) get_option( 'page_on_front' );
+	$rijen   = $id ? (array) get_post_meta( $id, 'blokken', true ) : array();
+	$aangepast = 0;
+	foreach ( $rijen as $plek => $layout ) {
+		foreach ( $velden[ $layout ] ?? array() as $veld => $doel ) {
+			$link = get_post_meta( $id, 'blokken_' . $plek . '_' . $veld, true );
+			if ( ! is_array( $link ) || false === strpos( (string) ( $link['url'] ?? '' ), 'calendly.com' ) ) {
+				continue;
+			}
+			$link['url']    = home_url( $doel );
+			$link['target'] = '';
+			update_sub_field( array( 'field_powerhub_blokken', $plek + 1, 'field_' . $layout . '_' . $veld ), $link, $id );
+			$aangepast++;
+		}
+	}
+
+	/* Hoofdknop rechtsboven (Powerhub > Algemeen). */
+	$opties = get_option( POWERHUB_OPTIE, array() );
+	$opties = is_array( $opties ) ? $opties : array();
+	if ( empty( $opties['hoofdknop_link'] ) || false !== strpos( (string) $opties['hoofdknop_link'], 'calendly.com' ) ) {
+		$opties['hoofdknop_link'] = TAL_KENNISMAKING_URL;
+		update_option( POWERHUB_OPTIE, $opties, true );
+	}
+
+	/* Contact als laatste punt in het hoofdmenu. */
+	$locaties = get_nav_menu_locations();
+	$menu     = (int) ( $locaties['hoofdmenu'] ?? 0 );
+	if ( $menu ) {
+		$url   = home_url( TAL_CONTACT_URL );
+		$staat = false;
+		foreach ( (array) wp_get_nav_menu_items( $menu ) as $item ) {
+			if ( untrailingslashit( $item->url ) === untrailingslashit( $url ) ) {
+				$staat = true;
+			}
+		}
+		$pagina = get_page_by_path( 'contact' );
+		if ( ! $staat ) {
+			wp_update_nav_menu_item( $menu, 0, $pagina ? array(
+				'menu-item-title'     => 'Contact',
+				'menu-item-object'    => 'page',
+				'menu-item-object-id' => $pagina->ID,
+				'menu-item-type'      => 'post_type',
+				'menu-item-status'    => 'publish',
+			) : array(
+				'menu-item-title'  => 'Contact',
+				'menu-item-url'    => $url,
+				'menu-item-type'   => 'custom',
+				'menu-item-status' => 'publish',
+			) );
+		}
+	}
+
+	echo 'Contactlinks bijgewerkt (' . (int) $aangepast . " links op de homepage).\n";
+	return true;
+}

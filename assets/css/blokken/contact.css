@@ -1,0 +1,344 @@
+/**Contact -- Opbouw**/
+/* Links kop, intro en gegevens; rechts het formulier op een wit vlak. Daaronder de agenda over de volle breedte. */
+body .sectie-contact .contact-rij {
+	row-gap:              48px;
+	align-items:          start;
+}
+
+body .sectie-contact .contact-intro {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  var(--ruimte-5);
+	grid-column:          1 / span 5;
+	min-width:            0;
+}
+
+body .sectie-contact .contact-intro .lead {
+	max-width:            44ch;
+}
+
+body .sectie-contact .contact-formulier {
+	grid-column:          7 / span 6;
+	min-width:            0;
+	padding:              var(--ruimte-kaart-binnen);
+	border-radius:        var(--hoek-l);
+	background:           var(--kleur-vlak-kaart);
+	box-shadow:           var(--schaduw-kaart);
+}
+
+body .sectie-contact .contact-formulier .kop-m {
+	margin-bottom:        var(--ruimte-6);
+}
+
+@media (max-width: 1100px) {
+	body .sectie-contact .contact-intro {
+		grid-column:          1 / span 6;
+	}
+}
+
+/*Contact -- Gegevens*/
+body .sectie-contact .contact-gegevens {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  var(--ruimte-2);
+	margin:               var(--ruimte-4) 0 0;
+	padding:              var(--ruimte-5) 0 0;
+	border-top:           1px solid var(--kleur-rand-subtiel);
+	list-style:           none;
+}
+
+body .sectie-contact .contact-gegevens li {
+	display:              flex;
+	align-items:          center;
+	gap:                  var(--ruimte-4);
+}
+
+body .sectie-contact .contact-gegevens address {
+	color:                var(--kleur-tekst-kop);
+	font-style:           normal;
+}
+
+body .sectie-contact .contact-gegevens .contact-icoon {
+	display:              inline-flex;
+	flex-shrink:          0;
+	align-items:          center;
+	justify-content:      center;
+	width:                40px;
+	height:               40px;
+	border-radius:        var(--hoek-rond);
+	background:           var(--kleur-vlak-tint);
+	color:                var(--kleur-tekst-kop);
+}
+
+body .sectie-contact .contact-gegevens .contact-icoon .icoon {
+	width:                18px;
+	height:               18px;
+}
+
+/**Contact -- Formulier**/
+/* Gravity Forms zonder eigen CSS (inc/formulieren.php): raster, velden en meldingen komen hier vandaan. */
+body .sectie-contact .gform_wrapper .gform_validation_container,
+body .sectie-contact .gform_wrapper .gform_hidden,
+body .sectie-contact .gform_wrapper .gfield_visibility_hidden {
+	display:              none !important;
+}
+
+body .sectie-contact .gform_wrapper .gform_required_legend {
+	margin-bottom:        var(--ruimte-5);
+	color:                var(--kleur-tekst-gedempt);
+	font-size:            var(--maat-klein);
+	line-height:          var(--regel-klein);
+}
+
+body .sectie-contact .gform_wrapper .gform_fields {
+	display:              grid;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	gap:                  var(--ruimte-5) var(--ruimte-4);
+	margin:               0;
+	padding:              0;
+	border:               0;
+}
+
+body .sectie-contact .gform_wrapper .gfield {
+	grid-column:          span 12;
+	min-width:            0;
+	margin:               0;
+	padding:              0;
+	border:               0;
+}
+
+body .sectie-contact .gform_wrapper .gfield.gfield--width-half {
+	grid-column:          span 6;
+}
+
+@media (max-width: 640px) {
+	body .sectie-contact .gform_wrapper .gfield.gfield--width-half {
+		grid-column:          span 12;
+	}
+}
+
+/*Formulier -- Labels*/
+body .sectie-contact .gform_wrapper .gfield_label {
+	display:              block;
+	margin-bottom:        var(--ruimte-2);
+	padding:              0;
+	color:                var(--kleur-tekst-kop);
+	font-size:            var(--maat-klein);
+	font-weight:          var(--gewicht-medium);
+	line-height:          var(--regel-klein);
+}
+
+body .sectie-contact .gform_wrapper .gfield_required {
+	margin-left:          2px;
+	color:                var(--kleur-tekst-accent-op-licht);
+}
+
+body .sectie-contact .gform_wrapper .hidden_label > .gfield_label,
+body .sectie-contact .gform_wrapper .hidden_label > legend.gfield_label {
+	position:             absolute;
+	width:                1px;
+	height:               1px;
+	overflow:             hidden;
+	clip:                 rect(0 0 0 0);
+	white-space:          nowrap;
+}
+
+/*Formulier -- Invoer*/
+body .sectie-contact .gform_wrapper input[type="text"],
+body .sectie-contact .gform_wrapper input[type="email"],
+body .sectie-contact .gform_wrapper input[type="tel"],
+body .sectie-contact .gform_wrapper textarea {
+	display:              block;
+	width:                100%;
+	min-height:           52px;
+	margin:               0;
+	padding:              var(--ruimte-3) var(--ruimte-4);
+	border:               1px solid var(--kleur-rand-sterk);
+	border-radius:        var(--hoek-s);
+	background:           var(--kleur-vlak-kaart);
+	color:                var(--kleur-tekst-kop);
+	font-family:          var(--letter-tekst);
+	font-size:            var(--maat-lopend);
+	line-height:          var(--regel-lopend);
+	transition:           border-color var(--duur-basis) var(--curve-standaard), box-shadow var(--duur-basis) var(--curve-standaard);
+	-webkit-appearance:   none;
+	appearance:           none;
+}
+
+body .sectie-contact .gform_wrapper textarea {
+	min-height:           160px;
+	resize:               vertical;
+}
+
+body .sectie-contact .gform_wrapper input[type="text"]:hover,
+body .sectie-contact .gform_wrapper input[type="email"]:hover,
+body .sectie-contact .gform_wrapper input[type="tel"]:hover,
+body .sectie-contact .gform_wrapper textarea:hover {
+	border-color:         var(--kleur-tekst-kop);
+}
+
+body .sectie-contact .gform_wrapper input[type="text"]:focus,
+body .sectie-contact .gform_wrapper input[type="email"]:focus,
+body .sectie-contact .gform_wrapper input[type="tel"]:focus,
+body .sectie-contact .gform_wrapper textarea:focus {
+	border-color:         var(--kleur-tekst-kop);
+	outline:              2px solid var(--context-focus);
+	outline-offset:       2px;
+}
+
+/*Formulier -- Vinkje*/
+body .sectie-contact .gform_wrapper .gfield_checkbox {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  var(--ruimte-2);
+}
+
+body .sectie-contact .gform_wrapper .gfield_checkbox .gchoice {
+	display:              flex;
+	align-items:          flex-start;
+	gap:                  var(--ruimte-3);
+}
+
+body .sectie-contact .gform_wrapper .gfield_checkbox input[type="checkbox"] {
+	flex-shrink:          0;
+	width:                22px;
+	height:               22px;
+	margin:               2px 0 0;
+	accent-color:         var(--kleur-actie-primair);
+	cursor:               pointer;
+}
+
+body .sectie-contact .gform_wrapper .gfield_checkbox label {
+	color:                var(--kleur-tekst-lopend);
+	font-size:            var(--maat-klein);
+	line-height:          var(--regel-klein);
+	cursor:               pointer;
+}
+
+/*Formulier -- Knop*/
+body .sectie-contact .gform_wrapper .gform_footer {
+	display:              flex;
+	flex-wrap:            wrap;
+	align-items:          center;
+	gap:                  var(--ruimte-4);
+	margin:               var(--ruimte-6) 0 0;
+	padding:              0;
+}
+
+body .sectie-contact .gform_wrapper .gform_footer .gform_ajax_spinner,
+body .sectie-contact .gform_wrapper .gform_footer .gform-loader {
+	width:                22px;
+	height:               22px;
+}
+
+/*Formulier -- Meldingen*/
+body .sectie-contact .gform_wrapper .gform_validation_errors {
+	margin-bottom:        var(--ruimte-6);
+	padding:              var(--ruimte-4) var(--ruimte-5);
+	border-left:          3px solid var(--kleur-markering-negatief);
+	border-radius:        var(--hoek-s);
+	background:           var(--kleur-vlak-tint-zacht);
+	color:                var(--kleur-tekst-kop);
+	font-size:            var(--maat-klein);
+	line-height:          var(--regel-klein);
+}
+
+body .sectie-contact .gform_wrapper .gform_validation_errors h2 {
+	font-family:          var(--letter-tekst);
+	font-size:            var(--maat-klein);
+	font-weight:          var(--gewicht-medium);
+	line-height:          var(--regel-klein);
+	letter-spacing:       normal;
+}
+
+body .sectie-contact .gform_wrapper .gfield_error input[type="text"],
+body .sectie-contact .gform_wrapper .gfield_error input[type="email"],
+body .sectie-contact .gform_wrapper .gfield_error input[type="tel"],
+body .sectie-contact .gform_wrapper .gfield_error textarea {
+	border-color:         var(--kleur-markering-negatief);
+}
+
+body .sectie-contact .gform_wrapper .validation_message {
+	margin-top:           var(--ruimte-2);
+	color:                var(--kleur-markering-negatief);
+	font-size:            var(--maat-klein);
+	line-height:          var(--regel-klein);
+}
+
+body .sectie-contact .gform_confirmation_message {
+	color:                var(--kleur-tekst-kop);
+	font-size:            var(--maat-lead);
+	line-height:          var(--regel-lead);
+}
+
+body .sectie-contact .gform_confirmation_message p + p {
+	margin-top:           var(--ruimte-3);
+}
+
+body .sectie-contact .formulier-melding {
+	padding:              var(--ruimte-4);
+	border:               1px dashed var(--kleur-rand-sterk);
+	border-radius:        var(--hoek-s);
+	color:                var(--kleur-tekst-gedempt);
+	font-size:            var(--maat-klein);
+}
+
+/**Contact -- Agenda**/
+body .sectie-contact .contact-agenda {
+	row-gap:              32px;
+	align-items:          start;
+	margin-top:           var(--sectie);
+	padding-top:          var(--sectie);
+	border-top:           1px solid var(--kleur-rand-subtiel);
+	scroll-margin-top:    var(--ruimte-kop-balk);
+}
+
+body .sectie-contact .contact-agenda-tekst {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  var(--ruimte-5);
+	grid-column:          1 / span 4;
+	min-width:            0;
+}
+
+body .sectie-contact .contact-agenda-kader {
+	grid-column:          5 / span 8;
+	min-width:            0;
+}
+
+/*Agenda -- Calendly*/
+/* Vaste hoogte voordat de agenda laadt, zodat de pagina niet verspringt. */
+body .sectie-contact .contact-agenda-kader .calendly-inline-widget {
+	min-width:            320px;
+	height:               700px;
+	overflow:             hidden;
+	border-radius:        var(--hoek-l);
+	background:           var(--kleur-vlak-kaart);
+	box-shadow:           var(--schaduw-kaart);
+}
+
+body .sectie-contact .contact-agenda-kader .calendly-inline-widget iframe {
+	display:              block;
+}
+
+body .sectie-contact .contact-agenda-terugval {
+	margin-top:           var(--ruimte-4);
+	color:                var(--kleur-tekst-gedempt);
+}
+
+body .sectie-contact .contact-agenda-terugval a {
+	color:                var(--kleur-tekst-kop);
+	text-decoration:      underline;
+	text-underline-offset: 3px;
+}
+
+@media (max-width: 860px) {
+	body .sectie-contact .contact-formulier {
+		padding:              var(--ruimte-6);
+	}
+
+	body .sectie-contact .contact-agenda-kader .calendly-inline-widget {
+		min-width:            0;
+		height:               1000px;
+	}
+}

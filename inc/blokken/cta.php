@@ -33,7 +33,7 @@ add_filter( 'powerhub_blok_voorbeelden', function ( $voorbeelden ) {
 	$voorbeelden['cta'] = array(
 		'label'         => 'TAL leader journey',
 		'kop'           => 'Ben jij klaar om jouw *leiderschapsreis* met mij te starten?',
-		'knop'          => array( 'url' => 'https://calendly.com/chantal-tal-leadership/30min', 'title' => 'Plan een kennismaking' ),
+		'knop'          => array( 'url' => TAL_KENNISMAKING_URL, 'title' => 'Plan een kennismaking' ),
 		'email'         => 'chantal@tal-leadership.nl',
 		'regel'         => 'tal-leadership.nl',
 		'beeld'         => tal_beeld_url( 'tal-5.jpg' ),

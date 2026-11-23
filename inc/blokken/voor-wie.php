@@ -32,7 +32,7 @@ add_filter( 'powerhub_blok_voorbeelden', function ( $voorbeelden ) {
 		'label'       => 'Voor wie',
 		'kop'         => 'Voor leiders die niet onnodig willen zwemmen',
 		'lead'        => 'Leren houdt nooit op, maar een gefundeerde basis helpt jou de rest van je carrière.',
-		'knop'        => array( 'url' => 'https://calendly.com/chantal-tal-leadership/30min', 'title' => 'Plan een kennismaking' ),
+		'knop'        => array( 'url' => TAL_KENNISMAKING_URL, 'title' => 'Plan een kennismaking' ),
 		'punten'      => array(
 			array( 'tekst' => 'Heeft tussen 0 en 5 jaar ervaring in een rol als leidinggevende, teamleider of projectleider.' ),
 			array( 'tekst' => 'Zoekt houvast, handvatten en begeleiding in de manier van leiderschap.' ),

@@ -57,7 +57,7 @@ add_filter( 'powerhub_achtergronden', function () {
 add_filter( 'powerhub_standaardwaarden', function ( $standaard ) {
 	return array_merge( $standaard, array(
 		'hoofdknop_tekst'   => 'Plan een kennismaking',
-		'hoofdknop_link'    => 'https://calendly.com/chantal-tal-leadership/30min',
+		'hoofdknop_link'    => TAL_KENNISMAKING_URL,
 		'email'             => 'chantal@tal-leadership.nl',
 		'vloeiend_scrollen' => true,
 	) );

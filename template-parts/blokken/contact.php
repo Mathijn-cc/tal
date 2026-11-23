@@ -34,9 +34,6 @@ $anker    = sanitize_title( ! empty( $blok['agenda_anker'] ) ? $blok['agenda_ank
 									<span class="contact-naam"><?php echo esc_html( $blok['naam'] ); ?></span>
 								<?php endif; ?>
 								<a class="lijnlink" href="mailto:<?php echo esc_attr( antispambot( $email ) ); ?>"><?php echo esc_html( antispambot( $email ) ); ?></a>
-								<?php if ( ! empty( $blok['plan_knop'] ) && ! empty( $blok['calendly'] ) ) : ?>
-									<a class="knop knop-klein contact-plan" href="#<?php echo esc_attr( $anker ); ?>"><span><?php echo esc_html( $blok['plan_knop'] ); ?></span><svg class="contact-plan-pijl" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 4v15M6 13l6 6 6-6"/></svg></a>
-								<?php endif; ?>
 							</span>
 						</li>
 					<?php elseif ( $email ) : ?>
@@ -64,6 +61,11 @@ $anker    = sanitize_title( ! empty( $blok['agenda_anker'] ) ? $blok['agenda_ank
 						</li>
 					<?php endforeach; ?>
 				</ul>
+			<?php endif; ?>
+
+			<?php /* Los onder de gegevens, links gelijk met de foto. */ ?>
+			<?php if ( ! empty( $blok['plan_knop'] ) && ! empty( $blok['calendly'] ) ) : ?>
+				<div class="contact-plan-rij"><a class="knop contact-plan" href="#<?php echo esc_attr( $anker ); ?>"><span><?php echo esc_html( $blok['plan_knop'] ); ?></span><svg class="contact-plan-pijl" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 4v15M6 13l6 6 6-6"/></svg></a></div>
 			<?php endif; ?>
 		</div>
 

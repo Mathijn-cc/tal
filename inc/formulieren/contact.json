@@ -49,34 +49,7 @@
 				"size": "large",
 				"errorMessage": "Vul je e-mailadres in.",
 				"visibility": "visible",
-				"inputs": [
-					{
-						"id": "2",
-						"label": "E-mailadres",
-						"name": "",
-						"placeholder": "",
-						"defaultValue": "",
-						"isHidden": false,
-						"inputType": "",
-						"choices": null,
-						"customLabel": "",
-						"autocompleteAttribute": "",
-						"enableAutocomplete": false
-					},
-					{
-						"id": "2.2",
-						"label": "E-mailadres bevestigen",
-						"name": "",
-						"placeholder": "",
-						"defaultValue": "",
-						"isHidden": true,
-						"inputType": "",
-						"choices": null,
-						"customLabel": "",
-						"autocompleteAttribute": "",
-						"enableAutocomplete": false
-					}
-				],
+				"inputs": null,
 				"description": "",
 				"allowsPrepopulate": false,
 				"inputMask": false,
@@ -100,7 +73,8 @@
 				"enableDisplayInColumns": "",
 				"enableEnhancedUI": 0,
 				"layoutGroupId": "3b49d0ac",
-				"fields": ""
+				"fields": "",
+				"emailConfirmEnabled": false
 			},
 			{
 				"is_payment": false,

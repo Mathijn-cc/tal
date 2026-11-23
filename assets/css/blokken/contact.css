@@ -13,6 +13,13 @@ body .sectie-contact .contact-intro {
 	min-width:            0;
 }
 
+/* De kop staat in een halve kolom: maat van een h2, ook als het de h1 van de pagina is. */
+body .sectie-contact .contact-intro .contact-kop {
+	font-size:            clamp(var(--minimaal-h2), var(--vloeiend-h2), var(--maat-h2));
+	line-height:          var(--regel-h2);
+	letter-spacing:       var(--spatiering-strak);
+}
+
 body .sectie-contact .contact-intro .lead {
 	max-width:            44ch;
 }

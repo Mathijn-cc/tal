@@ -415,3 +415,27 @@ function tal_uitrol_contactlinks() {
 	echo 'Contactlinks bijgewerkt (' . (int) $aangepast . " links op de homepage).\n";
 	return true;
 }
+
+/* Contactformulier: e-mailveld zonder verborgen bevestigingsinput (toonde "Array" als waarde). */
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['contactformulier-email-v1'] = 'tal_uitrol_contactformulier_email';
+	return $taken;
+} );
+
+function tal_uitrol_contactformulier_email() {
+	$id   = (int) get_option( 'tal_contactformulier' );
+	$form = ( $id && class_exists( 'GFAPI' ) ) ? GFAPI::get_form( $id ) : false;
+	if ( ! $form ) {
+		return false;
+	}
+	foreach ( $form['fields'] as $veld ) {
+		if ( 'email' === $veld->type ) {
+			$veld->inputs              = null;
+			$veld->emailConfirmEnabled = false;
+			$veld->defaultValue        = '';
+		}
+	}
+	$uit = GFAPI::update_form( $form );
+	echo is_wp_error( $uit ) ? "E-mailveld bijwerken mislukt.\n" : "E-mailveld bijgewerkt.\n";
+	return ! is_wp_error( $uit );
+}

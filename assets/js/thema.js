@@ -67,31 +67,46 @@
 	/* ---------- Ankerlinks ---------- */
 	/* Altijd de actuele positie meten. Een vastgezette sectie zit in een pin-spacer: meet vanaf de bovenkant daarvan,
 	   anders kom je midden in de zijwaartse scroll uit. */
+	function naarAnker(id, direct) {
+		var doel = id === 'top' ? document.body : document.getElementById(id);
+		if (!doel) return false;
+		if (lenis) lenis.resize();
+		var huidig = lenis ? lenis.scroll : window.scrollY;
+		var meetpunt = doel.closest('.pin-spacer') || doel;
+		var y = id === 'top' ? 0 : Math.max(0, Math.round(meetpunt.getBoundingClientRect().top + huidig - kopHoogte()));
+		if (lenis) {
+			lenis.scrollTo(y, direct || rustig ? { immediate: true, force: true } : { duration: 1.4, easing: function (t) { return 1 - Math.pow(1 - t, 4); }, force: true });
+		} else {
+			window.scrollTo({ top: y, behavior: direct || rustig ? 'auto' : 'smooth' });
+		}
+		return true;
+	}
+
 	document.addEventListener('click', function (e) {
 		var a = e.target.closest ? e.target.closest('a[href*="#"]') : null;
 		if (!a || a.target === '_blank') return;
 		var url = new URL(a.href, window.location.href);
 		if (url.pathname !== window.location.pathname || url.host !== window.location.host || !url.hash) return;
 		var id = decodeURIComponent(url.hash.slice(1));
-		var doel = id === 'top' ? document.body : document.getElementById(id);
-		if (!doel) return;
+		if (id !== 'top' && !document.getElementById(id)) return;
 		e.preventDefault();
-		var ga = function () {
-			var huidig = lenis ? lenis.scroll : window.scrollY;
-			var meetpunt = doel.closest('.pin-spacer') || doel;
-			var y = id === 'top' ? 0 : Math.max(0, Math.round(meetpunt.getBoundingClientRect().top + huidig - kopHoogte()));
-			if (lenis && !rustig) {
-				lenis.resize();
-				lenis.scrollTo(y, { duration: 1.4, easing: function (t) { return 1 - Math.pow(1 - t, 4); }, force: true });
-			} else {
-				window.scrollTo({ top: y, behavior: rustig ? 'auto' : 'smooth' });
-			}
-			if (history.replaceState) history.replaceState(null, '', '#' + id);
-		};
 		/* even wachten als het mobiele menu nog sluit */
-		setTimeout(ga, document.body.classList.contains('menu-open') ? 60 : 0);
+		setTimeout(function () {
+			naarAnker(id, false);
+			if (history.replaceState) history.replaceState(null, '', '#' + id);
+		}, document.body.classList.contains('menu-open') ? 60 : 0);
 	});
 
+	/* Binnenkomen met een anker in de link (bijvoorbeeld vanaf /contact/ naar /#traject): de browser springt al
+	   voordat koppen, foto's en vastgezette secties hun plek hebben. Daarom zelf scrollen zodra alles staat. */
+	var startAnker = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : '';
+	if (startAnker && 'scrollRestoration' in history) history.scrollRestoration = 'manual';
+	window.talNaarStartAnker = function () {
+		if (!startAnker) return;
+		naarAnker(startAnker, true);
+		/* nog één keer na late beelden of de Calendly-agenda */
+		setTimeout(function () { naarAnker(startAnker, true); startAnker = ''; }, 500);
+	};
 
 	/* ---------- Accordeon en tabs (componenten van het startthema) ---------- */
 	/* Accordeon: één tegelijk open. */
@@ -129,6 +144,12 @@
 			kies(volgende);
 		});
 	});
+
+	/* Zonder animaties: na het laden naar het anker. */
+	if (!instellingen.animaties || rustig || !window.gsap || !window.ScrollTrigger) {
+		if (document.readyState === 'complete') window.talNaarStartAnker();
+		else window.addEventListener('load', window.talNaarStartAnker, { once: true });
+	}
 
 	/* ---------- Beweging ---------- */
 	var gsap = window.gsap;
@@ -354,7 +375,7 @@
 		/* Vastgezette secties in de volgorde van de pagina, en opnieuw meten als alle beelden er zijn. */
 		ST.sort();
 		ST.refresh();
-		if (document.readyState === 'complete') { ST.sort(); ST.refresh(); }
-		else window.addEventListener('load', function () { ST.sort(); ST.refresh(); }, { once: true });
+		if (document.readyState === 'complete') { ST.sort(); ST.refresh(); window.talNaarStartAnker(); }
+		else window.addEventListener('load', function () { ST.sort(); ST.refresh(); window.talNaarStartAnker(); }, { once: true });
 	});
 })();

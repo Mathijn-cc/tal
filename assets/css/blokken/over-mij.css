@@ -1,11 +1,13 @@
 /**Over mij -- Opbouw**/
 body .sectie-over-mij .rij {
 	row-gap:              40px;
-	align-items:          start;
+	align-items:          end;
 }
 
+/* Onderkant van de foto gelijk met de onderkant van naam en e-mailadres. */
 body .sectie-over-mij .overmij-beeld {
 	grid-column:          1 / span 5;
+	align-self:           end;
 	aspect-ratio:         3 / 4;
 }
 
@@ -30,8 +32,15 @@ body .sectie-over-mij .overmij-verhaal p {
 
 body .sectie-over-mij .overmij-voet {
 	display:              flex;
-	flex-wrap:            wrap;
-	align-items:          center;
-	gap:                  20px 36px;
+	flex-direction:       column;
+	align-items:          flex-start;
+	gap:                  4px;
 	padding-top:          12px;
+}
+
+/*Over mij -- Knop*/
+/* Los onder het hele blok, links uitgelijnd met de foto. */
+body .sectie-over-mij .overmij-knop {
+	grid-column:          1 / -1;
+	padding-top:          clamp(8px, 2vw, 24px);
 }

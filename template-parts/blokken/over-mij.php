@@ -3,6 +3,8 @@
  * Blok: over mij (foto met verhaal).
  */
 defined( 'ABSPATH' ) || exit;
+
+$email = ! empty( $blok['email'] ) ? $blok['email'] : powerhub( 'email' );
 ?>
 <section <?php echo powerhub_sectie( $blok, 'over-mij' ); // phpcs:ignore ?>>
 	<div class="rij">
@@ -18,14 +20,19 @@ defined( 'ABSPATH' ) || exit;
 				<?php endif; ?>
 				<?php echo wp_kses_post( $blok['tekst'] ?? '' ); ?>
 			</div>
-			<?php if ( ! empty( $blok['naam'] ) || ! empty( $blok['knop']['url'] ) ) : ?>
+			<?php if ( ! empty( $blok['naam'] ) || $email ) : ?>
 				<div class="overmij-voet">
 					<?php if ( ! empty( $blok['naam'] ) ) : ?>
 						<p class="kop-m"><?php echo esc_html( $blok['naam'] ); ?></p>
 					<?php endif; ?>
-					<?php echo powerhub_knop( $blok['knop'] ?? array(), 'actie' ); // phpcs:ignore ?>
+					<?php if ( $email ) : ?>
+						<a class="lijnlink" href="mailto:<?php echo esc_attr( antispambot( $email ) ); ?>"><?php echo esc_html( antispambot( $email ) ); ?></a>
+					<?php endif; ?>
 				</div>
 			<?php endif; ?>
 		</div>
+		<?php if ( ! empty( $blok['knop']['url'] ) ) : ?>
+			<div class="overmij-knop"><?php echo powerhub_knop( $blok['knop'], 'actie' ); // phpcs:ignore ?></div>
+		<?php endif; ?>
 	</div>
 </section>

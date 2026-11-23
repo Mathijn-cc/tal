@@ -28,7 +28,7 @@ $anker    = sanitize_title( ! empty( $blok['agenda_anker'] ) ? $blok['agenda_ank
 					<?php if ( $email && ! empty( $blok['foto'] ) ) : ?>
 						<?php /* Persoonlijk: foto met naam, het e-mailadres eronder. */ ?>
 						<li class="contact-persoon">
-							<span class="contact-foto"><?php echo powerhub_beeld( $blok['foto'], 'medium', array( 'alt' => '', 'sizes' => '72px', 'style' => 'object-position: 50% 25%;' ) ); // phpcs:ignore ?></span>
+							<span class="contact-foto"><?php echo powerhub_beeld( $blok['foto'], 'medium', array( 'alt' => '', 'sizes' => '280px', 'style' => 'object-position: 50% 25%;' ) ); // phpcs:ignore ?></span>
 							<span class="contact-persoon-tekst">
 								<?php if ( ! empty( $blok['naam'] ) ) : ?>
 									<span class="contact-naam"><?php echo esc_html( $blok['naam'] ); ?></span>

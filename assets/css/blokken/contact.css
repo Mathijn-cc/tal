@@ -70,17 +70,20 @@ body .sectie-contact .contact-gegevens .contact-persoon {
 body .sectie-contact .contact-gegevens .contact-foto {
 	display:              block;
 	flex-shrink:          0;
-	width:                72px;
-	height:               72px;
+	width:                88px;
+	height:               88px;
 	overflow:             hidden;
 	border-radius:        var(--hoek-rond);
 	background:           var(--kleur-accent-200);
 }
 
+/* Ingezoomd op het gezicht. */
 body .sectie-contact .contact-gegevens .contact-foto img {
 	width:                100%;
 	height:               100%;
 	object-fit:           cover;
+	transform:            scale(1.6);
+	transform-origin:     50% 22%;
 }
 
 body .sectie-contact .contact-gegevens .contact-persoon-tekst {

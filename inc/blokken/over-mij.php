@@ -1,7 +1,6 @@
 <?php
 /**
- * Blok Over mij: staande foto links, rechts bovenkop, kop, introzin, tekst, naam en e-mailadres.
- * De onderkant van de foto lijnt uit met naam en e-mailadres; de knop staat los onder het blok, links onder de foto.
+ * Blok Over mij: staande foto links, rechts bovenkop, kop, introzin, tekst, naam en knop.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -21,9 +20,8 @@ add_filter( 'powerhub_blok_layouts', function ( $layouts ) {
 				powerhub_acf_veld( $p, 'kop', 'Kop', 'text', array_merge( powerhub_acf_breed( 50 ), array( 'instructions' => TAL_KOP_UITLEG ) ) ),
 				powerhub_acf_veld( $p, 'lead', 'Introzin', 'textarea', array( 'rows' => 3 ) ),
 				powerhub_acf_veld( $p, 'tekst', 'Tekst', 'wysiwyg', array( 'media_upload' => 0, 'toolbar' => 'basic', 'tabs' => 'visual' ) ),
-				powerhub_acf_veld( $p, 'naam', 'Naam', 'text', powerhub_acf_breed( 33 ) ),
-				powerhub_acf_veld( $p, 'email', 'E-mailadres', 'email', array_merge( powerhub_acf_breed( 33 ), array( 'instructions' => 'Onder de naam. Leeg: het e-mailadres uit Powerhub > Algemeen.' ) ) ),
-				powerhub_acf_veld( $p, 'knop', 'Knop', 'link', array_merge( powerhub_acf_breed( 34 ), array( 'instructions' => 'Staat los onder het blok, links onder de foto.' ) ) ),
+				powerhub_acf_veld( $p, 'naam', 'Naam', 'text', powerhub_acf_breed( 50 ) ),
+				powerhub_acf_veld( $p, 'knop', 'Knop', 'link', powerhub_acf_breed( 50 ) ),
 			),
 			powerhub_acf_weergave( $p, 'pagina' )
 		),

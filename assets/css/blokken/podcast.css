@@ -41,14 +41,17 @@ body .sectie-podcast .podcast-speler img {
 }
 
 /*Podcast -- Spotify-speler*/
+/* Spotify tekent de speler altijd 352px hoog, ook in een hoger venster: het venster even hoog houden,
+   anders staat de speler bovenin een leeg vlak en lijkt het blok niet gecentreerd. */
 body .sectie-podcast .podcast-embed {
 	grid-column:          7 / span 6;
+	align-self:           center;
 }
 
 body .sectie-podcast .podcast-embed iframe {
 	display:              block;
 	width:                100%;
-	height:               clamp(480px, 40vw, 600px);
+	height:               352px;
 	border:               0;
 	border-radius:        var(--hoek-m);
 }

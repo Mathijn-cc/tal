@@ -35,7 +35,7 @@ if ( ! empty( $blok['spotify'] ) && preg_match( '#open\.spotify\.com/(?:embed/)?
 		</div>
 		<?php if ( $embed ) : ?>
 			<div class="podcast-embed">
-				<iframe src="<?php echo esc_url( $embed ); ?>" title="<?php echo esc_attr( $titel . ' op Spotify' ); ?>" width="100%" height="600" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+				<iframe src="<?php echo esc_url( $embed ); ?>" title="<?php echo esc_attr( $titel . ' op Spotify' ); ?>" width="100%" height="352" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 			</div>
 		<?php elseif ( ! empty( $link['url'] ) ) : ?>
 			<?php if ( ! empty( $blok['beeld'] ) ) : ?>

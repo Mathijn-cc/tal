@@ -10,6 +10,9 @@
 	--ph-succes:          #1f8a5b;
 	--ph-fout:            #c0392b;
 	--ph-hoek:            14px;
+	--ph-cc-groen:        #11281d;
+	--ph-cc-lime:         #e7fb79;
+	--ph-cc-creme:        #fdfff2;
 
 	max-width:            1180px;
 	margin:               20px 20px 0 0;
@@ -17,15 +20,39 @@
 }
 
 /**Powerhub -- Kop**/
+/* In de kleuren van Creators Connect: donkergroen met lime, het favicon als merk en de schakel als lijn erdoorheen. */
 .wrap.powerhub .powerhub-kop {
+	position:             relative;
 	display:              flex;
 	align-items:          center;
 	justify-content:      space-between;
 	gap:                  1rem;
 	padding:              1.25rem 1.5rem;
+	overflow:             hidden;
 	border-radius:        var(--ph-hoek);
-	background:           var(--ph-donker);
-	color:                #ffffff;
+	background:           var(--ph-cc-groen);
+	color:                var(--ph-cc-creme);
+}
+
+.wrap.powerhub .powerhub-kop > * {
+	position:             relative;
+	z-index:              1;
+}
+
+/*Kop -- Schakel*/
+/* Schuin en als lijn, deels buiten de balk, zoals op creatorsconnect.nl. */
+.wrap.powerhub .powerhub-kop > .powerhub-kop-schakel {
+	position:             absolute;
+	top:                  50%;
+	right:                -6%;
+	z-index:              0;
+	width:                58%;
+	min-width:            420px;
+	height:               auto;
+	color:                var(--ph-cc-lime);
+	opacity:              0.35;
+	transform:            translateY(-50%) rotate(-24deg);
+	pointer-events:       none;
 }
 
 /*Kop -- Merk*/
@@ -41,8 +68,14 @@
 	width:                42px;
 	height:               42px;
 	border-radius:        12px;
-	background:           var(--ph-accent);
-	color:                var(--ph-donker);
+	background:           var(--ph-cc-lime);
+	color:                var(--ph-cc-groen);
+}
+
+.wrap.powerhub .powerhub-kop .powerhub-merk .powerhub-merk-icoon svg {
+	display:              block;
+	width:                42px;
+	height:               42px;
 }
 
 .wrap.powerhub .powerhub-kop .powerhub-merk .powerhub-merk-titel {
@@ -65,8 +98,8 @@
 	gap:                  0.4rem;
 	padding:              0.4rem 0.8rem 0.4rem 0.65rem;
 	border-radius:        10px 10px 10px 3px;
-	background:           rgba(255, 255, 255, 0.12);
-	color:                #ffffff;
+	background:           rgba(231, 251, 121, 0.14);
+	color:                var(--ph-cc-lime);
 	font-size:            0.78rem;
 	font-weight:          600;
 	letter-spacing:       0.02em;

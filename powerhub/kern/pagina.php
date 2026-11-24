@@ -51,10 +51,9 @@ function powerhub_pagina() {
 		<h1 class="screen-reader-text">Powerhub</h1>
 
 		<header class="powerhub-kop">
+			<?php echo powerhub_schakel( 'lijn', 'powerhub-kop-schakel' ); // phpcs:ignore ?>
 			<div class="powerhub-merk">
-				<span class="powerhub-merk-icoon" aria-hidden="true">
-					<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M13.5 2 4 13.5h6.5L9 22l11-12.5h-6.8z"/></svg>
-				</span>
+				<span class="powerhub-merk-icoon" aria-hidden="true"><?php echo powerhub_schakel( 'vol' ); // phpcs:ignore ?></span>
 				<div>
 					<p class="powerhub-merk-titel">Powerhub</p>
 					<p class="powerhub-merk-sub"><?php echo esc_html( $thema->get( 'Name' ) ); ?> <?php echo esc_html( defined( 'THEMA_VERSIE' ) ? THEMA_VERSIE : $thema->get( 'Version' ) ); ?> · Powerhub <?php echo esc_html( POWERHUB_VERSIE ); ?></p>

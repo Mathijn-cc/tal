@@ -1,6 +1,6 @@
 <?php
 /**
- * Module Footer: korte tekst, keurmerken, social media en de vermelding van de maker. Ook voor de klant.
+ * Module Footer: korte tekst, keurmerken, en social media. De vermelding "Website door creatorsconnect.nl" staat er altijd (powerhub_maker_url()). Ook voor de klant.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -25,8 +25,6 @@ add_action( 'powerhub_registreren', function () {
 		'keurmerk_2_url' => array( 'type' => 'url', 'label' => 'Link keurmerk 2' ),
 		'keurmerk_3'     => array( 'type' => 'beeld', 'label' => 'Keurmerk 3' ),
 		'keurmerk_3_url' => array( 'type' => 'url', 'label' => 'Link keurmerk 3' ),
-		'kop_maker'      => array( 'type' => 'kop', 'label' => 'Onderregel' ),
-		'footer_maker'   => array( 'type' => 'schakel', 'label' => 'Toon "Website door creatorsconnect.nl"', 'standaard' => true ),
 		'kop_social'     => array( 'type' => 'kop', 'label' => 'Social media', 'uitleg' => 'Lege velden worden niet getoond.' ),
 	);
 	foreach ( powerhub_social_kanalen() as $sleutel => $naam ) {

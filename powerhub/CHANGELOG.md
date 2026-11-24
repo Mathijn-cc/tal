@@ -2,6 +2,12 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.4.0 (24-11-2026)
+
+- Kopbalk van Powerhub in de kleuren van Creators Connect (donkergroen, lime, crème) met het favicon (de schakel) als merk en de schakel schuin als lijn door de balk. In de zijbalk van WordPress blijft de bliksemschicht.
+- Nieuw: `powerhub_schakel( 'vol' | 'lijn', $class )` geeft de schakel als SVG.
+- "Website door creatorsconnect.nl" staat altijd in de footer; de instelling `footer_maker` is weg. Nieuw: `powerhub_maker_url( $plek )` geeft de link met UTM-codes (utm_source is het domein van de site, utm_medium referral, utm_campaign website-door-creators-connect, utm_content de plek). Gebruik die in elk eigen footer-template.
+
 ## 1.3.2 (24-11-2026)
 
 - Zijbalk van Powerhub: het pijltje van een groep (zoals Design) staat los rechts, verticaal in het midden van de knop, in een rond vlakje, en draait bij openen. Subitems hebben meer ruimte ertussen en meer binnenruimte.

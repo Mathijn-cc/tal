@@ -267,6 +267,27 @@
 	width:                100%;
 }
 
+/* Een uitgeklapte groep is één wit vlak: de groepsknop met de subitems eronder. Hover op een subitem is daarin lichtgrijs. */
+.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep.is-open {
+	border-radius:        10px;
+	background:           var(--ph-vlak);
+	box-shadow:           0 1px 3px rgba(17, 40, 29, 0.06);
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep.is-open .powerhub-groep-knop {
+	background:           transparent;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep.is-open .powerhub-groep-tabs {
+	margin-right:         0.5rem;
+	margin-bottom:        0;
+	padding-bottom:       0.6rem;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep.is-open button.powerhub-subtab:not([aria-selected="true"]):hover {
+	background:           var(--ph-achtergrond);
+}
+
 .wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep-tabs {
 	display:              flex;
 	flex-direction:       column;

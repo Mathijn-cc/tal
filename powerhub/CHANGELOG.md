@@ -2,6 +2,10 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.7.3 (24-11-2026)
+
+- Een uitgeklapte groep in de zijbalk (zoals Design) is altijd één wit vlak met de subitems erin; hover op een subitem is daarin lichtgrijs.
+
 ## 1.7.2 (24-11-2026)
 
 - Panelen en de hover in de zijbalk weer wit; donkergroen en lime blijven voor de actieve tab, knoppen en schakelaars.

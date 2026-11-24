@@ -327,6 +327,16 @@
 			if (!kader || !fotos.length) return;
 			var hoogte = function (factor) { return function (i, el) { return el.offsetWidth * factor; }; };
 			gsap.set(fotos, { aspectRatio: 'auto' });
+			/* De rij houdt vanaf het begin haar eindhoogte vast, zodat de rest van de pagina niet verschuift en latere animaties op hun plek blijven. */
+			var reserveer = function () {
+				var oud = fotos.map(function (el) { return el.style.height; });
+				kader.style.minHeight = '';
+				fotos.forEach(function (el) { el.style.height = (el.offsetWidth * 1.25) + 'px'; });
+				kader.style.minHeight = kader.offsetHeight + 'px';
+				fotos.forEach(function (el, i) { el.style.height = oud[i]; });
+			};
+			reserveer();
+			ScrollTrigger.addEventListener('refreshInit', reserveer);
 			gsap.fromTo(fotos, { height: hoogte(0.75) }, { height: hoogte(1.25), ease: 'none',
 				scrollTrigger: { trigger: kader, start: 'top 92%', end: 'top 30%', scrub: 0.6, invalidateOnRefresh: true } });
 		});

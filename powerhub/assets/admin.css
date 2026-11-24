@@ -1,13 +1,15 @@
 /**Powerhub -- Variabelen**/
+/* Kleuren van Creators Connect: donkergroen, lime en crème. Lime alleen als vlak achter donkergroene tekst, nooit als tekstkleur op licht. */
 .wrap.powerhub {
-	--ph-donker:          #1d2733;
-	--ph-tekst:           #2b3440;
-	--ph-zacht:           #6b7480;
-	--ph-lijn:            #e6e8eb;
-	--ph-vlak:            #ffffff;
-	--ph-achtergrond:     #f4f5f6;
-	--ph-accent:          #ffd23f;
-	--ph-succes:          #1f8a5b;
+	--ph-donker:          #11281d;
+	--ph-tekst:           #1b2e24;
+	--ph-zacht:           #56645b;
+	--ph-lijn:            #e2e7d6;
+	--ph-vlak:            #fdfff2;
+	--ph-achtergrond:     #f3f6ea;
+	--ph-accent:          #e7fb79;
+	--ph-zweven:          #eef3dd;
+	--ph-succes:          #2c7a4b;
 	--ph-fout:            #c0392b;
 	--ph-hoek:            14px;
 	--ph-cc-groen:        #11281d;
@@ -157,12 +159,27 @@
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button:hover {
-	background:           var(--ph-lijn);
+	background:           var(--ph-zweven);
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button:focus-visible {
+	outline:              2px solid var(--ph-donker);
+	outline-offset:       2px;
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button[aria-selected="true"] {
-	background:           var(--ph-vlak);
-	box-shadow:           0 1px 3px rgba(0, 0, 0, 0.08);
+	background:           var(--ph-cc-groen);
+	color:                var(--ph-cc-creme);
+	box-shadow:           0 1px 3px rgba(17, 40, 29, 0.2);
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button[aria-selected="true"] small {
+	color:                rgba(253, 255, 242, 0.75);
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button[aria-selected="true"] .powerhub-slot {
+	background:           var(--ph-cc-lime);
+	color:                var(--ph-cc-groen);
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button .powerhub-tab-titel {
@@ -186,7 +203,7 @@
 	padding:              0.2rem 0.5rem 0.2rem 0.45rem;
 	border-radius:        6px 6px 6px 2px;
 	background:           var(--ph-donker);
-	color:                #ffffff;
+	color:                var(--ph-cc-creme);
 	font-size:            0.68rem;
 	font-weight:          600;
 	line-height:          1;
@@ -231,6 +248,8 @@
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep.is-open .powerhub-groep-pijl {
+	background:           var(--ph-cc-lime);
+	color:                var(--ph-cc-groen);
 	transform:            translateY(-50%) rotate(180deg);
 }
 
@@ -269,7 +288,7 @@
 	padding:              1.5rem 1.75rem;
 	border-radius:        var(--ph-hoek);
 	background:           var(--ph-vlak);
-	box-shadow:           0 1px 3px rgba(0, 0, 0, 0.06);
+	box-shadow:           0 1px 3px rgba(17, 40, 29, 0.08);
 }
 
 .js .wrap.powerhub .powerhub-indeling .powerhub-paneel[hidden] {
@@ -328,6 +347,16 @@
 	min-height:           38px;
 	border-color:         var(--ph-lijn);
 	border-radius:        8px;
+}
+
+/*Velden -- Focus*/
+.wrap.powerhub .powerhub-veld .powerhub-invoer input:focus,
+.wrap.powerhub .powerhub-veld .powerhub-invoer select:focus,
+.wrap.powerhub .powerhub-veld .powerhub-invoer textarea:focus,
+.wrap.powerhub .powerhub-lettertypes input[type="search"]:focus {
+	border-color:         var(--ph-cc-groen);
+	box-shadow:           0 0 0 1px var(--ph-cc-groen);
+	outline:              2px solid transparent;
 }
 
 /*Velden -- Tussenkop*/
@@ -392,7 +421,7 @@
 	height:               22px;
 	margin-top:           1px;
 	border-radius:        999px;
-	background:           #cfd4da;
+	background:           #c9d0bd;
 	transition:           background 0.2s ease;
 }
 
@@ -409,7 +438,11 @@
 }
 
 .wrap.powerhub .powerhub-schakel input:checked + .powerhub-schakel-knop {
-	background:           var(--ph-succes);
+	background:           var(--ph-cc-groen);
+}
+
+.wrap.powerhub .powerhub-schakel input:checked + .powerhub-schakel-knop::after {
+	background:           var(--ph-cc-lime);
 }
 
 .wrap.powerhub .powerhub-schakel input:checked + .powerhub-schakel-knop::after {
@@ -436,7 +469,7 @@
 	border-top:           1px solid var(--ph-lijn);
 	border-radius:        0 0 var(--ph-hoek) var(--ph-hoek);
 	background:           var(--ph-vlak);
-	box-shadow:           0 -6px 12px rgba(255, 255, 255, 0.9);
+	box-shadow:           0 -6px 12px rgba(253, 255, 242, 0.9);
 }
 
 .wrap.powerhub .powerhub-formulier > .powerhub-tussenkop:first-of-type {
@@ -622,4 +655,47 @@
 	flex:                 1 1 220px;
 	overflow:             hidden;
 	text-overflow:        ellipsis;
+}
+
+/**Powerhub -- Knoppen**/
+/* De knoppen van WordPress in de kleuren van Creators Connect, los van het kleurenschema van de gebruiker. */
+.wrap.powerhub .button.button-primary {
+	border-color:         var(--ph-cc-groen);
+	border-radius:        8px;
+	background:           var(--ph-cc-groen);
+	color:                var(--ph-cc-creme);
+	font-weight:          600;
+}
+
+.wrap.powerhub .button.button-primary:hover,
+.wrap.powerhub .button.button-primary:focus {
+	border-color:         var(--ph-cc-groen);
+	background:           var(--ph-cc-lime);
+	color:                var(--ph-cc-groen);
+}
+
+.wrap.powerhub .button:not(.button-primary):not(.button-link-delete) {
+	border-color:         var(--ph-cc-groen);
+	border-radius:        8px;
+	background:           transparent;
+	color:                var(--ph-cc-groen);
+}
+
+.wrap.powerhub .button:not(.button-primary):not(.button-link-delete):hover,
+.wrap.powerhub .button:not(.button-primary):not(.button-link-delete):focus {
+	border-color:         var(--ph-cc-groen);
+	background:           var(--ph-cc-lime);
+	color:                var(--ph-cc-groen);
+}
+
+.wrap.powerhub .button:focus-visible,
+.wrap.powerhub .button-link:focus-visible {
+	outline:              2px solid var(--ph-cc-groen);
+	outline-offset:       2px;
+	box-shadow:           none;
+}
+
+.wrap.powerhub .button-link:not(.button-link-delete),
+.wrap.powerhub .powerhub-paneel a:not(.button) {
+	color:                var(--ph-cc-groen);
 }

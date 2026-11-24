@@ -146,6 +146,7 @@ Achtergronden per project: filter `powerhub_achtergronden`. Andere posttypes met
 - `powerhub_kop( $tekst, 'h2', $class )`: `*accent*` wordt cursief, `<br>` een nieuwe regel.
 - `powerhub_knop( $acf_link, 'actie' )`
 - `powerhub_logo( 'standaard' | 'licht' )`, met filter `powerhub_logo_terugval` voor een logobestand uit het thema
+- `powerhub_favicon_url( $maat )`: het favicon uit Powerhub › Algemeen op een vierkante maat; WordPress gebruikt het vanzelf als site-icoon
 - `powerhub_icoon( 'naam' )`, `powerhub_token( 'kleur.actie-500' )`
 - `powerhub_hoofdknop()`, `powerhub_telefoon_link()`, `powerhub_social()`, `powerhub_kruimelpad()`
 - `powerhub_sectie_class( $blok, 'naam' )`

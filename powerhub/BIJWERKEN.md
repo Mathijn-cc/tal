@@ -82,6 +82,10 @@ De sleutel begint met de bron: `google-`, `fontshare-` of `eigen-`. Haal in deze
 
 Nieuwe projecten krijgen standaard Inter (filter `powerhub_lettertypes_standaard` in `inc/instellingen.php`). Bestaande projecten met al gekozen lettertypes houden die.
 
+### Naar 1.7.0: favicon in Powerhub
+
+Kies het favicon in **Powerhub › Algemeen › Favicon** (vierkante PNG, minstens 512 bij 512 pixels). Heeft het project een eigen favicon-code in `header.php` of via `wp_head`, haal die dan weg: WordPress zet de tags zelf. Een site-icoon uit de Customizer blijft werken zolang er in Powerhub niets gekozen is. Wil je het zonder klikken op elke omgeving, gebruik dan een uitroltaak zoals bij het logo hieronder, met het veld `favicon`.
+
 ### Logo uit het thema naar Powerhub
 
 Het logo hoort in Powerhub (**Algemeen › Logo** en **Logo op donker**), niet als bestand in het thema. `powerhub_logo()` toont het gekozen logo. Alleen als er niets gekozen is, valt het terug op de filter `powerhub_logo_terugval` (standaard de sitenaam als tekst).

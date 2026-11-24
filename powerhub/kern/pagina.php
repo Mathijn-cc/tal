@@ -181,3 +181,12 @@ function powerhub_pagina() {
 	</div>
 	<?php
 }
+
+/* Het menu-item Powerhub in de zijbalk van WordPress in de kleuren van Creators Connect, op elke beheerpagina. */
+add_action( 'admin_head', function () {
+	echo '<style id="powerhub-menu">'
+		. '#adminmenu #toplevel_page_powerhub.current > a.menu-top,#adminmenu #toplevel_page_powerhub.wp-has-current-submenu > a.menu-top{background:#11281d;color:#fdfff2}'
+		. '#adminmenu #toplevel_page_powerhub.current > a.menu-top .wp-menu-image:before,#adminmenu #toplevel_page_powerhub.wp-has-current-submenu > a.menu-top .wp-menu-image:before{color:#e7fb79}'
+		. '#adminmenu #toplevel_page_powerhub:not(.current):not(.wp-has-current-submenu) > a.menu-top:hover .wp-menu-image:before{color:#e7fb79}'
+		. '</style>';
+} );

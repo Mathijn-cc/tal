@@ -2,6 +2,15 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.7.1 (24-11-2026)
+
+- Powerhub helemaal in de kleuren van Creators Connect, los van het kleurenschema van de gebruiker: crème panelen, actieve tab donkergroen met een lime slotje, schakelaars donkergroen met een lime bolletje, knoppen donkergroen (lime bij hover), focus in donkergroen. Het menu-item Powerhub in de zijbalk van WordPress is donkergroen met een lime bliksemschicht als het actief is.
+
+## 1.7.0 (24-11-2026)
+
+- Nieuw: favicon in Powerhub › Algemeen. Powerhub haakt in op het site-icoon van WordPress (`get_site_icon_url`), zodat de tags op de voorkant, in wp-admin en op de inlogpagina vanzelf kloppen. Van een PNG of JPG maakt Powerhub eenmalig vierkante kopieën per maat in `uploads/powerhub-favicon`. Een gekozen favicon gaat voor het site-icoon uit de Customizer.
+- Nieuw: `powerhub_favicon_url( $maat )`.
+
 ## 1.6.2 (24-11-2026)
 
 - Nieuw: `BIJWERKEN.md` met de werkwijze voor het bijwerken in een klantproject en de overstapstappen per versie: lettertypes en logo eenmalig uit het thema naar Powerhub (met de hand of met een uitroltaak), en `powerhub_maker_url()` in eigen footers.

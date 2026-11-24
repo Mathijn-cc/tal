@@ -544,7 +544,7 @@ function tal_uitrol_favicon() {
 	if ( get_option( 'site_icon' ) ) {
 		return true;
 	}
-	$id = tal_uitrol_bijlage( 'tal-favicon.png' );
+	$id = tal_uitrol_bijlage( 'tal-favicon-512.png' );
 	if ( ! $id ) {
 		return false;
 	}
@@ -555,5 +555,29 @@ function tal_uitrol_favicon() {
 
 add_filter( 'powerhub_uitroltaken', function ( $taken ) {
 	$taken['favicon-v1'] = 'tal_uitrol_favicon';
+	return $taken;
+} );
+
+/**
+ * Favicon in Powerhub (Algemeen › Favicon), met een eigen crème achtergrond zodat het ook in een donker tabblad zichtbaar is.
+ * Gaat voor het site-icoon van WordPress uit favicon-v1.
+ */
+function tal_uitrol_favicon_powerhub() {
+	$opties = powerhub_opgeslagen();
+	if ( ! empty( $opties['favicon'] ) ) {
+		return true;
+	}
+	$id = tal_uitrol_bijlage( 'tal-favicon-512.png' );
+	if ( ! $id ) {
+		return false;
+	}
+	$opties['favicon'] = $id;
+	update_option( POWERHUB_OPTIE, $opties, true );
+	echo "Favicon in Powerhub gezet.\n";
+	return true;
+}
+
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['favicon-powerhub-v1'] = 'tal_uitrol_favicon_powerhub';
 	return $taken;
 } );

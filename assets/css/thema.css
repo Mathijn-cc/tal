@@ -1282,18 +1282,19 @@ body .menupaneel.is-sluiten {
 	animation:            menupaneel-dicht 450ms var(--curve-standaard) both;
 }
 
+/* Alles past op het scherm: ruimte en lettergrootte schalen mee met de hoogte van het scherm. */
 body .menupaneel .menupaneel-menu ul {
 	margin:               0;
-	padding:              12vh 0 0;
+	padding:              clamp(8px, 7svh, 12vh) 0 0;
 	list-style:           none;
 }
 
 body .menupaneel .menupaneel-menu a {
 	display:              block;
-	padding:              6px 0;
+	padding:              clamp(1px, 0.7svh, 6px) 0;
 	color:                var(--kleur-tekst-kop);
 	font-family:          var(--letter-kop);
-	font-size:            clamp(var(--minimaal-menu), var(--vloeiend-menu), var(--maat-menu));
+	font-size:            min(clamp(var(--minimaal-menu), var(--vloeiend-menu), var(--maat-menu)), 6.6svh);
 	line-height:          var(--regel-menu);
 	letter-spacing:       var(--spatiering-strak);
 }
@@ -1319,7 +1320,7 @@ body .menupaneel .menupaneel-voet {
 	align-items:          flex-start;
 	gap:                  14px;
 	margin-top:           auto;
-	padding-top:          48px;
+	padding-top:          clamp(20px, 4svh, 48px);
 }
 
 body.menu-open {

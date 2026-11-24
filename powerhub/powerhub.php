@@ -6,7 +6,7 @@
  * - powerhub_tab()                 eigen tab met velden in Powerhub
  * - designsysteem/tokens.json      de bron van waarheid: tokens, zie modules/designsysteem.php
  * - filter powerhub_kleuren        welke kleuren in Powerhub overschreven mogen worden
- * - filter powerhub_fonts          de lokaal meegeleverde lettertypes
+ * - filter powerhub_fonts          de lokaal meegeleverde lettertypes (aangevuld met de module Lettertypes)
  * - filter powerhub_blok_layouts   de ACF-blokken
  * - filter powerhub_uitroltaken    eenmalige taken na een uitrol
  * Zie README.md in deze map.
@@ -14,7 +14,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'POWERHUB_VERSIE', '1.4.0' );
+define( 'POWERHUB_VERSIE', '1.5.0' );
 
 /**
  * Versie voor een Powerhub-bestand: versienummer plus wijzigingstijd, zodat browser en servercache na elke uitrol vernieuwen.
@@ -46,6 +46,7 @@ $powerhub_modules = apply_filters( 'powerhub_modules', array(
 	'algemeen',
 	'kleuren',
 	'typografie',
+	'lettertypes',
 	'animaties',
 	'footer',
 	'seo',

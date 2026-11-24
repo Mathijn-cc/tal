@@ -38,7 +38,7 @@ function powerhub_font_rollen() {
 
 add_action( 'powerhub_registreren', function () {
 	$fonts = powerhub_fonts();
-	if ( ! $fonts ) {
+	if ( ! $fonts && ! function_exists( 'powerhub_lettertypes_beheer' ) ) {
 		return;
 	}
 	$standaard = (array) apply_filters( 'powerhub_font_standaard', array() );
@@ -73,6 +73,8 @@ add_action( 'powerhub_registreren', function () {
 		'niveau'   => 'beheer',
 		'volgorde' => 40,
 		'velden'   => $velden,
+		/* Module Lettertypes: bibliotheek en eigen lettertypes onder de keuzes. */
+		'weergave' => function_exists( 'powerhub_lettertypes_beheer' ) ? 'powerhub_lettertypes_beheer' : null,
 	) );
 } );
 
@@ -98,8 +100,38 @@ function powerhub_css_waarde( $waarde ) {
 	return trim( preg_replace( '/[<>{};\\\\]/', '', (string) $waarde ) );
 }
 
+/**
+ * Adres van een lettertypebestand. Gewoon een bestandsnaam: assets/fonts van het thema.
+ * 'uploads:pad' staat in de uploads (module Lettertypes), 'bijlage:123' is een bestand uit de mediabibliotheek.
+ * Zo blijven de adressen kloppen als de site naar een ander domein verhuist.
+ */
 function powerhub_font_url( $bestand ) {
+	$bestand = (string) $bestand;
+	if ( 0 === strpos( $bestand, 'uploads:' ) ) {
+		$basis = wp_upload_dir();
+		return trailingslashit( $basis['baseurl'] ) . implode( '/', array_map( 'rawurlencode', explode( '/', substr( $bestand, 8 ) ) ) );
+	}
+	if ( 0 === strpos( $bestand, 'bijlage:' ) ) {
+		return (string) wp_get_attachment_url( absint( substr( $bestand, 8 ) ) );
+	}
 	return get_template_directory_uri() . '/assets/fonts/' . rawurlencode( $bestand );
+}
+
+/**
+ * Eén @font-face-regel voor een bestand van een lettertype.
+ */
+function powerhub_font_face( $naam, $b ) {
+	$formaat = 'woff' === ( $b['formaat'] ?? '' ) ? 'woff' : 'woff2';
+	$bereik  = ! empty( $b['unicode'] ) && preg_match( '/^[uU0-9a-fA-F+?\-, ]+$/', $b['unicode'] ) ? ';unicode-range:' . $b['unicode'] : '';
+	return sprintf(
+		"@font-face{font-family:'%s';src:url('%s') format('%s');font-weight:%s;font-style:%s;font-display:swap%s;}",
+		powerhub_css_waarde( str_replace( "'", '', $naam ) ),
+		esc_url( powerhub_font_url( $b['bestand'] ) ),
+		$formaat,
+		powerhub_css_waarde( $b['gewicht'] ?? '400' ),
+		powerhub_css_waarde( $b['stijl'] ?? 'normal' ),
+		$bereik
+	);
 }
 
 function powerhub_typografie_css() {
@@ -111,13 +143,7 @@ function powerhub_typografie_css() {
 	$css = '';
 	foreach ( array_unique( $gekozen ) as $sleutel ) {
 		foreach ( (array) $fonts[ $sleutel ]['bestanden'] as $b ) {
-			$css .= sprintf(
-				"@font-face{font-family:'%s';src:url('%s') format('woff2');font-weight:%s;font-style:%s;font-display:swap;}",
-				powerhub_css_waarde( str_replace( "'", '', $fonts[ $sleutel ]['naam'] ) ),
-				esc_url( powerhub_font_url( $b['bestand'] ) ),
-				powerhub_css_waarde( $b['gewicht'] ?? '400' ),
-				powerhub_css_waarde( $b['stijl'] ?? 'normal' )
-			);
+			$css .= powerhub_font_face( $fonts[ $sleutel ]['naam'], $b );
 		}
 	}
 	$variabelen = array();
@@ -155,7 +181,7 @@ add_action( 'wp_head', function () {
 			}
 			if ( ! in_array( $b['bestand'], $gedaan, true ) ) {
 				$gedaan[] = $b['bestand'];
-				printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( powerhub_font_url( $b['bestand'] ) ) );
+				printf( '<link rel="preload" href="%s" as="font" type="font/%s" crossorigin>' . "\n", esc_url( powerhub_font_url( $b['bestand'] ) ), 'woff' === ( $b['formaat'] ?? '' ) ? 'woff' : 'woff2' );
 			}
 			break;
 		}

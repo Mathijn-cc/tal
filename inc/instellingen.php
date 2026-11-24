@@ -23,7 +23,6 @@ add_filter( 'powerhub_fonts', function () {
 		'dm-serif-display' => array(
 			'naam'      => 'DM Serif Display',
 			'fallback'  => 'Georgia, "Times New Roman", serif',
-			'rollen'    => array( 'kop', 'accent' ),
 			'bestanden' => array(
 				array( 'bestand' => 'dm-serif-display-400.woff2', 'gewicht' => '400', 'stijl' => 'normal' ),
 			),
@@ -31,7 +30,6 @@ add_filter( 'powerhub_fonts', function () {
 		'general-sans' => array(
 			'naam'      => 'General Sans',
 			'fallback'  => 'system-ui, -apple-system, "Segoe UI", sans-serif',
-			'rollen'    => array( 'tekst' ),
 			'bestanden' => array(
 				array( 'bestand' => 'general-sans-variabel.woff2', 'gewicht' => '200 700', 'stijl' => 'normal' ),
 				array( 'bestand' => 'general-sans-variabel-cursief.woff2', 'gewicht' => '200 700', 'stijl' => 'italic' ),

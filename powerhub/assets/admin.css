@@ -500,3 +500,105 @@
 .wrap.powerhub .powerhub-status-fout {
 	color:                var(--ph-fout);
 }
+
+/**Powerhub -- Lettertypes**/
+/* Bibliotheek (Google Fonts en Fontshare) en eigen lettertypes, onder de keuzes in de tab Typografie. */
+.wrap.powerhub .powerhub-lettertypes {
+	margin-top:           2rem;
+	padding-top:          1.5rem;
+	border-top:           1px solid var(--ph-lijn);
+}
+
+.wrap.powerhub .powerhub-lettertypes .powerhub-tussenkop {
+	margin-top:           1.75rem;
+}
+
+.wrap.powerhub .powerhub-lettertypes .powerhub-tussenkop:first-child {
+	margin-top:           0;
+}
+
+/*Lettertypes -- Lijsten*/
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-lijst,
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-resultaten {
+	margin:               0.75rem 0 0;
+	padding:              0;
+	list-style:           none;
+}
+
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-lijst > li,
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-resultaten > li {
+	display:              grid;
+	grid-template-columns: minmax(0, 1fr) auto auto;
+	align-items:          center;
+	gap:                  1rem;
+	margin:               0;
+	padding:              0.7rem 0;
+	border-top:           1px solid var(--ph-lijn);
+}
+
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-lijst > li > small,
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-resultaten > li > small {
+	color:                var(--ph-zacht);
+}
+
+/*Lettertypes -- Voorbeeld*/
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-lijst .powerhub-lettertype-voorbeeld {
+	overflow:             hidden;
+	font-size:            1.6rem;
+	line-height:          1.2;
+	white-space:          nowrap;
+	text-overflow:        ellipsis;
+}
+
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-lijst .powerhub-lettertype-weg {
+	color:                var(--ph-fout);
+}
+
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-leeg {
+	margin:               0.75rem 0 0;
+	color:                var(--ph-zacht);
+}
+
+/*Lettertypes -- Zoeken*/
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-zoek {
+	display:              flex;
+	gap:                  0.6rem;
+	margin-top:           0.75rem;
+}
+
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-zoek input[type="search"] {
+	flex:                 1 1 auto;
+	min-height:           40px;
+}
+
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-status {
+	min-height:           1.2em;
+	margin:               0.6rem 0 0;
+	color:                var(--ph-zacht);
+}
+
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-status.is-fout {
+	color:                var(--ph-fout);
+}
+
+/*Lettertypes -- Eigen bestanden*/
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-bestanden {
+	margin:               0.6rem 0 0;
+	padding:              0;
+	list-style:           none;
+}
+
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-bestanden > li {
+	display:              flex;
+	flex-wrap:            wrap;
+	align-items:          center;
+	gap:                  0.6rem;
+	padding:              0.45rem 0;
+	border-top:           1px solid var(--ph-lijn);
+}
+
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-bestanden > li > code {
+	flex:                 1 1 220px;
+	overflow:             hidden;
+	text-overflow:        ellipsis;
+}

@@ -2,6 +2,15 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.5.0 (24-11-2026)
+
+- Nieuwe module Lettertypes, in de tab Typografie:
+  - Bibliotheek met Google Fonts en Fontshare: zoeken en toevoegen. De server haalt de .woff2-bestanden één keer op en zet ze in uploads/powerhub-lettertypes; de site laadt nooit van Google of Fontshare. Van Google alleen de Latijnse delen (latin en latin-ext), variabel waar dat kan.
+  - Eigen lettertypes: .woff2- of .woff-bestanden uit de mediabibliotheek, met naam, soort en per bestand gewicht en stijl (geraden uit de bestandsnaam). Uploaden van woff en woff2 mag voor beheerders.
+  - Toegevoegde lettertypes zijn te kiezen voor elke rol. Verwijderen kan niet zolang een lettertype voor een rol gekozen is.
+- `powerhub_font_url()` kent nu ook `uploads:pad` en `bijlage:id`, zodat adressen kloppen na een verhuizing naar een ander domein. Nieuw: `powerhub_font_face( $naam, $bestand )` met unicode-range en woff.
+- De tab Typografie staat er nu ook als het thema zelf geen lettertypes meelevert.
+
 ## 1.4.0 (24-11-2026)
 
 - Kopbalk van Powerhub in de kleuren van Creators Connect (donkergroen, lime, crème) met het favicon (de schakel) als merk en de schakel schuin als lijn door de balk. In de zijbalk van WordPress blijft de bliksemschicht.

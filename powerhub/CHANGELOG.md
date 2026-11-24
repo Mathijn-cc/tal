@@ -2,6 +2,11 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.8.0 (24-11-2026)
+
+- Nieuw: Reacties uit, in Onderhoud en beveiliging › Opschonen (standaard aan). Geen reacties en pingbacks op de hele site: weg uit de editor, de berichtenlijsten, het menu (Reacties en Instellingen › Discussie), de adminbalk en het dashboard. Ook geen reacties via de REST API of XML-RPC, geen reactiefeed en geen X-Pingback-kop. Bestaande reacties blijven in de database en komen terug als je de schakel uitzet.
+- Functie `powerhub_reacties_uit()`.
+
 ## 1.7.5 (24-11-2026)
 
 - De kop van Powerhub is lager en blijft bovenin staan. Bij scrollen wordt hij nog lager en verdwijnt de regel met thema en versie (zonder beweging bij "minder beweging").

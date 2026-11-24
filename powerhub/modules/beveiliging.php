@@ -66,6 +66,7 @@ powerhub_tab( 'beveiliging', array(
 		'kop_opschonen'         => array( 'type' => 'kop', 'label' => 'Opschonen' ),
 		'emoji_uit'             => array( 'type' => 'schakel', 'label' => 'Emoji-scripts uit', 'uitleg' => 'Scheelt een extra script op elke pagina.', 'standaard' => true ),
 		'dashboard_opschonen'   => array( 'type' => 'schakel', 'label' => 'Dashboard opschonen', 'uitleg' => 'Haalt WordPress-nieuws en welkomstpaneel weg.', 'standaard' => true ),
+		'reacties_uit'          => array( 'type' => 'schakel', 'label' => 'Reacties uit', 'uitleg' => 'Geen reacties en pingbacks op de hele site, en Reacties verdwijnt uit het menu, de adminbalk en het dashboard. Bestaande reacties blijven bewaard en komen terug als je dit uitzet.', 'standaard' => true ),
 	),
 ) );
 
@@ -173,3 +174,106 @@ add_action( 'wp_dashboard_setup', function () {
 	remove_meta_box( 'dashboard_site_health', 'dashboard', 'normal' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 }, 20 );
+
+/*
+ * Reacties uit: overal dicht, nergens zichtbaar. Bestaande reacties blijven in de database staan.
+ */
+function powerhub_reacties_uit() {
+	return powerhub_aan( 'reacties_uit' );
+}
+
+/* Geen ondersteuning meer voor reacties en trackbacks: weg uit de editor, de lijsten en Snel bewerken. */
+add_action( 'init', function () {
+	if ( ! powerhub_reacties_uit() ) {
+		return;
+	}
+	foreach ( get_post_types() as $soort ) {
+		if ( post_type_supports( $soort, 'comments' ) ) {
+			remove_post_type_support( $soort, 'comments' );
+			remove_post_type_support( $soort, 'trackbacks' );
+		}
+	}
+}, 100 );
+
+/* Dicht voor nieuwe reacties en pingbacks, en geen bestaande reacties op de voorkant. */
+add_filter( 'comments_open', function ( $open ) {
+	return powerhub_reacties_uit() ? false : $open;
+}, 20 );
+add_filter( 'pings_open', function ( $open ) {
+	return powerhub_reacties_uit() ? false : $open;
+}, 20 );
+add_filter( 'comments_array', function ( $reacties ) {
+	return powerhub_reacties_uit() ? array() : $reacties;
+}, 20 );
+add_filter( 'get_comments_number', function ( $aantal ) {
+	return powerhub_reacties_uit() ? 0 : $aantal;
+}, 20 );
+add_filter( 'feed_links_show_comments_feed', function ( $tonen ) {
+	return powerhub_reacties_uit() ? false : $tonen;
+} );
+add_action( 'template_redirect', function () {
+	if ( powerhub_reacties_uit() && is_comment_feed() ) {
+		wp_safe_redirect( home_url( '/' ), 301 );
+		exit;
+	}
+} );
+
+/* Geen X-Pingback-kop en geen reacties via de REST API of XML-RPC. */
+add_filter( 'wp_headers', function ( $koppen ) {
+	if ( powerhub_reacties_uit() ) {
+		unset( $koppen['X-Pingback'] );
+	}
+	return $koppen;
+} );
+add_filter( 'rest_endpoints', function ( $routes ) {
+	if ( powerhub_reacties_uit() ) {
+		foreach ( array_keys( $routes ) as $route ) {
+			if ( 0 === strpos( $route, '/wp/v2/comments' ) ) {
+				unset( $routes[ $route ] );
+			}
+		}
+	}
+	return $routes;
+} );
+add_filter( 'xmlrpc_methods', function ( $methodes ) {
+	if ( powerhub_reacties_uit() ) {
+		unset( $methodes['wp.newComment'], $methodes['pingback.ping'], $methodes['pingback.extensions.getPingbacks'] );
+	}
+	return $methodes;
+} );
+
+/* Weg uit het menu (Reacties en Instellingen › Discussie), de adminbalk en het dashboard. */
+add_action( 'admin_menu', function () {
+	if ( ! powerhub_reacties_uit() ) {
+		return;
+	}
+	remove_menu_page( 'edit-comments.php' );
+	remove_submenu_page( 'options-general.php', 'options-discussion.php' );
+}, 999 );
+add_action( 'admin_init', function () {
+	if ( ! powerhub_reacties_uit() ) {
+		return;
+	}
+	global $pagenow;
+	if ( in_array( $pagenow, array( 'edit-comments.php', 'comment.php', 'options-discussion.php' ), true ) ) {
+		wp_safe_redirect( admin_url() );
+		exit;
+	}
+	remove_meta_box( 'dashboard_recent_comments', 'dashboard', 'normal' );
+} );
+add_action( 'admin_bar_menu', function ( $balk ) {
+	if ( powerhub_reacties_uit() ) {
+		$balk->remove_node( 'comments' );
+	}
+}, 999 );
+add_action( 'wp_dashboard_setup', function () {
+	if ( powerhub_reacties_uit() ) {
+		remove_meta_box( 'dashboard_recent_comments', 'dashboard', 'normal' );
+	}
+}, 999 );
+/* Het tellertje "x reacties" in Activiteit en Op dit moment. */
+add_action( 'admin_head-index.php', function () {
+	if ( powerhub_reacties_uit() ) {
+		echo '<style>#dashboard_right_now .comment-count,#dashboard_right_now .comment-mod-count,#dashboard_activity #latest-comments{display:none}</style>';
+	}
+} );

@@ -14,6 +14,7 @@ function tal_uitrol_lettertypes() {
 	if ( ! function_exists( 'powerhub_lettertype_overnemen' ) ) {
 		return false;
 	}
+	/* Uitgevoerd op 24-11-2026; de bestanden staan nu in uploads en zijn uit het thema gehaald. */
 	$map  = get_template_directory() . '/assets/fonts/';
 	$kop  = powerhub_lettertype_overnemen( 'google-dm-serif-display', 'DM Serif Display', 'Georgia, "Times New Roman", serif', 'google', array(
 		array( 'pad' => $map . 'dm-serif-display-400.woff2', 'gewicht' => '400', 'stijl' => 'normal' ),

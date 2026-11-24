@@ -118,7 +118,7 @@ function tal_uitrol_bijlage( $bestand ) {
 	$soort = wp_check_filetype( $bestand );
 	$id    = wp_insert_attachment( array(
 		'post_mime_type' => $soort['type'] ? $soort['type'] : 'image/jpeg',
-		'post_title'     => 0 === strpos( $bestand, 'tal-logo' ) ? 'Logo TAL leadership' : 'Chantal Strijbos, TAL leadership',
+		'post_title'     => 0 === strpos( $bestand, 'tal-favicon' ) ? 'Favicon TAL leadership' : ( 0 === strpos( $bestand, 'tal-logo' ) ? 'Logo TAL leadership' : 'Chantal Strijbos, TAL leadership' ),
 		'post_status'    => 'inherit',
 	), $upload['file'] );
 	if ( ! $id || is_wp_error( $id ) ) {
@@ -534,5 +534,26 @@ function tal_uitrol_logo() {
 
 add_filter( 'powerhub_uitroltaken', function ( $taken ) {
 	$taken['lettertypes-naar-powerhub-v1'] = 'tal_uitrol_lettertypes';
+	return $taken;
+} );
+
+/**
+ * Favicon: het TAL-woordmerk in de boog van het logo, als site-icoon van WordPress. Alleen als er nog geen icoon is.
+ */
+function tal_uitrol_favicon() {
+	if ( get_option( 'site_icon' ) ) {
+		return true;
+	}
+	$id = tal_uitrol_bijlage( 'tal-favicon.png' );
+	if ( ! $id ) {
+		return false;
+	}
+	update_option( 'site_icon', $id );
+	echo "Favicon gezet.\n";
+	return true;
+}
+
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['favicon-v1'] = 'tal_uitrol_favicon';
 	return $taken;
 } );

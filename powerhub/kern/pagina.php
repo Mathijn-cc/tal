@@ -22,8 +22,8 @@ add_action( 'admin_enqueue_scripts', function ( $hook ) {
 		return;
 	}
 	wp_enqueue_media();
-	wp_enqueue_style( 'powerhub', POWERHUB_URL . '/assets/admin.css', array(), POWERHUB_VERSIE );
-	wp_enqueue_script( 'powerhub', POWERHUB_URL . '/assets/admin.js', array( 'jquery' ), POWERHUB_VERSIE, true );
+	wp_enqueue_style( 'powerhub', POWERHUB_URL . '/assets/admin.css', array(), powerhub_versie( '/assets/admin.css' ) );
+	wp_enqueue_script( 'powerhub', POWERHUB_URL . '/assets/admin.js', array( 'jquery' ), powerhub_versie( '/assets/admin.js' ), true );
 } );
 
 function powerhub_meldingen() {
@@ -36,7 +36,7 @@ function powerhub_meldingen() {
 }
 
 function powerhub_pagina() {
-	$tabs = array_filter( powerhub_tabs(), 'powerhub_mag_tab' );
+	$tabs = array_filter( powerhub_tabs(), 'powerhub_mag_tab', ARRAY_FILTER_USE_BOTH );
 	if ( ! $tabs ) {
 		wp_die( 'Je hebt geen toegang tot Powerhub.', 403 );
 	}
@@ -61,7 +61,10 @@ function powerhub_pagina() {
 				</div>
 			</div>
 			<?php if ( powerhub_is_beheerder() ) : ?>
-				<span class="powerhub-niveau">Beheerder</span>
+				<span class="powerhub-niveau">
+					<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+					Beheerder
+				</span>
 			<?php endif; ?>
 		</header>
 
@@ -70,19 +73,74 @@ function powerhub_pagina() {
 		<?php endif; ?>
 
 		<div class="powerhub-indeling">
+			<?php
+			/* Tabs in groepen (submenu): array( 'design' => array( 'titel', 'uitleg', 'tabs' => array( sleutels ) ) ). */
+			$groepen  = (array) apply_filters( 'powerhub_tabgroepen', array(
+				'design' => array(
+					'titel'  => 'Design',
+					'uitleg' => 'Kleuren, typografie en designsysteem',
+					'tabs'   => array( 'kleuren', 'typografie', 'designsysteem' ),
+				),
+			) );
+			$in_groep = array();
+			foreach ( $groepen as $g => $groep ) {
+				$groepen[ $g ]['tabs'] = array_values( array_filter( (array) $groep['tabs'], function ( $t ) use ( $tabs ) {
+					return isset( $tabs[ $t ] );
+				} ) );
+				foreach ( $groepen[ $g ]['tabs'] as $t ) {
+					$in_groep[ $t ] = $g;
+				}
+			}
+			$getoond = array();
+			$tab_knop = function ( $sleutel, $tab, $sub = false ) {
+				?>
+				<button type="button" role="tab" class="<?php echo $sub ? 'powerhub-subtab' : ''; ?>" id="powerhub-tab-<?php echo esc_attr( $sleutel ); ?>" aria-controls="powerhub-paneel-<?php echo esc_attr( $sleutel ); ?>" data-tab="<?php echo esc_attr( $sleutel ); ?>">
+					<span class="powerhub-tab-titel">
+						<?php echo esc_html( $tab['titel'] ); ?>
+						<?php if ( powerhub_is_beheerder() && function_exists( 'powerhub_tab_voor_klant' ) && ! powerhub_tab_voor_klant( $sleutel, $tab ) ) : ?>
+							<span class="powerhub-slot" title="Alleen zichtbaar voor beheerders. Aan te passen in de tab Toegang.">
+								<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="11" x="4" y="11" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+								Beheer
+							</span>
+						<?php endif; ?>
+					</span>
+					<?php if ( $tab['uitleg'] && ! $sub ) : ?>
+						<small><?php echo esc_html( $tab['uitleg'] ); ?></small>
+					<?php endif; ?>
+				</button>
+				<?php
+			};
+			?>
 			<nav class="powerhub-tabs" role="tablist" aria-label="Onderdelen">
 				<?php foreach ( $tabs as $sleutel => $tab ) : ?>
-					<button type="button" role="tab" id="powerhub-tab-<?php echo esc_attr( $sleutel ); ?>" aria-controls="powerhub-paneel-<?php echo esc_attr( $sleutel ); ?>" data-tab="<?php echo esc_attr( $sleutel ); ?>">
-						<span class="powerhub-tab-titel">
-							<?php echo esc_html( $tab['titel'] ); ?>
-							<?php if ( 'beheer' === $tab['niveau'] ) : ?>
-								<span class="powerhub-slot" title="Alleen voor beheerders">beheer</span>
-							<?php endif; ?>
-						</span>
-						<?php if ( $tab['uitleg'] ) : ?>
-							<small><?php echo esc_html( $tab['uitleg'] ); ?></small>
-						<?php endif; ?>
-					</button>
+					<?php if ( isset( $in_groep[ $sleutel ] ) ) : ?>
+						<?php
+						$g = $in_groep[ $sleutel ];
+						if ( isset( $getoond[ $g ] ) ) {
+							continue;
+						}
+						$getoond[ $g ] = true;
+						$open          = in_array( $actief, $groepen[ $g ]['tabs'], true );
+						?>
+						<div class="powerhub-groep<?php echo $open ? ' is-open' : ''; ?>" data-groep>
+							<button type="button" class="powerhub-groep-knop" aria-expanded="<?php echo $open ? 'true' : 'false'; ?>" aria-controls="powerhub-groep-<?php echo esc_attr( $g ); ?>">
+								<span class="powerhub-tab-titel">
+									<?php echo esc_html( $groepen[ $g ]['titel'] ); ?>
+									<svg class="powerhub-groep-pijl" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+								</span>
+								<?php if ( ! empty( $groepen[ $g ]['uitleg'] ) ) : ?>
+									<small><?php echo esc_html( $groepen[ $g ]['uitleg'] ); ?></small>
+								<?php endif; ?>
+							</button>
+							<div class="powerhub-groep-tabs" id="powerhub-groep-<?php echo esc_attr( $g ); ?>"<?php echo $open ? '' : ' hidden'; ?>>
+								<?php foreach ( $groepen[ $g ]['tabs'] as $t ) : ?>
+									<?php $tab_knop( $t, $tabs[ $t ], true ); ?>
+								<?php endforeach; ?>
+							</div>
+						</div>
+					<?php else : ?>
+						<?php $tab_knop( $sleutel, $tab ); ?>
+					<?php endif; ?>
 				<?php endforeach; ?>
 			</nav>
 

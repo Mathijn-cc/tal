@@ -6,6 +6,53 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Security Optimizer van SiteGround (SG Security, plugin sg-security) is onze standaard op elke site.
+ * Wat die plugin ook kan, laat Powerhub dan aan de plugin over, zodat niets dubbel of tegenstrijdig staat:
+ * XML-RPC uitzetten, WordPress-versie verbergen en de thema- en plugineditor uitzetten.
+ */
+function powerhub_sg_security() {
+	$actief = (array) get_option( 'active_plugins', array() );
+	if ( in_array( 'sg-security/sg-security.php', $actief, true ) ) {
+		return true;
+	}
+	return is_multisite() && array_key_exists( 'sg-security/sg-security.php', (array) get_site_option( 'active_sitewide_plugins', array() ) );
+}
+
+function powerhub_sg_security_taken() {
+	return array( 'xmlrpc_uit', 'versie_verbergen', 'bestandseditor_uit' );
+}
+
+/**
+ * Verharding uit Powerhub, behalve wat SG Security regelt.
+ */
+function powerhub_verharding( $sleutel ) {
+	if ( powerhub_sg_security() && in_array( $sleutel, powerhub_sg_security_taken(), true ) ) {
+		return false;
+	}
+	return powerhub_aan( $sleutel );
+}
+
+$powerhub_verharding_velden = array(
+	'kop_verharding'        => array(
+		'type'   => 'kop',
+		'label'  => 'Verharding',
+		'uitleg' => powerhub_sg_security()
+			? 'SG Security (Security Optimizer) is actief. XML-RPC, de WordPress-versie en de bestandseditor regel je daar, onder Site Security. Powerhub doet alleen wat de plugin niet doet.'
+			: 'Let op: SG Security (Security Optimizer van SiteGround) is niet actief. Dat is onze standaard; installeer en activeer de plugin. Tot die tijd doet Powerhub de basis.',
+	),
+	'xmlrpc_uit'            => array( 'type' => 'schakel', 'label' => 'XML-RPC uit', 'uitleg' => 'Veelgebruikte aanvalsroute voor wachtwoordaanvallen. Alleen aanlaten voor de Jetpack-app of oude koppelingen.', 'standaard' => true ),
+	'gebruikers_verbergen'  => array( 'type' => 'schakel', 'label' => 'Gebruikersnamen verbergen', 'uitleg' => 'Blokkeert ?author=, auteurspagina\'s en de gebruikerslijst in de REST API voor bezoekers. SG Security doet dit niet.', 'standaard' => true ),
+	'versie_verbergen'      => array( 'type' => 'schakel', 'label' => 'WordPress-versie verbergen', 'standaard' => true ),
+	'bestandseditor_uit'    => array( 'type' => 'schakel', 'label' => 'Bestandseditor uit', 'uitleg' => 'Geen thema- en plugincode bewerken in wp-admin. Het thema komt uit GitHub.', 'standaard' => true ),
+	'login_melding'         => array( 'type' => 'schakel', 'label' => 'Algemene inlogfout', 'uitleg' => 'Verraadt niet of de gebruikersnaam bestaat. SG Security doet dit niet; inlogpogingen beperken, 2FA en een eigen inlogadres wel (onder Login Security).', 'standaard' => true ),
+);
+if ( powerhub_sg_security() ) {
+	foreach ( powerhub_sg_security_taken() as $sleutel ) {
+		unset( $powerhub_verharding_velden[ $sleutel ] );
+	}
+}
+
 powerhub_tab( 'beveiliging', array(
 	'titel'    => 'Onderhoud en beveiliging',
 	'uitleg'   => 'Onderhoudsmodus en verharding',
@@ -15,14 +62,7 @@ powerhub_tab( 'beveiliging', array(
 		'kop_onderhoud'         => array( 'type' => 'kop', 'label' => 'Onderhoud' ),
 		'onderhoud'             => array( 'type' => 'schakel', 'label' => 'Onderhoudsmodus', 'uitleg' => 'Bezoekers zien een onderhoudspagina (503, zodat Google later terugkomt). Ingelogde gebruikers zien de site gewoon.' ),
 		'onderhoud_tekst'       => array( 'type' => 'tekstvak', 'label' => 'Tekst onderhoudspagina', 'standaard' => 'We werken even aan de website. Kom straks terug.' ),
-
-		'kop_verharding'        => array( 'type' => 'kop', 'label' => 'Verharding' ),
-		'xmlrpc_uit'            => array( 'type' => 'schakel', 'label' => 'XML-RPC uit', 'uitleg' => 'Veelgebruikte aanvalsroute voor wachtwoordaanvallen. Alleen aanlaten voor de Jetpack-app of oude koppelingen.', 'standaard' => true ),
-		'gebruikers_verbergen'  => array( 'type' => 'schakel', 'label' => 'Gebruikersnamen verbergen', 'uitleg' => 'Blokkeert ?author= en de gebruikerslijst in de REST API voor bezoekers.', 'standaard' => true ),
-		'versie_verbergen'      => array( 'type' => 'schakel', 'label' => 'WordPress-versie verbergen', 'standaard' => true ),
-		'bestandseditor_uit'    => array( 'type' => 'schakel', 'label' => 'Bestandseditor uit', 'uitleg' => 'Geen thema- en plugincode bewerken in wp-admin. Het thema komt uit GitHub.', 'standaard' => true ),
-		'login_melding'         => array( 'type' => 'schakel', 'label' => 'Algemene inlogfout', 'uitleg' => 'Verraadt niet of de gebruikersnaam bestaat.', 'standaard' => true ),
-
+	) + $powerhub_verharding_velden + array(
 		'kop_opschonen'         => array( 'type' => 'kop', 'label' => 'Opschonen' ),
 		'emoji_uit'             => array( 'type' => 'schakel', 'label' => 'Emoji-scripts uit', 'uitleg' => 'Scheelt een extra script op elke pagina.', 'standaard' => true ),
 		'dashboard_opschonen'   => array( 'type' => 'schakel', 'label' => 'Dashboard opschonen', 'uitleg' => 'Haalt WordPress-nieuws en welkomstpaneel weg.', 'standaard' => true ),
@@ -65,17 +105,17 @@ add_action( 'admin_bar_menu', function ( $balk ) {
 
 /* XML-RPC */
 add_filter( 'xmlrpc_enabled', function ( $aan ) {
-	return powerhub_aan( 'xmlrpc_uit' ) ? false : $aan;
+	return powerhub_verharding( 'xmlrpc_uit' ) ? false : $aan;
 } );
 /* xmlrpc_enabled zet alleen de ingelogde methodes uit; daarom het hele verzoek weigeren. */
 add_action( 'init', function () {
-	if ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST && powerhub_aan( 'xmlrpc_uit' ) ) {
+	if ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST && powerhub_verharding( 'xmlrpc_uit' ) ) {
 		status_header( 403 );
 		exit;
 	}
 }, 0 );
 add_filter( 'wp_headers', function ( $headers ) {
-	if ( powerhub_aan( 'xmlrpc_uit' ) ) {
+	if ( powerhub_verharding( 'xmlrpc_uit' ) ) {
 		unset( $headers['X-Pingback'] );
 	}
 	return $headers;
@@ -83,13 +123,13 @@ add_filter( 'wp_headers', function ( $headers ) {
 
 /* Gebruikersnamen */
 add_filter( 'rest_endpoints', function ( $routes ) {
-	if ( powerhub_aan( 'gebruikers_verbergen' ) && ! is_user_logged_in() ) {
+	if ( powerhub_verharding( 'gebruikers_verbergen' ) && ! is_user_logged_in() ) {
 		unset( $routes['/wp/v2/users'], $routes['/wp/v2/users/(?P<id>[\d]+)'] );
 	}
 	return $routes;
 } );
 add_action( 'template_redirect', function () {
-	if ( powerhub_aan( 'gebruikers_verbergen' ) && ! is_user_logged_in() && ( isset( $_GET['author'] ) || is_author() ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+	if ( powerhub_verharding( 'gebruikers_verbergen' ) && ! is_user_logged_in() && ( isset( $_GET['author'] ) || is_author() ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 		wp_safe_redirect( home_url( '/' ), 301 );
 		exit;
 	}
@@ -97,7 +137,7 @@ add_action( 'template_redirect', function () {
 
 /* Versie */
 add_action( 'init', function () {
-	if ( powerhub_aan( 'versie_verbergen' ) ) {
+	if ( powerhub_verharding( 'versie_verbergen' ) ) {
 		remove_action( 'wp_head', 'wp_generator' );
 		add_filter( 'the_generator', '__return_empty_string' );
 	}
@@ -112,7 +152,7 @@ add_action( 'init', function () {
 
 /* Bestandseditor */
 add_filter( 'map_meta_cap', function ( $rechten, $recht ) {
-	if ( in_array( $recht, array( 'edit_themes', 'edit_plugins', 'edit_files' ), true ) && powerhub_aan( 'bestandseditor_uit' ) ) {
+	if ( in_array( $recht, array( 'edit_themes', 'edit_plugins', 'edit_files' ), true ) && powerhub_verharding( 'bestandseditor_uit' ) ) {
 		return array( 'do_not_allow' );
 	}
 	return $rechten;
@@ -120,7 +160,7 @@ add_filter( 'map_meta_cap', function ( $rechten, $recht ) {
 
 /* Inlogfout */
 add_filter( 'login_errors', function ( $fout ) {
-	return powerhub_aan( 'login_melding' ) ? 'De gebruikersnaam of het wachtwoord klopt niet.' : $fout;
+	return powerhub_verharding( 'login_melding' ) ? 'De gebruikersnaam of het wachtwoord klopt niet.' : $fout;
 } );
 
 /* Dashboard */

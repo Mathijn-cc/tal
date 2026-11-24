@@ -23,7 +23,7 @@ add_action( 'admin_enqueue_scripts', function () {
 		wp_enqueue_style( 'tokens', get_template_directory_uri() . '/assets/css/tokens.css', array(), $versie );
 		$deps[] = 'tokens';
 	}
-	wp_enqueue_style( 'powerhub-blokken', POWERHUB_URL . '/assets/admin-blokken.css', $deps, POWERHUB_VERSIE );
+	wp_enqueue_style( 'powerhub-blokken', POWERHUB_URL . '/assets/admin-blokken.css', $deps, powerhub_versie( '/assets/admin-blokken.css' ) );
 
 	/* Lettertypes van het thema en de kleurbolletjes per achtergrond. */
 	$css = function_exists( 'powerhub_typografie_css' ) ? powerhub_typografie_css() : '';
@@ -47,7 +47,7 @@ add_action( 'admin_enqueue_scripts', function () {
 	}
 	wp_add_inline_style( 'powerhub-blokken', $css );
 
-	wp_enqueue_script( 'powerhub-blokken', POWERHUB_URL . '/assets/admin-blokken.js', array( 'jquery' ), POWERHUB_VERSIE, true );
+	wp_enqueue_script( 'powerhub-blokken', POWERHUB_URL . '/assets/admin-blokken.js', array( 'jquery' ), powerhub_versie( '/assets/admin-blokken.js' ), true );
 
 	$info = array();
 	foreach ( powerhub_blok_layouts() as $naam => $layout ) {
@@ -70,6 +70,10 @@ add_action( 'admin_enqueue_scripts', function () {
 		'blokken'       => $info,
 		'achtergronden' => $achtergronden,
 		'zoeken'        => powerhub_icoon( 'search' ),
+		'focus'         => array(
+			'url'   => admin_url( 'admin-ajax.php' ),
+			'nonce' => wp_create_nonce( 'powerhub_focuspunt' ),
+		),
 	) );
 } );
 

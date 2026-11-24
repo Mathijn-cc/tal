@@ -60,10 +60,16 @@
 
 /*Kop -- Niveau*/
 .wrap.powerhub .powerhub-kop .powerhub-niveau {
-	padding:              0.3rem 0.7rem;
-	border:               1px solid rgba(255, 255, 255, 0.3);
-	border-radius:        999px;
-	font-size:            0.75rem;
+	display:              inline-flex;
+	align-items:          center;
+	gap:                  0.4rem;
+	padding:              0.4rem 0.8rem 0.4rem 0.65rem;
+	border-radius:        10px 10px 10px 3px;
+	background:           rgba(255, 255, 255, 0.12);
+	color:                #ffffff;
+	font-size:            0.78rem;
+	font-weight:          600;
+	letter-spacing:       0.02em;
 }
 
 /**Powerhub -- Meldingen**/
@@ -140,14 +146,69 @@
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button .powerhub-slot {
-	padding:              0.05rem 0.4rem;
-	border-radius:        999px;
-	background:           var(--ph-lijn);
+	display:              inline-flex;
+	align-items:          center;
+	gap:                  0.3rem;
+	margin-left:          auto;
+	padding:              0.2rem 0.5rem 0.2rem 0.45rem;
+	border-radius:        6px 6px 6px 2px;
+	background:           var(--ph-donker);
+	color:                #ffffff;
+	font-size:            0.68rem;
+	font-weight:          600;
+	line-height:          1;
+	letter-spacing:       0.02em;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button .powerhub-slot svg {
+	flex-shrink:          0;
+	opacity:              0.85;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button .powerhub-tab-titel {
+	width:                100%;
+}
+
+/*Indeling -- Groepen*/
+/* Submenu in de zijbalk, bijvoorbeeld Design met Kleuren, Typografie en Designsysteem eronder. */
+.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep-knop .powerhub-groep-pijl {
+	margin-left:          auto;
 	color:                var(--ph-zacht);
-	font-size:            0.65rem;
+	transition:           transform 0.2s ease;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep.is-open .powerhub-groep-pijl {
+	transform:            rotate(180deg);
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep-knop .powerhub-tab-titel {
+	width:                100%;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep-tabs {
+	display:              flex;
+	flex-direction:       column;
+	gap:                  0.15rem;
+	margin:               0.15rem 0 0.35rem 0.9rem;
+	padding-left:         0.6rem;
+	border-left:          2px solid var(--ph-lijn);
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep-tabs[hidden] {
+	display:              none;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button.powerhub-subtab {
+	padding:              0.5rem 0.75rem;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button.powerhub-subtab .powerhub-tab-titel {
+	font-size:            0.9rem;
 	font-weight:          500;
-	text-transform:       uppercase;
-	letter-spacing:       0.04em;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button.powerhub-subtab[aria-selected="true"] .powerhub-tab-titel {
+	font-weight:          600;
 }
 
 /*Indeling -- Panelen*/

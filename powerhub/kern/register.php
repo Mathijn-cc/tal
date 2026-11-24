@@ -140,7 +140,15 @@ function powerhub_waarden( $vernieuwen = false ) {
  */
 function powerhub( $sleutel, $anders = '' ) {
 	$waarden = powerhub_waarden();
-	return array_key_exists( $sleutel, $waarden ) ? $waarden[ $sleutel ] : $anders;
+	if ( ! array_key_exists( $sleutel, $waarden ) ) {
+		return $anders;
+	}
+	/* Filter voor bijvoorbeeld vertalingen (module WPML). Alleen als er iets aan hangt, om dit snel te houden. */
+	if ( has_filter( 'powerhub_waarde' ) ) {
+		$velden = powerhub_alle_velden();
+		return apply_filters( 'powerhub_waarde', $waarden[ $sleutel ], $sleutel, $velden[ $sleutel ] ?? array() );
+	}
+	return $waarden[ $sleutel ];
 }
 
 /**

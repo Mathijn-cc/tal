@@ -14,7 +14,15 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'POWERHUB_VERSIE', '1.2.4' );
+define( 'POWERHUB_VERSIE', '1.3.0' );
+
+/**
+ * Versie voor een Powerhub-bestand: versienummer plus wijzigingstijd, zodat browser en servercache na elke uitrol vernieuwen.
+ */
+function powerhub_versie( $bestand ) {
+	$pad = POWERHUB_PAD . '/' . ltrim( $bestand, '/' );
+	return file_exists( $pad ) ? POWERHUB_VERSIE . '.' . filemtime( $pad ) : POWERHUB_VERSIE;
+}
 define( 'POWERHUB_PAD', __DIR__ );
 define( 'POWERHUB_URL', get_template_directory_uri() . '/powerhub' );
 const POWERHUB_OPTIE = 'powerhub';
@@ -28,6 +36,7 @@ require POWERHUB_PAD . '/kern/pagina.php';
 require POWERHUB_PAD . '/kern/helpers.php';
 require POWERHUB_PAD . '/kern/blokken.php';
 require POWERHUB_PAD . '/kern/blokken-admin.php';
+require POWERHUB_PAD . '/kern/focuspunt.php';
 require POWERHUB_PAD . '/kern/uitrol.php';
 
 /* Standaardmodules. Een project zet een module uit met de filter powerhub_modules. */
@@ -41,7 +50,9 @@ $powerhub_modules = apply_filters( 'powerhub_modules', array(
 	'footer',
 	'seo',
 	'beveiliging',
+	'wpml',
 	'gereedschap',
+	'toegang',
 ) );
 foreach ( $powerhub_modules as $powerhub_module ) {
 	$powerhub_bestand = POWERHUB_PAD . '/modules/' . sanitize_file_name( $powerhub_module ) . '.php';

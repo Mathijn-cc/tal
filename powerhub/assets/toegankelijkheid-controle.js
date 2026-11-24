@@ -15,6 +15,7 @@
 		{ id: 'tekst', titel: 'Tekst te klein' },
 		{ id: 'contrast', titel: 'Contrast te laag' },
 		{ id: 'handmatig', titel: 'Contrast handmatig controleren' },
+		{ id: 'uitzondering', titel: 'Contrast: bewuste uitzondering' },
 		{ id: 'alt', titel: 'Afbeeldingen zonder alt' },
 		{ id: 'naam', titel: 'Knoppen en links zonder naam' },
 		{ id: 'klikdoel', titel: 'Klikdoelen te klein' },
@@ -163,6 +164,12 @@
 		return (el.getAttribute('title') || '').trim();
 	}
 
+	/* Bewust geaccepteerde tekstkleuren (Powerhub, tab Toegankelijkheid): { '#00cef1': 'reden' }. */
+	function uitzondering(kleurHex) {
+		var lijst = c.uitzonderingen || {};
+		return lijst[String(kleurHex).toLowerCase()] || '';
+	}
+
 	/* ---------- Controles ---------- */
 
 	function controleerTekst() {
@@ -186,8 +193,10 @@
 			if (maat < c.kleinste - 0.01) {
 				melden('tekst', el, '"' + tekst + '"', Math.round(maat * 10) / 10 + 'px, minimaal ' + c.kleinste + 'px');
 			} else if (maat < c.lopend - 0.01) {
+				/* Alleen echte lopende tekst: het blok zelf is klein. Een knoplabel van 14px in een kaart van 16px telt niet. */
 				var blok = el.closest('p, li, dd, blockquote');
-				if (blok && !lopers.has(blok) && blok.textContent.trim().length >= 80 && !el.closest('figcaption, small, nav, footer')) {
+				var inKnop = el.closest('button, .knop, [role="button"], label');
+				if (blok && !inKnop && !lopers.has(blok) && parseFloat(getComputedStyle(blok).fontSize) < c.lopend - 0.01 && blok.textContent.trim().length >= 80 && !el.closest('figcaption, small, nav, footer')) {
 					lopers.add(blok);
 					melden('tekst', blok, 'Lopende tekst: "' + fragment(blok.textContent, 40) + '"', Math.round(maat * 10) / 10 + 'px, lopende tekst minimaal ' + c.lopend + 'px');
 				}
@@ -206,7 +215,9 @@
 			var groot = maat >= 24 || (maat >= 18.66 && gewicht >= 700);
 			var eis = c.niveau === 'AAA' ? (groot ? 4.5 : 7) : (groot ? 3 : 4.5);
 			var r = verhouding(voor, a.kleur);
-			if (r < eis) {
+			if (r < eis && uitzondering(hex(voor))) {
+				melden('uitzondering', el, '"' + tekst + '"', r.toFixed(2) + ' : 1, eis ' + eis + ' : 1 (' + hex(voor) + ' op ' + hex(a.kleur) + '). ' + uitzondering(hex(voor)));
+			} else if (r < eis) {
 				melden('contrast', el, '"' + tekst + '"', r.toFixed(2) + ' : 1, eis ' + eis + ' : 1 (' + hex(voor) + ' op ' + hex(a.kleur) + ')');
 			}
 		}
@@ -242,13 +253,27 @@
 		return blok.textContent.replace(/\s+/g, '').length > el.textContent.replace(/\s+/g, '').length;
 	}
 
+	/* Klikvlak: een link die met ::after (absoluut) zijn kaart bedekt, telt met dat vlak. */
+	function klikvlak(el) {
+		var na = getComputedStyle(el, '::after');
+		if (na.content && na.content !== 'none' && na.position === 'absolute') {
+			var houder = getComputedStyle(el).position !== 'static' ? el : el.offsetParent;
+			if (houder) {
+				var h = houder.getBoundingClientRect();
+				var e = el.getBoundingClientRect();
+				if (h.width * h.height > e.width * e.height) return h;
+			}
+		}
+		return el.getBoundingClientRect();
+	}
+
 	function controleerKlikdoelen() {
 		document.querySelectorAll(KLIKBAAR).forEach(function (el) {
 			if (uitgesloten(el) || !zichtbaar(el)) return;
 			if (inlineInTekst(el)) return;
 			/* Selectievakjes en keuzerondjes met een label: het label is het klikdoel. */
 			if (el.tagName === 'INPUT' && /^(checkbox|radio)$/i.test(el.type) && el.labels && el.labels.length) return;
-			var r = el.getBoundingClientRect();
+			var r = klikvlak(el);
 			if (r.width < c.klikdoel - 0.5 || r.height < c.klikdoel - 0.5) {
 				var naam = fragment(toegankelijkeNaam(el), 40) || beschrijving(el);
 				melden('klikdoel', el, naam, Math.round(r.width) + ' x ' + Math.round(r.height) + 'px, minimaal ' + c.klikdoel + ' x ' + c.klikdoel + 'px');
@@ -316,20 +341,24 @@
 		var inhoudEl = paneel.querySelector('[data-inhoud]');
 		inhoudEl.textContent = '';
 		var samenvatting = paneel.querySelector('[data-samenvatting]');
-		var aantal = bevindingen.filter(function (b) { return b.soort !== 'handmatig'; }).length;
-		var handmatig = bevindingen.length - aantal;
+		var info = function (b) { return b.soort === 'handmatig' || b.soort === 'uitzondering'; };
+		var aantal = bevindingen.filter(function (b) { return !info(b); }).length;
+		var handmatig = bevindingen.filter(function (b) { return b.soort === 'handmatig'; }).length;
+		var bewust = bevindingen.filter(function (b) { return b.soort === 'uitzondering'; }).length;
 		samenvatting.textContent = (aantal ? aantal + (aantal === 1 ? ' bevinding' : ' bevindingen') : 'Geen bevindingen') +
-			(handmatig ? ', ' + handmatig + ' handmatig controleren' : '') + ' op deze pagina.';
+			(handmatig ? ', ' + handmatig + ' handmatig controleren' : '') +
+			(bewust ? ', ' + bewust + ' bewuste uitzondering' + (bewust === 1 ? '' : 'en') : '') + ' op deze pagina.';
 
 		var schoon = [];
 		soorten.forEach(function (soort) {
 			var lijst = bevindingen.filter(function (b) { return b.soort === soort.id; });
 			if (!lijst.length) {
-				if (soort.id !== 'handmatig') schoon.push(soort.titel.toLowerCase());
+				if (soort.id !== 'handmatig' && soort.id !== 'uitzondering') schoon.push(soort.titel.toLowerCase());
 				return;
 			}
-			var groep = maak('details', { class: 'tg-groep' + (soort.id === 'handmatig' ? ' is-handmatig' : '') });
-			if (soort.id !== 'handmatig') groep.open = true;
+			var stil = soort.id === 'handmatig' || soort.id === 'uitzondering';
+			var groep = maak('details', { class: 'tg-groep' + (stil ? ' is-handmatig' : '') });
+			if (!stil) groep.open = true;
 			var kop = maak('summary', {});
 			kop.appendChild(maak('span', {}, soort.titel));
 			kop.appendChild(maak('span', { class: 'tg-aantal' }, String(lijst.length)));

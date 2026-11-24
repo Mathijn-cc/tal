@@ -82,8 +82,8 @@ add_action( 'template_redirect', function () {
 	} );
 	add_action( 'wp_enqueue_scripts', function () {
 		powerhub_blok_assets( array_keys( powerhub_blok_layouts() ) );
-		wp_enqueue_style( 'powerhub-designsysteem', POWERHUB_URL . '/assets/designsysteem.css', array(), POWERHUB_VERSIE );
-		wp_enqueue_script( 'powerhub-designsysteem', POWERHUB_URL . '/assets/designsysteem.js', array(), POWERHUB_VERSIE, array( 'in_footer' => true, 'strategy' => 'defer' ) );
+		wp_enqueue_style( 'powerhub-designsysteem', POWERHUB_URL . '/assets/designsysteem.css', array(), powerhub_versie( '/assets/designsysteem.css' ) );
+		wp_enqueue_script( 'powerhub-designsysteem', POWERHUB_URL . '/assets/designsysteem.js', array(), powerhub_versie( '/assets/designsysteem.js' ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
 	}, 40 );
 
 	$sjabloon = locate_template( 'designsysteem/pagina.php' );

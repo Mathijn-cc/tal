@@ -64,7 +64,7 @@ add_action( 'admin_post_powerhub_opslaan', function () {
 	check_admin_referer( 'powerhub_opslaan_' . $tab_sleutel );
 
 	$tabs = powerhub_tabs();
-	if ( ! isset( $tabs[ $tab_sleutel ] ) || ! powerhub_mag_tab( $tabs[ $tab_sleutel ] ) ) {
+	if ( ! isset( $tabs[ $tab_sleutel ] ) || ! powerhub_mag_tab( $tabs[ $tab_sleutel ], $tab_sleutel ) ) {
 		wp_die( 'Je hebt geen toegang tot deze instellingen.', 403 );
 	}
 

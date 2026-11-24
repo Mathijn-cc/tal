@@ -25,11 +25,18 @@ function powerhub_is_beheerder( $gebruiker = null ) {
 /**
  * Mag de huidige gebruiker deze tab zien en opslaan?
  */
-function powerhub_mag_tab( $tab ) {
-	if ( 'beheer' === $tab['niveau'] ) {
-		return powerhub_is_beheerder();
+function powerhub_mag_tab( $tab, $sleutel = '' ) {
+	if ( powerhub_is_beheerder() ) {
+		return true;
 	}
-	return current_user_can( 'edit_theme_options' );
+	if ( ! current_user_can( 'edit_theme_options' ) ) {
+		return false;
+	}
+	/* De beheerder kiest in de tab Toegang welke tabs de klant ziet. */
+	if ( $sleutel && function_exists( 'powerhub_tab_voor_klant' ) ) {
+		return powerhub_tab_voor_klant( $sleutel, $tab );
+	}
+	return 'klant' === $tab['niveau'];
 }
 
 /**

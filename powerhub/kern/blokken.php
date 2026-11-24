@@ -13,7 +13,7 @@
  * Elk blok heeft dezelfde indeling in tabs:
  *   Inhoud       wat er staat (eigen velden van het blok)
  *   Weergave     achtergrond (vaste kleuren of 50/50 gedeeld), ruimte boven en onder, plus blokeigen opties
- *   Geavanceerd  anker voor links naar het blok, tijdelijk verbergen
+ *   Geavanceerd  anker voor links naar het blok, tijdelijk verbergen, decoratieve vorm (filter powerhub_decoraties)
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -45,6 +45,33 @@ function powerhub_acf_tab( $prefix, $label ) {
 		'name'      => '',
 		'type'      => 'tab',
 		'placement' => 'top',
+	);
+}
+
+/**
+ * Groep velden die bij elkaar horen: een kop met korte uitleg, daarna de velden, afgesloten met powerhub_acf_groep_eind().
+ * De velden ertussen krijgen in de beheerder een eigen vlak (admin-blokken.js zet de class in-groep).
+ * Zet uitleg hier en niet bij losse velden in een rij: dan staan de invoervelden in een rij op gelijke hoogte.
+ */
+function powerhub_acf_groep( $prefix, $naam, $titel, $uitleg = '' ) {
+	return array(
+		'key'     => 'field_' . $prefix . '_groep_' . $naam,
+		'name'    => '',
+		'label'   => $titel,
+		'type'    => 'message',
+		'message' => $uitleg,
+		'wrapper' => array( 'class' => 'veldgroep-kop' ),
+	);
+}
+
+function powerhub_acf_groep_eind( $prefix, $naam ) {
+	return array(
+		'key'     => 'field_' . $prefix . '_groep_' . $naam . '_eind',
+		'name'    => '',
+		'label'   => '',
+		'type'    => 'message',
+		'message' => '',
+		'wrapper' => array( 'class' => 'veldgroep-eind' ),
 	);
 }
 
@@ -100,49 +127,193 @@ function powerhub_acf_weergave( $prefix, $achtergrond = '', $extra_weergave = ar
 	$ruimte        = array( 'geen' => 'Geen', 'klein' => 'Klein', 'normaal' => 'Normaal', 'groot' => 'Groot' );
 	$gedeeld       = powerhub_acf_als( $prefix, 'achtergrond', 'gedeeld' );
 
+	$opmaak = $extra_weergave ? array_merge(
+		array( powerhub_acf_groep( $prefix, 'opmaak', 'Opmaak' ) ),
+		$extra_weergave,
+		array( powerhub_acf_groep_eind( $prefix, 'opmaak' ) )
+	) : array();
+
 	return array_merge(
 		array( powerhub_acf_tab( $prefix, 'Weergave' ) ),
-		$extra_weergave,
+		$opmaak,
 		array(
-			powerhub_acf_veld( $prefix, 'achtergrond', 'Achtergrond', 'button_group', array_merge( powerhub_acf_breed( 100, 'kleurkeuze' ), array(
+			powerhub_acf_groep( $prefix, 'achtergrond', 'Achtergrond', '50/50 verdeelt het blok in twee vlakken met een harde overgang. De tekst staat in de eerste helft en krijgt daar een passende kleur.' ),
+			powerhub_acf_veld( $prefix, 'achtergrond', 'Kleur', 'button_group', array_merge( powerhub_acf_breed( 100, 'kleurkeuze' ), array(
 				'choices'       => $keuzes + array( 'gedeeld' => '50/50' ),
 				'default_value' => $standaard,
-				'instructions'  => '50/50 verdeelt het blok in twee vlakken met een harde overgang, bijvoorbeeld om een beeld over de grens te laten vallen.',
 			) ) ),
-			powerhub_acf_veld( $prefix, 'vlak_1', 'Eerste helft', 'button_group', array_merge( $gedeeld, powerhub_acf_breed( 34, 'kleurkeuze alleen-bolletjes veld-groep groep-begin' ), array(
+			powerhub_acf_veld( $prefix, 'vlak_1', 'Eerste helft', 'button_group', array_merge( $gedeeld, powerhub_acf_breed( 34, 'kleurkeuze alleen-bolletjes' ), array(
 				'choices'       => $keuzes,
 				'default_value' => $standaard,
-				'instructions'  => 'De tekst staat in deze helft en krijgt een passende kleur.',
 			) ) ),
-			powerhub_acf_veld( $prefix, 'vlak_2', 'Tweede helft', 'button_group', array_merge( $gedeeld, powerhub_acf_breed( 33, 'kleurkeuze alleen-bolletjes veld-groep' ), array(
+			powerhub_acf_veld( $prefix, 'vlak_2', 'Tweede helft', 'button_group', array_merge( $gedeeld, powerhub_acf_breed( 33, 'kleurkeuze alleen-bolletjes' ), array(
 				'choices'       => $keuzes,
 				'default_value' => (string) array_key_first( $keuzes ),
 			) ) ),
-			powerhub_acf_veld( $prefix, 'verdeling', 'Verdeling', 'button_group', array_merge( $gedeeld, powerhub_acf_breed( 33, 'veld-groep groep-eind' ), array(
+			powerhub_acf_veld( $prefix, 'verdeling', 'Verdeling', 'button_group', array_merge( $gedeeld, powerhub_acf_breed( 33 ), array(
 				'choices'       => array( 'boven' => 'Boven / onder', 'links' => 'Links / rechts' ),
 				'default_value' => 'boven',
 			) ) ),
-			powerhub_acf_veld( $prefix, 'ruimte_boven', 'Ruimte boven', 'button_group', array_merge( powerhub_acf_breed( 50 ), array(
+			powerhub_acf_groep_eind( $prefix, 'achtergrond' ),
+			powerhub_acf_groep( $prefix, 'ruimte', 'Ruimte', 'Witruimte boven en onder het blok.' ),
+			powerhub_acf_veld( $prefix, 'ruimte_boven', 'Boven', 'button_group', array_merge( powerhub_acf_breed( 50 ), array(
 				'choices'       => $ruimte,
 				'default_value' => 'normaal',
 			) ) ),
-			powerhub_acf_veld( $prefix, 'ruimte_onder', 'Ruimte onder', 'button_group', array_merge( powerhub_acf_breed( 50 ), array(
+			powerhub_acf_veld( $prefix, 'ruimte_onder', 'Onder', 'button_group', array_merge( powerhub_acf_breed( 50 ), array(
 				'choices'       => $ruimte,
 				'default_value' => 'normaal',
 			) ) ),
+			powerhub_acf_groep_eind( $prefix, 'ruimte' ),
 			powerhub_acf_tab( $prefix, 'Geavanceerd' ),
+			powerhub_acf_groep( $prefix, 'geavanceerd', 'Koppelen en verbergen', 'Met een anker link je naar dit blok, bijvoorbeeld /pagina/#veelgestelde-vragen. Verbergen haalt het blok tijdelijk van de site zonder de inhoud te verliezen.' ),
 			powerhub_acf_veld( $prefix, 'anker', 'Anker', 'text', array_merge( powerhub_acf_breed( 50 ), array(
-				'instructions' => 'Voor links naar dit blok, bijvoorbeeld "veelgestelde-vragen" voor /pagina/#veelgestelde-vragen. Kleine letters en streepjes.',
-				'prepend'      => '#',
+				'prepend'     => '#',
+				'placeholder' => 'veelgestelde-vragen',
 			) ) ),
 			powerhub_acf_veld( $prefix, 'verbergen', 'Verbergen', 'true_false', array_merge( powerhub_acf_breed( 50 ), array(
-				'ui'           => 1,
-				'ui_on_text'   => 'Verborgen',
-				'ui_off_text'  => 'Zichtbaar',
-				'instructions' => 'Tijdelijk van de site halen zonder de inhoud te verliezen.',
+				'ui'          => 1,
+				'ui_on_text'  => 'Verborgen',
+				'ui_off_text' => 'Zichtbaar',
 			) ) ),
-		)
+			powerhub_acf_groep_eind( $prefix, 'geavanceerd' ),
+			powerhub_acf_groep( $prefix, 'animatie', 'Animatie', 'Hoe de inhoud van dit blok in beeld komt. Standaard volgt de instelling in Powerhub, tab Animaties.' ),
+			powerhub_acf_veld( $prefix, 'animatie', 'Effect', 'select', array_merge( powerhub_acf_breed( 50 ), array(
+				'choices'       => array( '' => 'Standaard (Powerhub)' ) + ( function_exists( 'powerhub_animatie_keuzes' ) ? powerhub_animatie_keuzes() : array() ),
+				'default_value' => '',
+			) ) ),
+			powerhub_acf_veld( $prefix, 'animatie_volgorde', 'Volgorde', 'button_group', array_merge( powerhub_acf_breed( 50 ), array(
+				'choices'       => array( '' => 'Standaard', 'samen' => 'Alles tegelijk', 'na-elkaar' => 'Na elkaar' ),
+				'default_value' => '',
+			) ) ),
+			powerhub_acf_groep_eind( $prefix, 'animatie' ),
+		),
+		powerhub_acf_decoratie( $prefix )
 	);
+}
+
+/**
+ * Decoratieve vormen achter een blok (bijvoorbeeld een merkvorm), uit de filter powerhub_decoraties:
+ * array( 'sleutel' => array( 'label' => 'Ballon', 'bestand' => URL van een SVG, 'verhouding' => breedte / hoogte,
+ *   'tweede' => array( 'bestand' => ..., 'verhouding' => ... ) optioneel, 'class' => extra class voor de plaatsing ) ).
+ * De vorm wordt als masker getekend, zodat de kleur uit de CSS komt (licht en donker vlak).
+ */
+function powerhub_decoraties() {
+	return (array) apply_filters( 'powerhub_decoraties', array() );
+}
+
+function powerhub_acf_decoratie( $prefix ) {
+	$decoraties = powerhub_decoraties();
+	if ( ! $decoraties ) {
+		return array();
+	}
+	$aan = powerhub_acf_als( $prefix, 'decoratie', '', '!=empty' );
+	return array(
+		powerhub_acf_groep( $prefix, 'decoratie', 'Decoratie', 'Een vorm in de achtergrond, rustig en zonder functie. Steekt hij uit, dan valt hij half over het blok erboven.' ),
+		powerhub_acf_veld( $prefix, 'decoratie', 'Vorm', 'button_group', array_merge( powerhub_acf_breed( 34 ), array(
+			'choices'       => array( '' => 'Geen' ) + wp_list_pluck( $decoraties, 'label' ),
+			'default_value' => '',
+		) ) ),
+		powerhub_acf_veld( $prefix, 'decoratie_plek', 'Plek', 'button_group', array_merge( $aan, powerhub_acf_breed( 33 ), array(
+			'choices'       => array( 'rechts' => 'Rechts', 'links' => 'Links' ),
+			'default_value' => 'rechts',
+		) ) ),
+		powerhub_acf_veld( $prefix, 'decoratie_uitsteken', 'Uitsteken', 'true_false', array_merge( $aan, powerhub_acf_breed( 33 ), array(
+			'ui'            => 1,
+			'default_value' => 1,
+			'ui_on_text'    => 'Over de rand',
+			'ui_off_text'   => 'Binnen het blok',
+		) ) ),
+		powerhub_acf_groep_eind( $prefix, 'decoratie' ),
+	);
+}
+
+/**
+ * Groepeert in de tab Inhoud velden die bij elkaar horen, zonder dat elk blok dat zelf hoeft te doen:
+ * tekstvelden (bovenkop, kop, intro, tekst), knoppen en beeld of video. Herhalers en overige velden blijven los.
+ * Een blok dat zelf al groepen heeft (powerhub_acf_groep) wordt niet aangeraakt. Uit te breiden met de filter powerhub_inhoud_groepen.
+ */
+function powerhub_groepeer_inhoud( $prefix, $velden ) {
+	$groepen = (array) apply_filters( 'powerhub_inhoud_groepen', array(
+		'tekst'   => array( 'titel' => 'Tekst', 'velden' => array( 'bovenkop', 'kop', 'intro', 'tekst', 'ondertitel', 'citaat', 'link' ) ),
+		'knoppen' => array( 'titel' => 'Knoppen', 'velden' => array( 'knop', 'knop_2' ) ),
+		'media'   => array( 'titel' => 'Beeld en video', 'velden' => array( 'media', 'beeld', 'beeld_mobiel', 'foto', 'video', 'poster', 'bron', 'youtube', 'bestand', 'videoknop', 'onderschrift', 'dialoog_titel', 'dialoog_tekst' ) ),
+	), $prefix );
+
+	/* Per veld de soort bepalen, alleen in de tab Inhoud en niet als het blok daar zelf groepen heeft. */
+	$soorten   = array();
+	$in_inhoud = false;
+	foreach ( $velden as $i => $veld ) {
+		$type          = $veld['type'] ?? '';
+		$soorten[ $i ] = '';
+		if ( 'tab' === $type ) {
+			$in_inhoud = ( 'Inhoud' === ( $veld['label'] ?? '' ) );
+			continue;
+		}
+		if ( false !== strpos( (string) ( $veld['wrapper']['class'] ?? '' ), 'veldgroep-' ) ) {
+			$in_inhoud = false;
+			continue;
+		}
+		if ( ! $in_inhoud || in_array( $type, array( 'repeater', 'flexible_content', 'message' ), true ) ) {
+			continue;
+		}
+		foreach ( $groepen as $sleutel => $groep ) {
+			if ( in_array( $veld['name'] ?? '', $groep['velden'], true ) ) {
+				$soorten[ $i ] = $sleutel;
+				break;
+			}
+		}
+	}
+
+	/* Alleen reeksen van minstens twee velden worden een groep; een los veld krijgt geen kader. */
+	$uit    = array();
+	$aantal = count( $velden );
+	$i      = 0;
+	$lijst  = array_values( $velden );
+	$soort  = array_values( $soorten );
+	while ( $i < $aantal ) {
+		$s = $soort[ $i ];
+		$j = $i;
+		while ( $s && $j + 1 < $aantal && $soort[ $j + 1 ] === $s ) {
+			$j++;
+		}
+		if ( $s && $j > $i ) {
+			$uit[] = powerhub_acf_groep( $prefix, 'inhoud_' . $s . '_' . $i, $groepen[ $s ]['titel'] );
+			for ( $k = $i; $k <= $j; $k++ ) {
+				$uit[] = $lijst[ $k ];
+			}
+			$uit[] = powerhub_acf_groep_eind( $prefix, 'inhoud_' . $s . '_' . $i );
+		} else {
+			for ( $k = $i; $k <= $j; $k++ ) {
+				$uit[] = $lijst[ $k ];
+			}
+		}
+		$i = $j + 1;
+	}
+	return $uit;
+}
+
+/**
+ * Herhalers overzichtelijker: korte velden zonder eigen breedte komen naast elkaar (50%), lange tekst houdt de volle breedte.
+ * Zo hoeft niet elk blok de breedtes zelf te regelen. Een veld met een eigen breedte blijft ongemoeid.
+ */
+function powerhub_herhalers_ordenen( $velden ) {
+	$kort = array( 'text', 'url', 'email', 'number', 'select', 'button_group', 'true_false', 'link', 'image', 'file', 'date_picker', 'color_picker', 'page_link', 'post_object' );
+	foreach ( $velden as &$veld ) {
+		if ( 'repeater' !== ( $veld['type'] ?? '' ) || empty( $veld['sub_fields'] ) ) {
+			continue;
+		}
+		foreach ( $veld['sub_fields'] as &$sub ) {
+			if ( empty( $sub['wrapper']['width'] ) && in_array( $sub['type'] ?? '', $kort, true ) ) {
+				$sub['wrapper']          = (array) ( $sub['wrapper'] ?? array() );
+				$sub['wrapper']['width'] = 50;
+			}
+		}
+		unset( $sub );
+		$veld['sub_fields'] = powerhub_herhalers_ordenen( $veld['sub_fields'] );
+	}
+	unset( $veld );
+	return $velden;
 }
 
 /**
@@ -174,6 +345,7 @@ add_action( 'acf/init', function () {
 	$acf_layouts = array();
 	foreach ( $layouts as $naam => $layout ) {
 		unset( $layout['icoon'], $layout['uitleg'], $layout['volgorde'] );
+		$layout['sub_fields'] = powerhub_herhalers_ordenen( powerhub_groepeer_inhoud( $naam, $layout['sub_fields'] ?? array() ) );
 		$acf_layouts[ 'layout_' . $naam ] = wp_parse_args( $layout, array(
 			'key'     => 'layout_' . $naam,
 			'name'    => $naam,
@@ -201,8 +373,12 @@ add_action( 'acf/init', function () {
 			),
 		),
 		'location'       => $locaties,
-		'position'       => 'acf_after_title',
-		'style'          => 'seamless',
+		'position'              => 'acf_after_title',
+		'style'                 => 'seamless',
+		/* Uitleg onder het veld: dan staan labels en invoervelden in een rij altijd op gelijke hoogte. */
+		'instruction_placement' => 'field',
+		/* ACF Multilingual (WPML): dezelfde blokken per taal, de inhoud wordt vertaald. */
+		'acfml_field_group_mode' => 'translation',
 		'hide_on_screen' => array( 'the_content' ),
 	) );
 } );
@@ -286,6 +462,25 @@ function powerhub_sectie( $blok, $naam, $extra_class = '' ) {
 			$classes[] = 'is-donker';
 		}
 	}
+	$decoraties = powerhub_decoraties();
+	$decoratie  = (string) ( $blok['decoratie'] ?? '' );
+	if ( $decoratie && isset( $decoraties[ $decoratie ] ) ) {
+		$classes[] = 'heeft-decoratie';
+		$classes[] = 'decoratie-' . ( 'links' === ( $blok['decoratie_plek'] ?? '' ) ? 'links' : 'rechts' );
+		if ( ! isset( $blok['decoratie_uitsteken'] ) || ! empty( $blok['decoratie_uitsteken'] ) ) {
+			$classes[] = 'decoratie-uitsteken';
+		}
+		$d      = $decoraties[ $decoratie ];
+		$stijl .= sprintf( ' --decoratie: url("%s"); --decoratie-verhouding: %s;', esc_url_raw( $d['bestand'] ), (float) ( $d['verhouding'] ?? 1 ) );
+		/* Optioneel een tweede vorm (::after) en een eigen class voor de plaatsing in het thema. */
+		if ( ! empty( $d['tweede']['bestand'] ) ) {
+			$classes[] = 'heeft-decoratie-2';
+			$stijl    .= sprintf( ' --decoratie-2: url("%s"); --decoratie-2-verhouding: %s;', esc_url_raw( $d['tweede']['bestand'] ), (float) ( $d['tweede']['verhouding'] ?? 1 ) );
+		}
+		if ( ! empty( $d['class'] ) ) {
+			$classes[] = $d['class'];
+		}
+	}
 	$classes[] = 'ruimte-boven-' . ( $blok['ruimte_boven'] ?? 'normaal' );
 	$classes[] = 'ruimte-onder-' . ( $blok['ruimte_onder'] ?? 'normaal' );
 	if ( $extra_class ) {
@@ -296,8 +491,15 @@ function powerhub_sectie( $blok, $naam, $extra_class = '' ) {
 	if ( ! empty( $blok['anker'] ) ) {
 		$uit .= ' id="' . esc_attr( sanitize_title( $blok['anker'] ) ) . '"';
 	}
-	if ( $stijl ) {
-		$uit .= ' style="' . esc_attr( $stijl ) . '"';
+	if ( trim( $stijl ) ) {
+		$uit .= ' style="' . esc_attr( trim( $stijl ) ) . '"';
+	}
+	/* Animatie per blok (Geavanceerd); leeg volgt Powerhub, tab Animaties. */
+	if ( ! empty( $blok['animatie'] ) ) {
+		$uit .= ' data-blokanimatie="' . esc_attr( sanitize_key( $blok['animatie'] ) ) . '"';
+	}
+	if ( ! empty( $blok['animatie_volgorde'] ) ) {
+		$uit .= ' data-blokvolgorde="' . esc_attr( sanitize_key( $blok['animatie_volgorde'] ) ) . '"';
 	}
 	return $uit;
 }
@@ -339,10 +541,10 @@ function powerhub_blok_assets( $namen ) {
 		$css = '/assets/css/blokken/' . $naam . '.css';
 		$js  = '/assets/js/blokken/' . $naam . '.js';
 		if ( file_exists( get_template_directory() . $css ) ) {
-			wp_enqueue_style( 'blok-' . $naam, get_template_directory_uri() . $css, array( powerhub_stijl_handle() ), $versie );
+			wp_enqueue_style( 'blok-' . $naam, get_template_directory_uri() . $css, array( powerhub_stijl_handle() ), $versie . '.' . filemtime( get_template_directory() . $css ) );
 		}
 		if ( file_exists( get_template_directory() . $js ) ) {
-			wp_enqueue_script( 'blok-' . $naam, get_template_directory_uri() . $js, array(), $versie, $laden );
+			wp_enqueue_script( 'blok-' . $naam, get_template_directory_uri() . $js, array(), $versie . '.' . filemtime( get_template_directory() . $js ), $laden );
 		}
 	}
 }

@@ -7,7 +7,28 @@
 	var knoppen = hub.querySelectorAll('[data-tab]');
 	var panelen = hub.querySelectorAll('[data-paneel]');
 
+	/* Groepen (submenu): openen en sluiten; de groep met de actieve tab gaat vanzelf open. */
+	function groepOpen(groep, open) {
+		var knop = groep.querySelector('.powerhub-groep-knop');
+		groep.classList.toggle('is-open', open);
+		knop.setAttribute('aria-expanded', open ? 'true' : 'false');
+		groep.querySelector('.powerhub-groep-tabs').hidden = !open;
+	}
+	hub.querySelectorAll('[data-groep]').forEach(function (groep) {
+		groep.querySelector('.powerhub-groep-knop').addEventListener('click', function () {
+			var open = !groep.classList.contains('is-open');
+			groepOpen(groep, open);
+			if (open) {
+				var eerste = groep.querySelector('[data-tab]');
+				if (eerste) { toon(eerste.dataset.tab, true); }
+			}
+		});
+	});
+
 	function toon(tab, bijwerken) {
+		hub.querySelectorAll('[data-groep]').forEach(function (groep) {
+			if (groep.querySelector('[data-tab="' + tab + '"]')) { groepOpen(groep, true); }
+		});
 		knoppen.forEach(function (k) {
 			var actief = k.dataset.tab === tab;
 			k.setAttribute('aria-selected', actief ? 'true' : 'false');
@@ -28,7 +49,9 @@
 			var richting = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
 			if (!richting) return;
 			e.preventDefault();
-			var volgende = knoppen[(i + richting + knoppen.length) % knoppen.length];
+			var zichtbaar = Array.prototype.filter.call(knoppen, function (x) { return !x.closest('[hidden]'); });
+			var j = zichtbaar.indexOf(k);
+			var volgende = zichtbaar[(j + richting + zichtbaar.length) % zichtbaar.length];
 			volgende.focus();
 			toon(volgende.dataset.tab, true);
 		});

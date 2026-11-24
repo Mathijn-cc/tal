@@ -1,6 +1,6 @@
 <?php
 /**
- * Module Footer: korte tekst en social media. Ook voor de klant.
+ * Module Footer: korte tekst, keurmerken, social media en de vermelding van de maker. Ook voor de klant.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -18,7 +18,16 @@ function powerhub_social_kanalen() {
 add_action( 'powerhub_registreren', function () {
 	$velden = array(
 		'footer_tekst'  => array( 'type' => 'tekstvak', 'label' => 'Korte tekst', 'uitleg' => 'Onder het logo in de footer.' ),
-		'kop_social'    => array( 'type' => 'kop', 'label' => 'Social media', 'uitleg' => 'Lege velden worden niet getoond.' ),
+		'kop_keurmerken' => array( 'type' => 'kop', 'label' => 'Keurmerken', 'uitleg' => 'Logo\'s van certificaten of keurmerken onder het logo, op een wit vlak. Lege velden worden niet getoond.' ),
+		'keurmerk_1'     => array( 'type' => 'beeld', 'label' => 'Keurmerk 1' ),
+		'keurmerk_1_url' => array( 'type' => 'url', 'label' => 'Link keurmerk 1' ),
+		'keurmerk_2'     => array( 'type' => 'beeld', 'label' => 'Keurmerk 2' ),
+		'keurmerk_2_url' => array( 'type' => 'url', 'label' => 'Link keurmerk 2' ),
+		'keurmerk_3'     => array( 'type' => 'beeld', 'label' => 'Keurmerk 3' ),
+		'keurmerk_3_url' => array( 'type' => 'url', 'label' => 'Link keurmerk 3' ),
+		'kop_maker'      => array( 'type' => 'kop', 'label' => 'Onderregel' ),
+		'footer_maker'   => array( 'type' => 'schakel', 'label' => 'Toon "Website door creatorsconnect.nl"', 'standaard' => true ),
+		'kop_social'     => array( 'type' => 'kop', 'label' => 'Social media', 'uitleg' => 'Lege velden worden niet getoond.' ),
 	);
 	foreach ( powerhub_social_kanalen() as $sleutel => $naam ) {
 		$velden[ 'social_' . $sleutel ] = array( 'type' => 'url', 'label' => $naam );
@@ -41,6 +50,20 @@ function powerhub_social() {
 		$url = powerhub( 'social_' . $sleutel );
 		if ( $url ) {
 			$uit[ $sleutel ] = array( 'naam' => $naam, 'url' => $url );
+		}
+	}
+	return $uit;
+}
+
+/**
+ * Ingevulde keurmerken: array( array( 'id' => 12, 'url' => '...' ) ).
+ */
+function powerhub_keurmerken() {
+	$uit = array();
+	for ( $i = 1; $i <= 3; $i++ ) {
+		$id = (int) powerhub( 'keurmerk_' . $i );
+		if ( $id ) {
+			$uit[] = array( 'id' => $id, 'url' => (string) powerhub( 'keurmerk_' . $i . '_url' ) );
 		}
 	}
 	return $uit;

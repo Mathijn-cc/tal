@@ -32,6 +32,7 @@ add_action( 'powerhub_registreren', function () {
 			'toegankelijk_lopende_tekst'  => array( 'type' => 'getal', 'label' => 'Kleinste lopende tekst', 'uitleg' => 'In pixels, voor alinea\'s en lijsten.', 'standaard' => 16, 'min' => 12, 'max' => 24, 'stap' => 1 ),
 			'toegankelijk_niveau'         => array( 'type' => 'keuze', 'label' => 'Contrastniveau', 'uitleg' => 'AA is de wettelijke norm (EN 301 549). AAA is strenger.', 'standaard' => 'AA', 'keuzes' => array( 'AA' => 'AA (4.5 : 1, grote tekst 3 : 1)', 'AAA' => 'AAA (7 : 1, grote tekst 4.5 : 1)' ) ),
 			'toegankelijk_klikdoel'       => array( 'type' => 'getal', 'label' => 'Kleinste klikdoel', 'uitleg' => 'In pixels, breedte en hoogte van knoppen en links.', 'standaard' => 44, 'min' => 24, 'max' => 64, 'stap' => 1 ),
+			'toegankelijk_uitzonderingen' => array( 'type' => 'tekstvak', 'label' => 'Bewuste uitzonderingen contrast', 'uitleg' => 'Tekstkleuren die bewust onder de contrasteis blijven, één per regel: kleurcode en reden. Bijvoorbeeld: #00cef1 Accentkleur, keuze klant. De paginacontrole toont ze apart en telt ze niet als bevinding.', 'standaard' => '' ),
 			'toegankelijk_paginacontrole' => array( 'type' => 'schakel', 'label' => 'Paginacontrole in de adminbalk', 'uitleg' => 'Voor beheerders: controleer elke pagina op de voorkant met één klik.', 'standaard' => true ),
 		),
 		'weergave' => 'powerhub_toegankelijkheid_tab',
@@ -41,6 +42,21 @@ add_action( 'powerhub_registreren', function () {
 /* --------------------------------------------------------------------------
  * Instellingen
  * ----------------------------------------------------------------------- */
+
+/**
+ * Bewuste contrastuitzonderingen: array( '#00cef1' => 'reden' ). Uit het veld in Powerhub, aan te vullen door het thema
+ * via het filter powerhub_toegankelijkheid_uitzonderingen.
+ */
+function powerhub_toegankelijkheid_uitzonderingen() {
+	$lijst = array();
+	foreach ( preg_split( '/\r\n|\r|\n/', (string) powerhub( 'toegankelijk_uitzonderingen', '' ) ) as $regel ) {
+		if ( preg_match( '/^\s*(#[0-9a-f]{6})\b\s*(.*)$/i', $regel, $m ) ) {
+			$lijst[ strtolower( $m[1] ) ] = trim( $m[2] ) ? trim( $m[2] ) : 'Bewuste keuze.';
+		}
+	}
+	$lijst = (array) apply_filters( 'powerhub_toegankelijkheid_uitzonderingen', $lijst );
+	return array_change_key_case( $lijst, CASE_LOWER );
+}
 
 function powerhub_toegankelijkheid_instellingen() {
 	$niveau = (string) powerhub( 'toegankelijk_niveau', 'AA' );
@@ -595,8 +611,8 @@ add_action( 'admin_enqueue_scripts', function ( $hook ) {
 	if ( 'toplevel_page_powerhub' !== $hook || ! powerhub_is_beheerder() ) {
 		return;
 	}
-	wp_enqueue_style( 'powerhub-toegankelijkheid', POWERHUB_URL . '/assets/toegankelijkheid.css', array( 'powerhub' ), POWERHUB_VERSIE );
-	wp_enqueue_script( 'powerhub-toegankelijkheid', POWERHUB_URL . '/assets/toegankelijkheid.js', array(), POWERHUB_VERSIE, array( 'in_footer' => true, 'strategy' => 'defer' ) );
+	wp_enqueue_style( 'powerhub-toegankelijkheid', POWERHUB_URL . '/assets/toegankelijkheid.css', array( 'powerhub' ), powerhub_versie( '/assets/toegankelijkheid.css' ) );
+	wp_enqueue_script( 'powerhub-toegankelijkheid', POWERHUB_URL . '/assets/toegankelijkheid.js', array(), powerhub_versie( '/assets/toegankelijkheid.js' ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
 } );
 
 /* --------------------------------------------------------------------------
@@ -624,8 +640,8 @@ add_action( 'powerhub_designsysteem_hoofdstuk_toegankelijkheid', function () {
 
 add_action( 'wp_enqueue_scripts', function () {
 	if ( function_exists( 'powerhub_is_designsysteem' ) && powerhub_is_designsysteem() && is_user_logged_in() ) {
-		wp_enqueue_style( 'powerhub-toegankelijkheid', POWERHUB_URL . '/assets/toegankelijkheid.css', array(), POWERHUB_VERSIE );
-		wp_enqueue_script( 'powerhub-toegankelijkheid', POWERHUB_URL . '/assets/toegankelijkheid.js', array(), POWERHUB_VERSIE, array( 'in_footer' => true, 'strategy' => 'defer' ) );
+		wp_enqueue_style( 'powerhub-toegankelijkheid', POWERHUB_URL . '/assets/toegankelijkheid.css', array(), powerhub_versie( '/assets/toegankelijkheid.css' ) );
+		wp_enqueue_script( 'powerhub-toegankelijkheid', POWERHUB_URL . '/assets/toegankelijkheid.js', array(), powerhub_versie( '/assets/toegankelijkheid.js' ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
 	}
 }, 45 );
 
@@ -663,14 +679,15 @@ add_action( 'wp_enqueue_scripts', function () {
 		'lopend'   => $inst['lopend'],
 		'niveau'   => $inst['niveau'],
 		'klikdoel' => $inst['klikdoel'],
+		'uitzonderingen' => (object) powerhub_toegankelijkheid_uitzonderingen(),
 		/* Alleen dit deel van de pagina controleren (CSS-selector). Op /designsysteem/: de voorbeelden, niet de documentatie. */
 		'bereik'   => (string) apply_filters( 'powerhub_paginacontrole_bereik', function_exists( 'powerhub_is_designsysteem' ) && powerhub_is_designsysteem() ? '.designsysteem-podium, .designsysteem-blok-podium' : '' ),
-		'css'      => POWERHUB_URL . '/assets/toegankelijkheid-controle.css?ver=' . rawurlencode( POWERHUB_VERSIE ),
-		'js'       => POWERHUB_URL . '/assets/toegankelijkheid-controle.js?ver=' . rawurlencode( POWERHUB_VERSIE ),
+		'css'      => POWERHUB_URL . '/assets/toegankelijkheid-controle.css?ver=' . rawurlencode( powerhub_versie( '/assets/toegankelijkheid-controle.css' ) ),
+		'js'       => POWERHUB_URL . '/assets/toegankelijkheid-controle.js?ver=' . rawurlencode( powerhub_versie( '/assets/toegankelijkheid-controle.js' ) ),
 	);
 	if ( powerhub_paginacontrole_direct() ) {
-		wp_enqueue_style( 'powerhub-toegankelijkheid-controle', POWERHUB_URL . '/assets/toegankelijkheid-controle.css', array(), POWERHUB_VERSIE );
-		wp_enqueue_script( 'powerhub-toegankelijkheid-controle', POWERHUB_URL . '/assets/toegankelijkheid-controle.js', array(), POWERHUB_VERSIE, array( 'in_footer' => true, 'strategy' => 'defer' ) );
+		wp_enqueue_style( 'powerhub-toegankelijkheid-controle', POWERHUB_URL . '/assets/toegankelijkheid-controle.css', array(), powerhub_versie( '/assets/toegankelijkheid-controle.css' ) );
+		wp_enqueue_script( 'powerhub-toegankelijkheid-controle', POWERHUB_URL . '/assets/toegankelijkheid-controle.js', array(), powerhub_versie( '/assets/toegankelijkheid-controle.js' ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
 	}
 	/* Kleine lader: het script zelf komt pas na een klik op het adminbalk-item. */
 	wp_register_script( 'powerhub-toegankelijkheid-lader', false, array(), POWERHUB_VERSIE, true );

@@ -13,8 +13,11 @@
 	--bh-actie:           var(--kleur-actie-primair, #ffd23f);
 	--bh-actie-tekst:     var(--kleur-actie-primair-tekst, #1d2733);
 	--bh-tegel:           var(--kleur-tegel-accent, #2f74e0);
-	--bh-tegel-tekst:     var(--kleur-tegel-accent-tekst, #1d2733);
+	--bh-tegel-tekst:     #ffffff;
 	--bh-tint:            var(--kleur-vlak-tint-zacht, #eaf3fd);
+	--bh-rij:             color-mix(in srgb, var(--bh-tint) 45%, #ffffff);
+	--bh-rij-strook:      var(--bh-tint);
+	--bh-rij-rand:        color-mix(in srgb, var(--bh-tint) 70%, #c2c7cb);
 	--bh-letter:          var(--letter-tekst, system-ui, sans-serif);
 	--bh-smal:            var(--letter-smal, var(--bh-letter));
 	--bh-knop:            var(--hoek-knop, 12px 12px 12px 4px);
@@ -56,16 +59,17 @@
 }
 
 /**Blokken -- Werkbalk**/
-#acf-group_powerhub_blokken .blokken-werkbalk {
+/* De knoppen van ACF zelf (uit- en inklappen, blok toevoegen) met de teller ervoor; geen eigen dubbele knoppen. */
+#acf-group_powerhub_blokken .acf-fc-top-actions {
 	display:              flex;
 	align-items:          center;
-	justify-content:      space-between;
-	gap:                  12px;
+	gap:                  8px;
 	margin:               0 0 12px;
 	font-family:          var(--bh-letter);
 }
 
-#acf-group_powerhub_blokken .blokken-werkbalk .blokken-teller {
+#acf-group_powerhub_blokken .acf-fc-top-actions .blokken-teller {
+	margin-right:         auto;
 	color:                var(--bh-zacht);
 	font-family:          var(--bh-smal);
 	font-size:            13px;
@@ -73,8 +77,9 @@
 	text-transform:       uppercase;
 }
 
-#acf-group_powerhub_blokken .blokken-werkbalk button {
-	padding:              6px 12px;
+#acf-group_powerhub_blokken .acf-fc-top-actions .acf-btn.acf-btn-clear {
+	min-height:           36px;
+	padding:              6px 14px;
 	border:               1px solid var(--bh-lijn);
 	border-radius:        var(--bh-knop);
 	background:           var(--bh-vlak);
@@ -84,7 +89,7 @@
 	cursor:               pointer;
 }
 
-#acf-group_powerhub_blokken .blokken-werkbalk button:hover {
+#acf-group_powerhub_blokken .acf-fc-top-actions .acf-btn.acf-btn-clear:hover {
 	border-color:         var(--bh-tekst);
 }
 
@@ -119,8 +124,26 @@
 	border-bottom:        0;
 }
 
+/* Het lege sleepvlakje van ACF heeft geen functie die de kopbalk zelf niet al heeft: verbergen, het volgnummer blijft staan. */
+#acf-group_powerhub_blokken .acf-flexible-content .layout .acf-fc-layout-draggable-icon {
+	display:              none !important;
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout .acf-fc-layout-actions-wrap {
+	background:           var(--bh-vlak);
+	transition:           background-color 150ms ease;
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout .acf-fc-layout-handle {
+	cursor:               move;
+}
+
 #acf-group_powerhub_blokken .acf-flexible-content .layout .acf-fc-layout-handle .acf-fc-layout-order {
+	display:              flex !important;
+	align-items:          center;
+	justify-content:      center;
 	flex-shrink:          0;
+	border:               0;
 	width:                24px;
 	height:               24px;
 	margin:               0;
@@ -180,6 +203,40 @@
 	top:                  14px;
 }
 
+/*Blok -- Kopbalk actief*/
+/* Het geselecteerde blok: navy kopbalk met witte tekst (ACF kleurt hem anders WordPress-blauw, slecht leesbaar). */
+#acf-group_powerhub_blokken .acf-flexible-content .layout.active-layout .acf-fc-layout-actions-wrap {
+	background:           var(--bh-donker);
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout.active-layout .acf-fc-layout-handle,
+#acf-group_powerhub_blokken .acf-flexible-content .layout.active-layout .blok-label {
+	color:                #ffffff;
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout.active-layout .blok-kop {
+	color:                rgba(255, 255, 255, 0.75);
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout.active-layout .acf-fc-layout-order {
+	background:           rgba(255, 255, 255, 0.16);
+	color:                #ffffff;
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout.active-layout .acf-fc-layout-controls .acf-icon:not(.-collapse) {
+	background-color:     #ffffff;
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout.active-layout .acf-fc-layout-controls .acf-icon.-collapse {
+	background-color:     transparent;
+	color:                #ffffff;
+}
+
+#acf-group_powerhub_blokken .acf-flexible-content .layout.active-layout .acf-fc-layout-controls a,
+#acf-group_powerhub_blokken .acf-flexible-content .layout.active-layout .acf-fc-layout-controls button {
+	color:                #ffffff;
+}
+
 /*Blok -- Tabs*/
 /* Inhoud, Weergave, Geavanceerd als compacte segmenten. */
 #acf-group_powerhub_blokken .layout .acf-tab-wrap {
@@ -235,7 +292,7 @@
 	grid-column:          1 / -1;
 }
 
-/* Elk veld is een kolom: label boven, invoer onderaan. Velden in één rij zijn even hoog, dus de invoer staat
+/* Elk veld is een kolom: label, invoer, en de uitleg altijd onder de invoer. Zo begint de invoer in een rij
    altijd op dezelfde lijn, ook als het ene veld een uitleg heeft en het andere niet. Een dunne lijn scheidt de rijen. */
 #acf-group_powerhub_blokken .layout .acf-fields > .acf-field {
 	display:              flex;
@@ -248,17 +305,13 @@
 	border-left:          0 !important;
 }
 
-#acf-group_powerhub_blokken .layout .acf-fields > .acf-field > .acf-input {
-	margin-top:           auto;
-}
-
 #acf-group_powerhub_blokken .layout .acf-fields > .acf-tab-wrap + .acf-field,
 #acf-group_powerhub_blokken .layout .acf-fields > .acf-field.acf-field-tab + .acf-field {
 	border-top-color:     transparent;
 }
 
-/*Blok -- Groepen*/
-/* Velden die bij elkaar horen (50/50-instellingen, uitsnede van een foto) staan samen op een getint vlak. */
+/*Blok -- Groepen (los)*/
+/* Oudere manier (1.2.4): wrapper-class veld-groep, groep-begin en groep-eind op losse velden. Voor nieuwe blokken: powerhub_acf_groep(). */
 #acf-group_powerhub_blokken .layout .acf-fields > .acf-field.veld-groep {
 	margin:               10px 0;
 	border-top-color:     transparent;
@@ -285,6 +338,15 @@
 #acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="67"] { grid-column: span 8; }
 #acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="75"] { grid-column: span 9; }
 
+/* In herhalerrijen dezelfde kolommen; de regel die daar alles volle breedte geeft, weegt anders zwaarder. */
+#acf-group_powerhub_blokken .layout .acf-repeater.-block .acf-row > .acf-fields > .acf-field[data-width="25"] { grid-column: span 3; }
+#acf-group_powerhub_blokken .layout .acf-repeater.-block .acf-row > .acf-fields > .acf-field[data-width="33"],
+#acf-group_powerhub_blokken .layout .acf-repeater.-block .acf-row > .acf-fields > .acf-field[data-width="34"] { grid-column: span 4; }
+#acf-group_powerhub_blokken .layout .acf-repeater.-block .acf-row > .acf-fields > .acf-field[data-width="50"] { grid-column: span 6; }
+#acf-group_powerhub_blokken .layout .acf-repeater.-block .acf-row > .acf-fields > .acf-field[data-width="66"],
+#acf-group_powerhub_blokken .layout .acf-repeater.-block .acf-row > .acf-fields > .acf-field[data-width="67"] { grid-column: span 8; }
+#acf-group_powerhub_blokken .layout .acf-repeater.-block .acf-row > .acf-fields > .acf-field[data-width="75"] { grid-column: span 9; }
+
 @media (max-width: 1100px) {
 	#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="25"] { grid-column: span 6; }
 	#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width="33"],
@@ -296,6 +358,31 @@
 
 @media (max-width: 782px) {
 	#acf-group_powerhub_blokken .layout .acf-fields > .acf-field[data-width] { grid-column: 1 / -1; }
+	#acf-group_powerhub_blokken .layout .acf-repeater.-block .acf-row > .acf-fields > .acf-field[data-width] { grid-column: 1 / -1; }
+}
+
+/* Uitleg altijd onder het invoerveld, ook in herhalers: dan staan invoervelden in een rij op gelijke hoogte. */
+#acf-group_powerhub_blokken .layout .acf-field:not(.acf-field-message):not(.acf-field-repeater):not(.acf-field-tab) {
+	display:              flex;
+	flex-direction:       column;
+}
+
+#acf-group_powerhub_blokken .layout .acf-field:not(.acf-field-message):not(.acf-field-repeater):not(.acf-field-tab) > .acf-label {
+	display:              contents;
+}
+
+#acf-group_powerhub_blokken .layout .acf-field:not(.acf-field-message):not(.acf-field-repeater):not(.acf-field-tab) > .acf-label > label {
+	order:                1;
+	margin-bottom:        6px;
+}
+
+#acf-group_powerhub_blokken .layout .acf-field:not(.acf-field-message):not(.acf-field-repeater):not(.acf-field-tab) > .acf-input {
+	order:                2;
+}
+
+#acf-group_powerhub_blokken .layout .acf-field:not(.acf-field-message):not(.acf-field-repeater):not(.acf-field-tab) > .acf-label > p.description {
+	order:                3;
+	margin:               6px 0 0;
 }
 
 #acf-group_powerhub_blokken .layout .acf-field .acf-label label {
@@ -364,6 +451,17 @@
 	box-shadow:           0 1px 2px rgba(29, 39, 51, 0.1), 0 4px 10px -6px rgba(29, 39, 51, 0.3);
 }
 
+/*Blok -- Schakelaar*/
+#acf-group_powerhub_blokken .layout .acf-switch.-on {
+	border-color:         var(--bh-donker);
+	background:           var(--bh-donker);
+}
+
+#acf-group_powerhub_blokken .layout .acf-switch:hover,
+#acf-group_powerhub_blokken .layout .acf-switch.-focus {
+	border-color:         var(--bh-donker);
+}
+
 /*Blok -- Kleurkeuze*/
 #acf-group_powerhub_blokken .kleurkeuze .acf-button-group label::before {
 	content:              "";
@@ -405,16 +503,259 @@
 	line-height:          1.5;
 }
 
+/*Blok -- Veldgroepen*/
+/* Velden die bij elkaar horen in één licht vlak met kop en uitleg (powerhub_acf_groep). */
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field.veldgroep-kop,
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field.veldgroep-eind,
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field.veldgroep-eind + .acf-field {
+	border-top-color:     transparent;
+}
+
+#acf-group_powerhub_blokken .layout .acf-field.veldgroep-kop {
+	margin-top:           14px;
+	padding:              14px 18px 4px;
+	border-radius:        14px 14px 0 0;
+	background:           var(--bh-pagina);
+}
+
+#acf-group_powerhub_blokken .layout .acf-field.veldgroep-kop .acf-label {
+	margin:               0;
+}
+
+#acf-group_powerhub_blokken .layout .acf-field.veldgroep-kop .acf-label label {
+	color:                var(--bh-tekst);
+	font-family:          var(--bh-smal);
+	font-size:            13px;
+	font-weight:          600;
+	letter-spacing:       0.08em;
+	text-transform:       uppercase;
+}
+
+#acf-group_powerhub_blokken .layout .acf-field.veldgroep-kop .acf-input {
+	color:                var(--bh-zacht);
+	font-size:            13px;
+	line-height:          1.5;
+}
+
+#acf-group_powerhub_blokken .layout .acf-field.veldgroep-kop .acf-input:empty {
+	display:              none;
+}
+
+#acf-group_powerhub_blokken .layout .acf-fields > .acf-field.in-groep {
+	padding-right:        18px;
+	padding-left:         18px;
+	border-top-color:     transparent;
+	background:           var(--bh-pagina);
+}
+
+#acf-group_powerhub_blokken .layout .acf-field.veldgroep-eind {
+	min-height:           0;
+	margin-bottom:        6px;
+	padding:              0 0 8px;
+	border-radius:        0 0 14px 14px;
+	background:           var(--bh-pagina);
+}
+
+#acf-group_powerhub_blokken .layout .acf-field.veldgroep-eind .acf-label,
+#acf-group_powerhub_blokken .layout .acf-field.veldgroep-eind .acf-input {
+	display:              none;
+}
+
+/* Binnen een grijs groepsvlak worden de knopgroepen wit, anders vallen ze weg. */
+#acf-group_powerhub_blokken .layout .acf-field.in-groep .acf-button-group {
+	background:           var(--bh-vlak);
+	box-shadow:           inset 0 0 0 1px var(--bh-lijn);
+}
+
+#acf-group_powerhub_blokken .layout .acf-field.in-groep .acf-button-group label.selected {
+	background:           var(--bh-donker);
+	color:                #ffffff;
+}
+
+/* Bij kleuren blijft het gekozen vlak wit met een donkere rand, anders valt een donkere kleurstip weg. */
+#acf-group_powerhub_blokken .layout .kleurkeuze.in-groep .acf-button-group label.selected {
+	background:           var(--bh-vlak);
+	color:                var(--bh-tekst);
+	box-shadow:           inset 0 0 0 2px var(--bh-donker);
+}
+
+#acf-group_powerhub_blokken .layout .kleurkeuze.alleen-bolletjes.in-groep .acf-button-group label.selected {
+	background:           transparent;
+	box-shadow:           none;
+}
+
+/*Blok -- Inklappen*/
+/* Het raster van de velden (display: grid/flex) mag het inklappen van ACF niet overschrijven. */
+#acf-group_powerhub_blokken .acf-flexible-content .layout.-collapsed > .acf-fields,
+#acf-group_powerhub_blokken .acf-flexible-content .layout.-collapsed > .acf-tab-wrap {
+	display:              none !important;
+}
+
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row.-collapsed > .acf-fields > * {
+	display:              none !important;
+}
+
+/* Ingeklapte rij: alleen de titel als compacte regel, zonder label en uitleg. */
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row.-collapsed > .acf-fields > .acf-field.-collapsed-target {
+	display:              block !important;
+	grid-column:          1 / -1 !important;
+	padding-top:          8px;
+	padding-bottom:       8px;
+	border-top-color:     transparent;
+}
+
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row.-collapsed > .acf-fields > .acf-field.-collapsed-target > .acf-label {
+	display:              none !important;
+}
+
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row.-collapsed > .acf-fields > .acf-field.-collapsed-target .description {
+	display:              none;
+}
+
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row.-collapsed > .acf-row-handle.order {
+	padding-top:          18px;
+}
+
+/* Toevoegen onder een herhaler in de stijl van de blokken. */
+#acf-group_powerhub_blokken .layout .acf-repeater > .acf-actions .acf-button.button-primary {
+	min-height:           36px;
+	padding:              6px 14px;
+	border:               1px solid var(--bh-donker);
+	border-radius:        var(--bh-knop);
+	background:           var(--bh-vlak);
+	color:                var(--bh-donker);
+	font-family:          var(--bh-letter);
+	font-size:            13px;
+	font-weight:          600;
+	box-shadow:           none;
+}
+
+#acf-group_powerhub_blokken .layout .acf-repeater > .acf-actions .acf-button.button-primary:hover {
+	background:           var(--bh-donker);
+	color:                #ffffff;
+}
+
 /*Blok -- Herhalers*/
-#acf-group_powerhub_blokken .layout .acf-repeater .acf-table {
-	overflow:             hidden;
-	border:               1px solid var(--bh-lijn);
-	border-radius:        12px;
+/* Elke rij een eigen kaart op een subtiel getint vlak, met ruimte ertussen; het nummer staat in een donkerdere strook.
+   Ingeklapt toont een rij alleen de titel (ACF: collapsed). */
+#acf-group_powerhub_blokken .layout .acf-repeater > table.acf-table {
+	border:               0;
+	border-collapse:      separate;
+	border-spacing:       0 12px;
+	background:           transparent;
+}
+
+#acf-group_powerhub_blokken .layout .acf-repeater > table.acf-table > tbody > .acf-row > td {
+	border-top:           1px solid var(--bh-rij-rand);
+	border-bottom:        1px solid var(--bh-rij-rand);
+	background:           var(--bh-rij);
+	vertical-align:       top;
+}
+
+#acf-group_powerhub_blokken .layout .acf-repeater > table.acf-table > tbody > .acf-row > td:first-child {
+	border-left:          1px solid var(--bh-rij-rand);
+	border-radius:        14px 0 0 14px;
+}
+
+#acf-group_powerhub_blokken .layout .acf-repeater > table.acf-table > tbody > .acf-row > td:last-child {
+	border-right:         1px solid var(--bh-rij-rand);
+	border-radius:        0 14px 14px 0;
+}
+
+#acf-group_powerhub_blokken .layout .acf-repeater > table.acf-table > tbody > .acf-row:hover > td {
+	border-color:         var(--bh-donker);
+}
+
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row > .acf-fields {
+	padding:              4px 6px 10px;
+}
+
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row > .acf-fields > .acf-field {
+	border-top-color:     var(--bh-rij-rand);
+}
+
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row > .acf-fields > .acf-field:first-child {
+	border-top-color:     transparent;
 }
 
 #acf-group_powerhub_blokken .layout .acf-repeater .acf-row-handle.order {
-	background:           var(--bh-pagina);
+	width:                40px;
+	padding-top:          16px;
+	background:           var(--bh-rij-strook);
+	color:                var(--bh-donker);
+	font-family:          var(--bh-smal);
+	font-size:            14px;
+	font-weight:          700;
+	vertical-align:       top;
+}
+
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row-handle.remove {
+	width:                40px;
+	background:           var(--bh-rij);
+}
+
+/* Invoer in een rij is wit, zodat hij loskomt van het getinte vlak. */
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row input[type="text"],
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row input[type="url"],
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row input[type="number"],
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row textarea,
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row select {
+	background:           var(--bh-vlak);
+}
+
+#acf-group_powerhub_blokken .layout .acf-repeater > .acf-actions {
+	margin-top:           0;
+}
+
+/*Blok -- Focuspunt*/
+/* Puntje op de foto: klik op de foto of verschuif met de pijltjestoetsen. Het punt blijft bij elke uitsnede in beeld. */
+#acf-group_powerhub_blokken .acf-image-uploader .image-wrap.heeft-focuspunt {
+	position:             relative;
+	display:              inline-block;
+}
+
+#acf-group_powerhub_blokken .acf-image-uploader .image-wrap.heeft-focuspunt img {
+	display:              block;
+	cursor:               crosshair;
+}
+
+#acf-group_powerhub_blokken .focuspunt {
+	position:             absolute;
+	z-index:              3;
+	width:                22px;
+	height:               22px;
+	margin:               -11px 0 0 -11px;
+	padding:              0;
+	border:               3px solid #ffffff;
+	border-radius:        50%;
+	background:           var(--bh-actie);
+	box-shadow:           0 0 0 1px rgba(29, 39, 51, 0.6), 0 2px 8px rgba(29, 39, 51, 0.45);
+	cursor:               grab;
+	transition:           left 120ms ease, top 120ms ease;
+}
+
+#acf-group_powerhub_blokken .focuspunt:focus-visible {
+	outline:              3px solid var(--bh-donker);
+	outline-offset:       3px;
+}
+
+#acf-group_powerhub_blokken .focuspunt-uitleg {
+	display:              block;
+	max-width:            320px;
+	margin:               6px 0 0;
 	color:                var(--bh-zacht);
+	font-size:            12px;
+	line-height:          1.4;
+}
+
+#acf-group_powerhub_blokken .focuspunt-uitleg button {
+	padding:              0;
+	border:               0;
+	background:           none;
+	color:                var(--bh-tekst);
+	font-size:            12px;
+	text-decoration:      underline;
+	cursor:               pointer;
 }
 
 /**Blokken -- Toevoegen**/
@@ -523,8 +864,14 @@
 	overflow-y:           auto;
 }
 
+.acf-fc-popup.blokkiezer ul {
+	box-sizing:           border-box;
+	width:                100% !important;
+}
+
 .acf-fc-popup.blokkiezer ul li {
 	display:              block !important;
+	min-width:            0;
 	height:               auto !important;
 	margin:               0;
 }
@@ -534,7 +881,10 @@
 }
 
 .acf-fc-popup.blokkiezer ul li a {
+	box-sizing:           border-box !important;
 	display:              grid !important;
+	width:                100% !important;
+	min-width:            0;
 	grid-template-columns: 44px 1fr;
 	align-items:          center;
 	gap:                  2px 14px;

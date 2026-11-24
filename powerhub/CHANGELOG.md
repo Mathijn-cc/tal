@@ -2,6 +2,20 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.3.0 (24-11-2026)
+
+Rustiger en beter gegroepeerd blokbeheer.
+
+- Groepen in de beheerder: `powerhub_acf_groep()` en `powerhub_acf_groep_eind()` zetten velden die bij elkaar horen in één vlak met kop en uitleg. Weergave (Opmaak, Achtergrond, Ruimte) en Geavanceerd zijn zo opgebouwd.
+- De tab Inhoud groepeert automatisch reeksen van minstens twee tekstvelden, knoppen of beeld- en videovelden (`powerhub_groepeer_inhoud()`, filter `powerhub_inhoud_groepen`).
+- Uitleg staat altijd onder het veld, ook in herhalers, zodat velden in een rij op gelijke hoogte staan.
+- Herhalerrijen zijn losse kaarten met ruimte ertussen.
+- De uit- en inklapknoppen van ACF zelf (Nederlandse tekst, teller ervoor) in plaats van eigen dubbele knoppen; het lege sleepvlakje van ACF is verborgen.
+- Het geselecteerde blok heeft een donkere kopbalk met witte tekst; iconen wit op de tegel; schakelaars in de themakleur.
+- `powerhub_versie()`: Powerhub-bestanden krijgen hun wijzigingstijd als versie, zodat de cache na elke uitrol vernieuwt.
+- Focuspunt op foto's: in de beheerder klik je op de foto (of verschuif je het puntje met de pijltjestoetsen). Het punt hoort bij de bijlage en komt op de voorkant als `object-position` op elke `wp_get_attachment_image()`. Functie `powerhub_focuspunt( $id )`.
+- Herhalers: rijen als getinte kaarten met een nummerstrook, korte velden automatisch naast elkaar (`powerhub_herhalers_ordenen()`), kolommen ook in herhalerrijen, ingeklapte rij toont alleen de titel, lange herhalers starten ingeklapt.
+- Reparatie: blokken en herhalerrijen klappen weer in (het veldenraster overschreef het inklappen van ACF).
 ## 1.2.4 (22-11-2026)
 
 - Blokken in de editor: velden in één rij zijn even hoog en de invoer staat onderaan, zodat invoervelden op één lijn staan, ook als maar één veld een uitleg heeft. Dunne lijn tussen rijen.

@@ -544,7 +544,7 @@ function tal_uitrol_favicon() {
 	if ( get_option( 'site_icon' ) ) {
 		return true;
 	}
-	$id = tal_uitrol_bijlage( 'tal-favicon-koraal.png' );
+	$id = tal_uitrol_bijlage( 'tal-favicon-vlak.png' );
 	if ( ! $id ) {
 		return false;
 	}
@@ -567,7 +567,7 @@ function tal_uitrol_favicon_powerhub() {
 	if ( ! empty( $opties['favicon'] ) ) {
 		return true;
 	}
-	$id = tal_uitrol_bijlage( 'tal-favicon-koraal.png' );
+	$id = tal_uitrol_bijlage( 'tal-favicon-vlak.png' );
 	if ( ! $id ) {
 		return false;
 	}
@@ -586,7 +586,7 @@ add_filter( 'powerhub_uitroltaken', function ( $taken ) {
  * Favicon vervangen door de versie met de koraalkleurige boog (transparante PNG).
  */
 function tal_uitrol_favicon_koraal() {
-	$id = tal_uitrol_bijlage( 'tal-favicon-koraal.png' );
+	$id = tal_uitrol_bijlage( 'tal-favicon-vlak.png' );
 	if ( ! $id ) {
 		return false;
 	}
@@ -599,5 +599,11 @@ function tal_uitrol_favicon_koraal() {
 
 add_filter( 'powerhub_uitroltaken', function ( $taken ) {
 	$taken['favicon-powerhub-v2'] = 'tal_uitrol_favicon_koraal';
+	return $taken;
+} );
+
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	/* Favicon helemaal in koraal, zonder boog. */
+	$taken['favicon-powerhub-v3'] = 'tal_uitrol_favicon_koraal';
 	return $taken;
 } );

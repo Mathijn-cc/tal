@@ -320,6 +320,17 @@
 					: { trigger: streep, start: 'top 58%', end: 'top 32%', scrub: 0.6 } });
 		});
 
+		/* Programma op mobiel: de foto's beginnen lager (4:3) en strekken bij scrollen rustig uit tot hun volle hoogte (4:5). */
+		if (!breed()) alle('.sectie-programma').forEach(function (sectie) {
+			var kader = sectie.querySelector('.programma-kader');
+			var fotos = alle('.programma-beeld', sectie);
+			if (!kader || !fotos.length) return;
+			var hoogte = function (factor) { return function (i, el) { return el.offsetWidth * factor; }; };
+			gsap.set(fotos, { aspectRatio: 'auto' });
+			gsap.fromTo(fotos, { height: hoogte(0.75) }, { height: hoogte(1.25), ease: 'none',
+				scrollTrigger: { trigger: kader, start: 'top 92%', end: 'top 30%', scrub: 0.6, invalidateOnRefresh: true } });
+		});
+
 		/* Programma: verticaal scrollen wordt zijwaarts bewegen, met de rij in het midden van het scherm. */
 		if (breed()) alle('.sectie-programma').forEach(function (sectie) {
 			var kader = sectie.querySelector('.programma-kader');

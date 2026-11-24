@@ -2,6 +2,10 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.6.1 (24-11-2026)
+
+- Lettertypes veiliger ophalen: alleen via https naar de hosts van Google Fonts en Fontshare (vaste lijst), met wp_safe_remote_get (geen interne adressen, geen omleidingen), hooguit 5 MB per bestand en 40 bestanden per lettertype. Eigen bestanden ook hooguit 5 MB.
+
 ## 1.6.0 (24-11-2026)
 
 - Lettertypes: toevoegen (bibliotheek en eigen bestanden) staat dicht achter de knop "Lettertype toevoegen".

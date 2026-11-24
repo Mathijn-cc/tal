@@ -55,16 +55,35 @@ function powerhub_lettertypes_mag() {
 /* Catalogus: Google Fonts en Fontshare, een week bewaard.                    */
 /* ------------------------------------------------------------------------- */
 
+/* Alleen deze hosts worden ooit benaderd: de catalogi, de CSS en de lettertypebestanden van Google en Fontshare. */
+const POWERHUB_LETTERTYPES_HOSTS = array( 'fonts.google.com', 'fonts.googleapis.com', 'fonts.gstatic.com', 'api.fontshare.com', 'cdn.fontshare.com' );
+
+/* Grenzen: een lettertypebestand is nooit groter dan 5 MB, een catalogus nooit groter dan 20 MB, hooguit 40 bestanden per lettertype. */
+const POWERHUB_LETTERTYPES_MAX_BESTAND = 5242880;
+const POWERHUB_LETTERTYPES_MAX_AANTAL  = 40;
+
 function powerhub_lettertypes_ophalen( $url ) {
-	$antwoord = wp_remote_get( $url, array(
-		'timeout'    => 20,
+	$host = strtolower( (string) wp_parse_url( $url, PHP_URL_HOST ) );
+	if ( 'https' !== wp_parse_url( $url, PHP_URL_SCHEME ) || ! in_array( $host, POWERHUB_LETTERTYPES_HOSTS, true ) ) {
+		return null;
+	}
+	$is_bestand = in_array( $host, array( 'fonts.gstatic.com', 'cdn.fontshare.com' ), true );
+	/* wp_safe_remote_get weigert interne adressen en volgt geen omleidingen naar andere hosts. */
+	$antwoord = wp_safe_remote_get( $url, array(
+		'timeout'             => 20,
+		'redirection'         => 0,
+		'limit_response_size' => $is_bestand ? POWERHUB_LETTERTYPES_MAX_BESTAND + 1 : 20971520,
 		/* Een moderne browser, zodat Google .woff2-bestanden geeft. */
 		'user-agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
 	) );
 	if ( is_wp_error( $antwoord ) || 200 !== (int) wp_remote_retrieve_response_code( $antwoord ) ) {
 		return null;
 	}
-	return wp_remote_retrieve_body( $antwoord );
+	$body = wp_remote_retrieve_body( $antwoord );
+	if ( $is_bestand && strlen( $body ) > POWERHUB_LETTERTYPES_MAX_BESTAND ) {
+		return null;
+	}
+	return $body;
 }
 
 function powerhub_lettertypes_catalogus_google() {
@@ -290,7 +309,7 @@ function powerhub_lettertype_installeren( $args ) {
 		return new WP_Error( 'map', 'De map in uploads kon niet worden gemaakt.' );
 	}
 	$bestanden = array();
-	foreach ( $regels as $i => $r ) {
+	foreach ( array_slice( $regels, 0, POWERHUB_LETTERTYPES_MAX_AANTAL ) as $i => $r ) {
 		$inhoud = powerhub_lettertypes_ophalen( $r['url'] );
 		if ( ! $inhoud || 'wOF2' !== substr( $inhoud, 0, 4 ) ) {
 			continue;
@@ -473,7 +492,8 @@ add_action( 'wp_ajax_powerhub_lettertype_eigen', function () {
 	foreach ( $ruw as $b ) {
 		$id  = absint( $b['id'] ?? 0 );
 		$ext = strtolower( pathinfo( (string) get_attached_file( $id ), PATHINFO_EXTENSION ) );
-		if ( ! $id || ! in_array( $ext, array( 'woff', 'woff2' ), true ) ) {
+		$pad = (string) get_attached_file( $id );
+		if ( ! $id || ! in_array( $ext, array( 'woff', 'woff2' ), true ) || ! is_readable( $pad ) || filesize( $pad ) > POWERHUB_LETTERTYPES_MAX_BESTAND ) {
 			continue;
 		}
 		$gewicht = preg_match( '/^\d{3}( \d{3})?$/', (string) ( $b['gewicht'] ?? '' ) ) ? $b['gewicht'] : '400';

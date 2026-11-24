@@ -2,6 +2,10 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.8.2 (24-11-2026)
+
+- Zijbalk: geen streepjes en geen vlak meer, maar elk item een eigen zacht wit vlakje met ruimte ertussen. Hover vol wit, actief donkergroen. Subitems in een uitgeklapte groep hebben geen eigen vlakje.
+
 ## 1.8.1 (24-11-2026)
 
 - Zijbalk: geen ondertitels meer bij de items (de uitleg staat bovenin het paneel). De zijbalk staat in een eigen vlak in een zachte groengrijze tint, met een dun streepje tussen de items, ingesprongen tot de tekst.

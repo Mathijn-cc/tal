@@ -33,7 +33,7 @@
 	align-items:          center;
 	justify-content:      space-between;
 	gap:                  1rem;
-	padding:              0.85rem 1.25rem 0.85rem 1.4rem;
+	padding:              0.85rem 1.25rem 0.85rem 1.1rem;
 	overflow:             hidden;
 	border-radius:        var(--ph-hoek);
 	background:           var(--ph-cc-groen);
@@ -43,7 +43,7 @@
 }
 
 .wrap.powerhub.is-gescrold .powerhub-kop {
-	padding:              0.55rem 1.25rem 0.55rem 1.4rem;
+	padding:              0.55rem 1.25rem 0.55rem 1.1rem;
 	box-shadow:           0 -10px 0 6px #f0f0f1, 0 8px 18px -10px rgba(17, 40, 29, 0.45);
 }
 
@@ -193,33 +193,11 @@
 }
 
 /*Indeling -- Tabs*/
-/* Zijbalk als eigen vlak in een zachte groengrijze tint, met een dun streepje tussen de items. */
+/* Zijbalk: elk item een eigen zacht wit vlakje met ruimte ertussen. Hover vol wit, actief donkergroen. */
 .wrap.powerhub .powerhub-indeling .powerhub-tabs {
 	display:              flex;
 	flex-direction:       column;
-	gap:                  0;
-	padding:              0.5rem;
-	border-radius:        var(--ph-hoek);
-	background:           #e7eae3;
-}
-
-.wrap.powerhub .powerhub-indeling .powerhub-tabs > * {
-	position:             relative;
-}
-
-.wrap.powerhub .powerhub-indeling .powerhub-tabs > * + * {
-	margin-top:           1px;
-}
-
-.wrap.powerhub .powerhub-indeling .powerhub-tabs > * + *::before {
-	content:              "";
-	position:             absolute;
-	top:                  -1px;
-	right:                0.9rem;
-	left:                 0.9rem;
-	height:               1px;
-	background:           rgba(17, 40, 29, 0.12);
-	pointer-events:       none;
+	gap:                  0.35rem;
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button {
@@ -229,10 +207,10 @@
 	flex-direction:       column;
 	align-items:          flex-start;
 	gap:                  0.15rem;
-	padding:              0.7rem 0.9rem;
+	padding:              0.7rem 1.1rem;
 	border:               0;
 	border-radius:        10px;
-	background:           transparent;
+	background:           rgba(255, 255, 255, 0.55);
 	color:                var(--ph-tekst);
 	text-align:           left;
 	cursor:               pointer;
@@ -372,6 +350,10 @@
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button.powerhub-subtab {
 	padding:              0.7rem 0.85rem;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button.powerhub-subtab:not([aria-selected="true"]):not(:hover) {
+	background:           transparent;
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button.powerhub-subtab .powerhub-tab-titel {

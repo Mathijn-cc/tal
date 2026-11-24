@@ -14,7 +14,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'POWERHUB_VERSIE', '1.7.3' );
+define( 'POWERHUB_VERSIE', '1.7.4' );
 
 /**
  * Versie voor een Powerhub-bestand: versienummer plus wijzigingstijd, zodat browser en servercache na elke uitrol vernieuwen.

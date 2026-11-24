@@ -400,6 +400,12 @@
 #acf-group_powerhub_blokken .layout .acf-field input[type="text"],
 #acf-group_powerhub_blokken .layout .acf-field input[type="url"],
 #acf-group_powerhub_blokken .layout .acf-field input[type="number"],
+#acf-group_powerhub_blokken .layout .acf-field input[type="email"],
+#acf-group_powerhub_blokken .layout .acf-field input[type="tel"],
+#acf-group_powerhub_blokken .layout .acf-field input[type="password"],
+#acf-group_powerhub_blokken .layout .acf-field input[type="search"],
+#acf-group_powerhub_blokken .layout .acf-field input[type="date"],
+#acf-group_powerhub_blokken .layout .acf-field input[type="time"],
 #acf-group_powerhub_blokken .layout .acf-field textarea,
 #acf-group_powerhub_blokken .layout .acf-field select {
 	min-height:           40px;
@@ -698,6 +704,12 @@
 #acf-group_powerhub_blokken .layout .acf-repeater .acf-row input[type="text"],
 #acf-group_powerhub_blokken .layout .acf-repeater .acf-row input[type="url"],
 #acf-group_powerhub_blokken .layout .acf-repeater .acf-row input[type="number"],
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row input[type="email"],
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row input[type="tel"],
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row input[type="password"],
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row input[type="search"],
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row input[type="date"],
+#acf-group_powerhub_blokken .layout .acf-repeater .acf-row input[type="time"],
 #acf-group_powerhub_blokken .layout .acf-repeater .acf-row textarea,
 #acf-group_powerhub_blokken .layout .acf-repeater .acf-row select {
 	background:           var(--bh-vlak);

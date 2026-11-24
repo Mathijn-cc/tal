@@ -2,6 +2,10 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.7.4 (24-11-2026)
+
+- Blokken in de editor: velden voor e-mail, telefoon, wachtwoord, zoeken, datum en tijd hebben dezelfde stijl als tekstvelden (ronde hoeken, lijnkleur, letter).
+
 ## 1.7.3 (24-11-2026)
 
 - Een uitgeklapte groep in de zijbalk (zoals Design) is altijd één wit vlak met de subitems erin; hover op een subitem is daarin lichtgrijs.

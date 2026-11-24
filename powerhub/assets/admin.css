@@ -283,7 +283,7 @@
 	flex:                 0 0 auto;
 	margin-left:          auto;
 	color:                var(--ph-zacht);
-	opacity:              0.55;
+	opacity:              0.7;
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button[aria-selected="true"] .powerhub-slot {

@@ -2,6 +2,10 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.9.1 (24-11-2026)
+
+- Alleen-voor-beheerders is nu een slotje (zijbalk en Beheerder in de kop), iets dikker. Onderhoud en beveiliging heeft daarom een schild met vinkje als icoon. Iconen in de zijbalk iets dikker (lijn 2).
+
 ## 1.9.0 (24-11-2026)
 
 - Zijbalk opnieuw opgezet: één wit vlak zoals het paneel, elk item een rij met een icoon in een tegeltje. Hover zacht groengrijs, actief donkergroen met een lime tegeltje. Het schildje voor beheerders is klein en zonder vlak.

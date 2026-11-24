@@ -2,6 +2,12 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.6.0 (24-11-2026)
+
+- Lettertypes: toevoegen (bibliotheek en eigen bestanden) staat dicht achter de knop "Lettertype toevoegen".
+- Nieuw: filter `powerhub_lettertypes_standaard` met lettertypes die de eerste uitrol (of het activeren van het thema) ophaalt en aan lege rollen koppelt. cc-thema gebruikt standaard Inter.
+- Nieuw: `powerhub_lettertype_installeren()`, `powerhub_lettertype_overnemen()` (lokale bestanden naar uploads, voor thema's die overstappen) en `powerhub_lettertypes_rollen_zetten()`.
+
 ## 1.5.0 (24-11-2026)
 
 - Nieuwe module Lettertypes, in de tab Typografie:

@@ -17,27 +17,8 @@ add_filter( 'powerhub_kleuren', function () {
 	);
 } );
 
-/* Lettertypes, lokaal in assets/fonts. DM Serif Display voor alle koppen, General Sans voor tekst. Kalnia staat alleen in het logo (thema.css). */
-add_filter( 'powerhub_fonts', function () {
-	return array(
-		'dm-serif-display' => array(
-			'naam'      => 'DM Serif Display',
-			'fallback'  => 'Georgia, "Times New Roman", serif',
-			'bestanden' => array(
-				array( 'bestand' => 'dm-serif-display-400.woff2', 'gewicht' => '400', 'stijl' => 'normal' ),
-			),
-		),
-		'general-sans' => array(
-			'naam'      => 'General Sans',
-			'fallback'  => 'system-ui, -apple-system, "Segoe UI", sans-serif',
-			'bestanden' => array(
-				array( 'bestand' => 'general-sans-variabel.woff2', 'gewicht' => '200 700', 'stijl' => 'normal' ),
-				array( 'bestand' => 'general-sans-variabel-cursief.woff2', 'gewicht' => '200 700', 'stijl' => 'italic' ),
-			),
-		),
-	);
-} );
-add_filter( 'powerhub_font_standaard', fn() => array( 'kop' => 'dm-serif-display', 'tekst' => 'general-sans', 'accent' => 'dm-serif-display' ) );
+/* Lettertypes staan in Powerhub (Design › Typografie), lokaal in uploads: DM Serif Display voor koppen, General Sans voor tekst.
+   Overgezet met de uitroltaak lettertypes-naar-powerhub-v1 (inc/uitrol.php). Kalnia staat alleen in het logo (thema.css). */
 
 /* Sectie-achtergronden. Nooit meer dan twee achtergronden tegelijk in beeld. */
 add_filter( 'powerhub_achtergronden', function () {

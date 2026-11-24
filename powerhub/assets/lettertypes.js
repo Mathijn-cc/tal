@@ -4,6 +4,17 @@
 	if (!vak || !window.powerhubLettertypes) return;
 	var cfg = window.powerhubLettertypes;
 
+	/* Toevoegen staat dicht tot iemand erom vraagt. */
+	var open = vak.querySelector('[data-lettertypes-open]');
+	var paneel = vak.querySelector('#powerhub-lettertypes-toevoegen');
+	open.addEventListener('click', function () {
+		var nu = paneel.hidden;
+		paneel.hidden = !nu;
+		open.setAttribute('aria-expanded', nu ? 'true' : 'false');
+		open.textContent = nu ? 'Sluiten' : 'Lettertype toevoegen';
+		if (nu) zoek.focus();
+	});
+
 	var zoek = vak.querySelector('[data-lettertype-zoek]');
 	var bron = vak.querySelector('[data-lettertype-bron]');
 	var status = vak.querySelector('[data-lettertype-status]');

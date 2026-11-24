@@ -259,36 +259,35 @@ function powerhub_lettertypes_map( $slug ) {
 	);
 }
 
-add_action( 'wp_ajax_powerhub_lettertype_toevoegen', function () {
-	check_ajax_referer( 'powerhub_lettertypes', 'nonce' );
-	if ( ! powerhub_lettertypes_mag() ) {
-		wp_send_json_error( 'Geen toegang.', 403 );
-	}
-	$bron    = 'fontshare' === ( $_POST['bron'] ?? '' ) ? 'fontshare' : 'google';
-	$naam    = sanitize_text_field( wp_unslash( $_POST['naam'] ?? '' ) );
-	$slug    = sanitize_title( wp_unslash( $_POST['slug'] ?? $naam ) );
-	$soort   = sanitize_text_field( wp_unslash( $_POST['soort'] ?? '' ) );
-	$bereik  = sanitize_text_field( wp_unslash( $_POST['bereik'] ?? '' ) );
-	$cursief = ! empty( $_POST['cursief'] );
-	$gewicht = array_filter( array_map( 'absint', explode( ',', (string) wp_unslash( $_POST['gewichten'] ?? '' ) ) ) );
+/**
+ * Lettertype uit de bibliotheek ophalen en lokaal zetten. Ook bruikbaar in uitroltaken.
+ * $args: bron (google|fontshare), naam, slug, soort, bereik ('100..900'), cursief, gewichten (array).
+ * Geeft de sleutel terug of een WP_Error.
+ */
+function powerhub_lettertype_installeren( $args ) {
+	$args    = wp_parse_args( $args, array( 'bron' => 'google', 'naam' => '', 'slug' => '', 'soort' => '', 'bereik' => '', 'cursief' => false, 'gewichten' => array() ) );
+	$bron    = 'fontshare' === $args['bron'] ? 'fontshare' : 'google';
+	$naam    = sanitize_text_field( $args['naam'] );
+	$slug    = sanitize_title( $args['slug'] ? $args['slug'] : $naam );
+	$gewicht = array_filter( array_map( 'absint', (array) $args['gewichten'] ) );
 	if ( '' === $naam || '' === $slug ) {
-		wp_send_json_error( 'Geef de naam van het lettertype op.' );
+		return new WP_Error( 'naam', 'Geef de naam van het lettertype op.' );
 	}
 	$sleutel = $bron . '-' . $slug;
 
-	$css = powerhub_lettertypes_ophalen( powerhub_lettertype_css_url( $bron, $naam, $slug, $gewicht, $cursief, $bereik ) );
+	$css = powerhub_lettertypes_ophalen( powerhub_lettertype_css_url( $bron, $naam, $slug, $gewicht, $args['cursief'], $args['bereik'] ) );
 	if ( ! $css && 'google' === $bron ) {
 		/* Zonder gegevens uit de bibliotheek: alleen het standaardgewicht proberen. */
 		$css = powerhub_lettertypes_ophalen( powerhub_lettertype_css_url( $bron, $naam, $slug, array(), false, '' ) );
 	}
 	$regels = powerhub_lettertype_css_lezen( $css );
 	if ( ! $regels ) {
-		wp_send_json_error( sprintf( '"%s" is niet gevonden bij %s. Controleer de schrijfwijze.', $naam, 'google' === $bron ? 'Google Fonts' : 'Fontshare' ) );
+		return new WP_Error( 'niet-gevonden', sprintf( '"%s" is niet gevonden bij %s. Controleer de schrijfwijze.', $naam, 'google' === $bron ? 'Google Fonts' : 'Fontshare' ) );
 	}
 
 	$map = powerhub_lettertypes_map( $sleutel );
 	if ( ! wp_mkdir_p( $map['pad'] ) ) {
-		wp_send_json_error( 'De map in uploads kon niet worden gemaakt.' );
+		return new WP_Error( 'map', 'De map in uploads kon niet worden gemaakt.' );
 	}
 	$bestanden = array();
 	foreach ( $regels as $i => $r ) {
@@ -308,18 +307,128 @@ add_action( 'wp_ajax_powerhub_lettertype_toevoegen', function () {
 		);
 	}
 	if ( ! $bestanden ) {
-		wp_send_json_error( 'De bestanden konden niet worden opgehaald. Probeer het later opnieuw.' );
+		return new WP_Error( 'bestanden', 'De bestanden konden niet worden opgehaald. Probeer het later opnieuw.' );
 	}
+	powerhub_lettertype_bewaren( $sleutel, $naam, powerhub_lettertype_fallback( $args['soort'] ), $bron, $bestanden );
+	return $sleutel;
+}
 
+/**
+ * Lettertype vastleggen in de lijst van toegevoegde lettertypes.
+ */
+function powerhub_lettertype_bewaren( $sleutel, $naam, $fallback, $bron, $bestanden ) {
 	$lijst             = powerhub_lettertypes_opgeslagen();
 	$lijst[ $sleutel ] = array(
 		'naam'      => $naam,
-		'fallback'  => powerhub_lettertype_fallback( $soort ),
+		'fallback'  => $fallback,
 		'bron'      => $bron,
-		'bestanden' => $bestanden,
+		'bestanden' => array_values( $bestanden ),
 	);
 	update_option( POWERHUB_LETTERTYPES_OPTIE, $lijst, false );
-	wp_send_json_success( array( 'sleutel' => $sleutel, 'bestanden' => count( $bestanden ) ) );
+}
+
+/**
+ * Lokale bestanden (bijvoorbeeld uit een thema dat overstapt) naar uploads kopiëren en als lettertype vastleggen.
+ * $bestanden: array( array( 'pad' => absoluut pad, 'gewicht' => '400', 'stijl' => 'normal' ) ).
+ */
+function powerhub_lettertype_overnemen( $sleutel, $naam, $fallback, $bron, $bestanden ) {
+	$sleutel = sanitize_key( $sleutel );
+	$map     = powerhub_lettertypes_map( $sleutel );
+	if ( ! wp_mkdir_p( $map['pad'] ) ) {
+		return false;
+	}
+	$uit = array();
+	foreach ( $bestanden as $b ) {
+		if ( empty( $b['pad'] ) || ! is_readable( $b['pad'] ) ) {
+			return false;
+		}
+		$naam_bestand = sanitize_file_name( basename( $b['pad'] ) );
+		if ( ! copy( $b['pad'], $map['pad'] . '/' . $naam_bestand ) ) {
+			return false;
+		}
+		$uit[] = array(
+			'bestand' => 'uploads:' . $map['rel'] . '/' . $naam_bestand,
+			'gewicht' => $b['gewicht'] ?? '400',
+			'stijl'   => $b['stijl'] ?? 'normal',
+			'unicode' => '',
+		);
+	}
+	powerhub_lettertype_bewaren( $sleutel, $naam, $fallback, $bron, $uit );
+	return $sleutel;
+}
+
+/**
+ * Lettertypes per rol vastleggen in de Powerhub-instellingen: array( 'kop' => sleutel, ... ).
+ */
+function powerhub_lettertypes_rollen_zetten( $rollen ) {
+	$opties = get_option( POWERHUB_OPTIE, array() );
+	$opties = is_array( $opties ) ? $opties : array();
+	foreach ( (array) $rollen as $rol => $sleutel ) {
+		$opties[ 'font_' . sanitize_key( $rol ) ] = $sleutel;
+	}
+	update_option( POWERHUB_OPTIE, $opties );
+}
+
+/*
+ * Standaardlettertypes van een thema, via de filter powerhub_lettertypes_standaard:
+ *   add_filter( 'powerhub_lettertypes_standaard', fn() => array(
+ *       array( 'bron' => 'google', 'naam' => 'Inter', 'bereik' => '100..900', 'cursief' => true, 'rollen' => array( 'kop', 'tekst', 'accent' ) ),
+ *   ) );
+ * Bij de eerste uitrol (en bij het activeren van het thema) haalt de server ze op. Rollen die al een
+ * lettertype hebben, blijven zoals ze zijn.
+ */
+function powerhub_lettertypes_standaard_installeren() {
+	$standaard = (array) apply_filters( 'powerhub_lettertypes_standaard', array() );
+	if ( ! $standaard ) {
+		return true;
+	}
+	$opties = get_option( POWERHUB_OPTIE, array() );
+	$lijst  = powerhub_lettertypes_opgeslagen();
+	$rollen = array();
+	foreach ( $standaard as $font ) {
+		$sleutel = ( 'fontshare' === ( $font['bron'] ?? '' ) ? 'fontshare' : 'google' ) . '-' . sanitize_title( $font['slug'] ?? $font['naam'] );
+		if ( ! isset( $lijst[ $sleutel ] ) ) {
+			$sleutel = powerhub_lettertype_installeren( $font );
+			if ( is_wp_error( $sleutel ) ) {
+				return false;
+			}
+		}
+		foreach ( (array) ( $font['rollen'] ?? array() ) as $rol ) {
+			if ( empty( $opties[ 'font_' . $rol ] ) ) {
+				$rollen[ $rol ] = $sleutel;
+			}
+		}
+	}
+	if ( $rollen ) {
+		powerhub_lettertypes_rollen_zetten( $rollen );
+	}
+	return true;
+}
+
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['powerhub-lettertypes-standaard-v1'] = 'powerhub_lettertypes_standaard_installeren';
+	return $taken;
+} );
+add_action( 'after_switch_theme', 'powerhub_lettertypes_standaard_installeren' );
+
+add_action( 'wp_ajax_powerhub_lettertype_toevoegen', function () {
+	check_ajax_referer( 'powerhub_lettertypes', 'nonce' );
+	if ( ! powerhub_lettertypes_mag() ) {
+		wp_send_json_error( 'Geen toegang.', 403 );
+	}
+	$sleutel = powerhub_lettertype_installeren( array(
+		'bron'      => sanitize_key( wp_unslash( $_POST['bron'] ?? '' ) ),
+		'naam'      => wp_unslash( $_POST['naam'] ?? '' ),
+		'slug'      => wp_unslash( $_POST['slug'] ?? '' ),
+		'soort'     => sanitize_text_field( wp_unslash( $_POST['soort'] ?? '' ) ),
+		'bereik'    => sanitize_text_field( wp_unslash( $_POST['bereik'] ?? '' ) ),
+		'cursief'   => ! empty( $_POST['cursief'] ),
+		'gewichten' => explode( ',', (string) wp_unslash( $_POST['gewichten'] ?? '' ) ),
+	) );
+	if ( is_wp_error( $sleutel ) ) {
+		wp_send_json_error( $sleutel->get_error_message() );
+	}
+	wp_send_json_success( array( 'sleutel' => $sleutel ) );
 } );
 
 /* ------------------------------------------------------------------------- */
@@ -378,15 +487,8 @@ add_action( 'wp_ajax_powerhub_lettertype_eigen', function () {
 	if ( ! $bestanden ) {
 		wp_send_json_error( 'Alleen .woff2- en .woff-bestanden kunnen worden gebruikt.' );
 	}
-	$sleutel           = 'eigen-' . sanitize_title( $naam );
-	$lijst             = powerhub_lettertypes_opgeslagen();
-	$lijst[ $sleutel ] = array(
-		'naam'      => $naam,
-		'fallback'  => powerhub_lettertype_fallback( $soort ),
-		'bron'      => 'eigen',
-		'bestanden' => $bestanden,
-	);
-	update_option( POWERHUB_LETTERTYPES_OPTIE, $lijst, false );
+	$sleutel = 'eigen-' . sanitize_title( $naam );
+	powerhub_lettertype_bewaren( $sleutel, $naam, powerhub_lettertype_fallback( $soort ), 'eigen', $bestanden );
 	wp_send_json_success( array( 'sleutel' => $sleutel ) );
 } );
 
@@ -471,7 +573,12 @@ function powerhub_lettertypes_beheer() {
 			<p class="powerhub-lettertypes-leeg">Nog geen lettertypes toegevoegd.</p>
 		<?php endif; ?>
 
-		<h3 class="powerhub-tussenkop">Bibliotheek</h3>
+		<div class="powerhub-lettertypes-open">
+			<button type="button" class="button" data-lettertypes-open aria-expanded="false" aria-controls="powerhub-lettertypes-toevoegen">Lettertype toevoegen</button>
+		</div>
+
+		<div class="powerhub-lettertypes-toevoegen" id="powerhub-lettertypes-toevoegen" hidden>
+		<h3 class="powerhub-tussenkop">Uit de bibliotheek</h3>
 		<small class="powerhub-uitleg">Google Fonts en Fontshare. Bij toevoegen haalt de server de bestanden één keer op en zet ze lokaal; de site laadt nooit van Google of Fontshare.</small>
 		<div class="powerhub-lettertypes-zoek">
 			<input type="search" placeholder="Zoek een lettertype, bijvoorbeeld Satoshi of Inter" data-lettertype-zoek aria-label="Zoek een lettertype">
@@ -489,7 +596,7 @@ function powerhub_lettertypes_beheer() {
 		<div class="powerhub-lettertypes-eigen" data-lettertype-eigen>
 			<div class="powerhub-veld">
 				<label class="powerhub-label" for="powerhub-eigen-naam">Naam</label>
-				<div class="powerhub-invoer"><input type="text" id="powerhub-eigen-naam" data-eigen-naam placeholder="Bijvoorbeeld ES Klarheit Kurrent"></div>
+				<div class="powerhub-invoer"><input type="text" id="powerhub-eigen-naam" data-eigen-naam placeholder="Naam van het lettertype"></div>
 			</div>
 			<div class="powerhub-veld">
 				<label class="powerhub-label" for="powerhub-eigen-soort">Soort</label>
@@ -508,9 +615,10 @@ function powerhub_lettertypes_beheer() {
 					<ul class="powerhub-lettertypes-bestanden" data-eigen-bestanden></ul>
 				</div>
 			</div>
-			<div class="powerhub-acties">
-				<button type="button" class="button button-primary" data-eigen-opslaan disabled>Lettertype toevoegen</button>
+			<div class="powerhub-lettertypes-knoppen">
+				<button type="button" class="button button-primary" data-eigen-opslaan disabled>Eigen lettertype opslaan</button>
 			</div>
+		</div>
 		</div>
 	</div>
 	<?php

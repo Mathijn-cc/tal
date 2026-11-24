@@ -7,6 +7,28 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Lettertypes van het thema naar Powerhub: DM Serif Display en General Sans naar uploads, gekoppeld aan de rollen.
+ */
+function tal_uitrol_lettertypes() {
+	if ( ! function_exists( 'powerhub_lettertype_overnemen' ) ) {
+		return false;
+	}
+	$map  = get_template_directory() . '/assets/fonts/';
+	$kop  = powerhub_lettertype_overnemen( 'google-dm-serif-display', 'DM Serif Display', 'Georgia, "Times New Roman", serif', 'google', array(
+		array( 'pad' => $map . 'dm-serif-display-400.woff2', 'gewicht' => '400', 'stijl' => 'normal' ),
+	) );
+	$tekst = powerhub_lettertype_overnemen( 'fontshare-general-sans', 'General Sans', 'system-ui, -apple-system, "Segoe UI", sans-serif', 'fontshare', array(
+		array( 'pad' => $map . 'general-sans-variabel.woff2', 'gewicht' => '200 700', 'stijl' => 'normal' ),
+		array( 'pad' => $map . 'general-sans-variabel-cursief.woff2', 'gewicht' => '200 700', 'stijl' => 'italic' ),
+	) );
+	if ( ! $kop || ! $tekst ) {
+		return false;
+	}
+	powerhub_lettertypes_rollen_zetten( array( 'kop' => $kop, 'accent' => $kop, 'tekst' => $tekst ) );
+	return true;
+}
+
 add_filter( 'powerhub_uitroltaken', function ( $taken ) {
 	$taken['homepage-v1'] = 'tal_uitrol_homepage';
 	return $taken;
@@ -508,3 +530,8 @@ function tal_uitrol_logo() {
 	echo "Logo in Powerhub gezet.\n";
 	return true;
 }
+
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['lettertypes-naar-powerhub-v1'] = 'tal_uitrol_lettertypes';
+	return $taken;
+} );

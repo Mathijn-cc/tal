@@ -517,6 +517,27 @@
 	margin-top:           0;
 }
 
+/*Lettertypes -- Toevoegen*/
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-open {
+	margin-top:           1rem;
+}
+
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-knoppen {
+	margin:               1rem 0 0.75rem;
+}
+
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-toevoegen {
+	margin-top:           1rem;
+	padding:              1.25rem 1.5rem 0.5rem;
+	border:               1px solid var(--ph-lijn);
+	border-radius:        var(--ph-hoek);
+	background:           var(--ph-achtergrond);
+}
+
+.wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-toevoegen[hidden] {
+	display:              none;
+}
+
 /*Lettertypes -- Lijsten*/
 .wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-lijst,
 .wrap.powerhub .powerhub-lettertypes .powerhub-lettertypes-resultaten {

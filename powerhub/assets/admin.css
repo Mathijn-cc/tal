@@ -170,15 +170,35 @@
 }
 
 /*Indeling -- Groepen*/
-/* Submenu in de zijbalk, bijvoorbeeld Design met Kleuren, Typografie en Designsysteem eronder. */
+/* Submenu in de zijbalk, bijvoorbeeld Design met Kleuren, Typografie en Designsysteem eronder.
+   Het pijltje staat los rechts, verticaal gecentreerd op de hele knop (titel en uitleg samen), in een rond vlakje. */
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button.powerhub-groep-knop {
+	position:             relative;
+	padding-right:        3rem;
+}
+
 .wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep-knop .powerhub-groep-pijl {
-	margin-left:          auto;
+	position:             absolute;
+	top:                  50%;
+	right:                0.75rem;
+	box-sizing:           border-box;
+	width:                28px;
+	height:               28px;
+	padding:              6px;
+	border-radius:        999px;
+	background:           var(--ph-vlak);
 	color:                var(--ph-zacht);
-	transition:           transform 0.2s ease;
+	stroke-width:         2;
+	transform:            translateY(-50%);
+	transition:           transform 0.25s ease, color 0.2s ease;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep-knop:hover .powerhub-groep-pijl {
+	color:                var(--ph-tekst);
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep.is-open .powerhub-groep-pijl {
-	transform:            rotate(180deg);
+	transform:            translateY(-50%) rotate(180deg);
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep-knop .powerhub-tab-titel {
@@ -188,9 +208,9 @@
 .wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep-tabs {
 	display:              flex;
 	flex-direction:       column;
-	gap:                  0.15rem;
-	margin:               0.15rem 0 0.35rem 0.9rem;
-	padding-left:         0.6rem;
+	gap:                  0.3rem;
+	margin:               0.45rem 0 0.7rem 0.9rem;
+	padding-left:         0.75rem;
 	border-left:          2px solid var(--ph-lijn);
 }
 
@@ -199,7 +219,7 @@
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button.powerhub-subtab {
-	padding:              0.5rem 0.75rem;
+	padding:              0.7rem 0.85rem;
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button.powerhub-subtab .powerhub-tab-titel {

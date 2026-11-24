@@ -15,6 +15,7 @@
 	--ph-cc-groen:        #11281d;
 	--ph-cc-lime:         #e7fb79;
 	--ph-cc-creme:        #fdfff2;
+	--ph-cc-groen-licht:  #2f462a;
 
 	max-width:            1180px;
 	margin:               20px 20px 0 0;
@@ -23,17 +24,27 @@
 
 /**Powerhub -- Kop**/
 /* In de kleuren van Creators Connect: donkergroen met lime, het favicon als merk en de schakel als lijn erdoorheen. */
+/* Blijft bovenin staan. Bij scrollen wordt hij lager en verdwijnt de regel met thema en versie. */
 .wrap.powerhub .powerhub-kop {
-	position:             relative;
+	position:             sticky;
+	top:                  40px;
+	z-index:              20;
 	display:              flex;
 	align-items:          center;
 	justify-content:      space-between;
 	gap:                  1rem;
-	padding:              1.25rem 1.5rem;
+	padding:              0.85rem 1.25rem;
 	overflow:             hidden;
 	border-radius:        var(--ph-hoek);
 	background:           var(--ph-cc-groen);
 	color:                var(--ph-cc-creme);
+	box-shadow:           0 -10px 0 6px #f0f0f1;
+	transition:           padding 0.25s ease, box-shadow 0.25s ease;
+}
+
+.wrap.powerhub.is-gescrold .powerhub-kop {
+	padding:              0.55rem 1.25rem;
+	box-shadow:           0 -10px 0 6px #f0f0f1, 0 8px 18px -10px rgba(17, 40, 29, 0.45);
 }
 
 .wrap.powerhub .powerhub-kop > * {
@@ -67,30 +78,67 @@
 .wrap.powerhub .powerhub-kop .powerhub-merk .powerhub-merk-icoon {
 	display:              grid;
 	place-items:          center;
-	width:                42px;
-	height:               42px;
-	border-radius:        12px;
+	width:                36px;
+	height:               36px;
+	border-radius:        10px;
 	background:           var(--ph-cc-lime);
 	color:                var(--ph-cc-groen);
+	transition:           width 0.25s ease, height 0.25s ease;
 }
 
 .wrap.powerhub .powerhub-kop .powerhub-merk .powerhub-merk-icoon svg {
 	display:              block;
-	width:                42px;
-	height:               42px;
+	width:                100%;
+	height:               100%;
+}
+
+.wrap.powerhub.is-gescrold .powerhub-kop .powerhub-merk .powerhub-merk-icoon {
+	width:                30px;
+	height:               30px;
 }
 
 .wrap.powerhub .powerhub-kop .powerhub-merk .powerhub-merk-titel {
 	margin:               0;
-	font-size:            1.35rem;
+	font-size:            1.15rem;
+	line-height:          1.2;
 	font-weight:          700;
 	letter-spacing:       -0.01em;
 }
 
 .wrap.powerhub .powerhub-kop .powerhub-merk .powerhub-merk-sub {
-	margin:               0.15rem 0 0;
-	font-size:            0.8rem;
+	max-height:           1.5em;
+	margin:               0.1rem 0 0;
+	overflow:             hidden;
+	font-size:            0.78rem;
 	opacity:              0.7;
+	transition:           max-height 0.25s ease, margin 0.25s ease, opacity 0.2s ease, transform 0.25s ease;
+}
+
+.wrap.powerhub.is-gescrold .powerhub-kop .powerhub-merk .powerhub-merk-sub {
+	max-height:           0;
+	margin-top:           0;
+	opacity:              0;
+	transform:            translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wrap.powerhub .powerhub-kop,
+	.wrap.powerhub .powerhub-kop .powerhub-merk .powerhub-merk-icoon,
+	.wrap.powerhub .powerhub-kop .powerhub-merk .powerhub-merk-sub {
+		transition:           none;
+	}
+}
+
+@media (max-width: 782px) {
+	.wrap.powerhub .powerhub-kop {
+		top:                  46px;
+	}
+}
+
+@media (max-width: 600px) {
+	.wrap.powerhub .powerhub-kop {
+		top:                  0;
+	}
 }
 
 /*Kop -- Niveau*/
@@ -100,7 +148,7 @@
 	gap:                  0.4rem;
 	padding:              0.4rem 0.8rem 0.4rem 0.65rem;
 	border-radius:        10px 10px 10px 3px;
-	background:           rgba(231, 251, 121, 0.14);
+	background:           var(--ph-cc-groen-licht);
 	color:                var(--ph-cc-lime);
 	font-size:            0.78rem;
 	font-weight:          600;
@@ -122,6 +170,7 @@
 
 /**Powerhub -- Indeling**/
 .wrap.powerhub .powerhub-indeling {
+	min-height:           calc(100vh - 100px);
 	display:              grid;
 	grid-template-columns: 250px 1fr;
 	gap:                  1.5rem;
@@ -131,10 +180,11 @@
 
 @media (max-width: 960px) {
 	.wrap.powerhub .powerhub-indeling {
+		min-height:           0;
 		grid-template-columns: 1fr;
 	}
 
-	.wrap.powerhub .powerhub-indeling .powerhub-tabs,
+	.wrap.powerhub .powerhub-indeling .powerhub-panelen,
 	.wrap.powerhub .powerhub-indeling .powerhub-paneel {
 		position:             static;
 		max-height:           none;
@@ -144,10 +194,6 @@
 
 /*Indeling -- Tabs*/
 .wrap.powerhub .powerhub-indeling .powerhub-tabs {
-	position:             sticky;
-	top:                  48px;
-	max-height:           calc(100vh - 64px);
-	overflow-y:           auto;
 	padding:              2px;
 	display:              flex;
 	flex-direction:       column;
@@ -208,12 +254,12 @@
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button .powerhub-slot {
 	display:              inline-flex;
 	align-items:          center;
-	gap:                  0.3rem;
+	justify-content:      center;
 	margin-left:          auto;
-	padding:              0.2rem 0.5rem 0.2rem 0.45rem;
+	padding:              0.3rem;
 	border-radius:        6px 6px 6px 2px;
-	background:           var(--ph-donker);
-	color:                var(--ph-cc-creme);
+	background:           var(--ph-cc-groen-licht);
+	color:                var(--ph-cc-lime);
 	font-size:            0.68rem;
 	font-weight:          600;
 	line-height:          1;
@@ -222,7 +268,6 @@
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button .powerhub-slot svg {
 	flex-shrink:          0;
-	opacity:              0.85;
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button .powerhub-tab-titel {
@@ -315,11 +360,14 @@
 }
 
 /*Indeling -- Panelen*/
-/* Het paneel blijft bovenin staan en scrolt zelf, zodat een andere tab altijd bovenaan zijn instellingen begint. */
-.wrap.powerhub .powerhub-indeling .powerhub-paneel {
+/* Het paneel blijft onder de kop staan en scrolt zelf, zodat een andere tab altijd bovenaan zijn instellingen begint. */
+.wrap.powerhub .powerhub-indeling .powerhub-panelen {
 	position:             sticky;
-	top:                  48px;
-	max-height:           calc(100vh - 64px);
+	top:                  var(--ph-boven, 120px);
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-paneel {
+	max-height:           calc(100vh - var(--ph-boven, 120px) - 16px);
 	overflow-y:           auto;
 	box-sizing:           border-box;
 	padding:              1.5rem 1.75rem;

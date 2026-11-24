@@ -44,7 +44,7 @@
 				var boven = paneel.getBoundingClientRect().top;
 				if (boven < 0 || boven > window.innerHeight * 0.5) {
 					var stil = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-					window.scrollTo({ top: window.scrollY + boven - 48, behavior: stil ? 'auto' : 'smooth' });
+					window.scrollTo({ top: window.scrollY + boven - (parseInt(hub.style.getPropertyValue('--ph-boven'), 10) || 48), behavior: stil ? 'auto' : 'smooth' });
 				}
 			}
 			var url = new URL(window.location.href);
@@ -56,16 +56,24 @@
 
 	/* Zijbalk en paneel zijn precies zo hoog als de ruimte eronder in beeld, zodat Opslaan altijd zichtbaar is. */
 	var breed = window.matchMedia('(min-width: 961px)');
-	var tabsLijst = hub.querySelector('.powerhub-tabs');
+	var kop = hub.querySelector('.powerhub-kop');
 	var wacht = false;
 	function maat() {
 		wacht = false;
-		var vakken = [tabsLijst].concat(Array.prototype.filter.call(panelen, function (p) { return !p.hidden; }));
-		vakken.forEach(function (el) {
-			if (!el) return;
+		/* Kop lager maken bij scrollen; met marge ertussen, zodat hij niet heen en weer springt. */
+		if (window.scrollY > 40) { hub.classList.add('is-gescrold'); }
+		else if (window.scrollY < 8) { hub.classList.remove('is-gescrold'); }
+		var kopOnder = kop ? kop.getBoundingClientRect().bottom : 32;
+		var plakt = Math.round(kopOnder + 16);
+		hub.style.setProperty('--ph-boven', plakt + 'px');
+		Array.prototype.forEach.call(panelen, function (el) {
+			if (el.hidden) return;
 			if (!breed.matches) { el.style.maxHeight = ''; return; }
-			var boven = Math.max(48, el.getBoundingClientRect().top);
-			el.style.maxHeight = Math.max(240, window.innerHeight - boven - 16) + 'px';
+			var boven = Math.max(plakt, el.getBoundingClientRect().top);
+			/* Onderaan de pagina schuift de voettekst van WordPress in beeld: daar blijft het paneel boven. */
+			var voet = document.getElementById('wpfooter');
+			var onder = voet ? Math.min(window.innerHeight, voet.getBoundingClientRect().top) : window.innerHeight;
+			el.style.maxHeight = Math.max(240, onder - boven - 16) + 'px';
 		});
 	}
 	function maatLater() {
@@ -74,7 +82,8 @@
 	window.addEventListener('scroll', maatLater, { passive: true });
 	window.addEventListener('resize', maatLater);
 	window.addEventListener('load', maatLater);
-	if (window.ResizeObserver) { new ResizeObserver(maatLater).observe(hub); }
+	if (window.ResizeObserver) { var waarnemer = new ResizeObserver(maatLater); waarnemer.observe(hub); if (kop) { waarnemer.observe(kop); } }
+	if (kop) { kop.addEventListener('transitionend', maatLater); }
 
 	knoppen.forEach(function (k, i) {
 		k.addEventListener('click', function () { toon(k.dataset.tab, true); });

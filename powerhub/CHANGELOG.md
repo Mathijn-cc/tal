@@ -2,9 +2,19 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.7.5 (24-11-2026)
+
+- De kop van Powerhub is lager en blijft bovenin staan. Bij scrollen wordt hij nog lager en verdwijnt de regel met thema en versie (zonder beweging bij "minder beweging").
+- De zijbalk scrolt weer gewoon mee met de pagina. Alleen het instellingenpaneel blijft onder de kop staan en scrolt zelf, en blijft boven de voettekst van WordPress.
+
 ## 1.7.4 (24-11-2026)
 
 - Blokken in de editor: velden voor e-mail, telefoon, wachtwoord, zoeken, datum en tijd hebben dezelfde stijl als tekstvelden (ronde hoeken, lijnkleur, letter).
+
+## 1.7.4 (24-11-2026)
+
+- Zijbalk: tabs die alleen beheerders zien hebben een schildje (zoals bij Beheerder in de kop) in plaats van het label "Beheer"; voor schermlezers staat er "Alleen voor beheerders".
+- Kop: Beheerder in een volle kleur (#2f462a, variabele --ph-cc-groen-licht) in plaats van transparant lime.
 
 ## 1.7.3 (24-11-2026)
 

@@ -98,8 +98,8 @@ function powerhub_pagina() {
 						<?php echo esc_html( $tab['titel'] ); ?>
 						<?php if ( powerhub_is_beheerder() && function_exists( 'powerhub_tab_voor_klant' ) && ! powerhub_tab_voor_klant( $sleutel, $tab ) ) : ?>
 							<span class="powerhub-slot" title="Alleen zichtbaar voor beheerders. Aan te passen in de tab Toegang.">
-								<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="11" x="4" y="11" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-								Beheer
+								<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+								<span class="screen-reader-text">Alleen voor beheerders</span>
 							</span>
 						<?php endif; ?>
 					</span>

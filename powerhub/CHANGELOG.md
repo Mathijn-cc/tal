@@ -2,6 +2,12 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.9.0 (24-11-2026)
+
+- Zijbalk opnieuw opgezet: één wit vlak zoals het paneel, elk item een rij met een icoon in een tegeltje. Hover zacht groengrijs, actief donkergroen met een lime tegeltje. Het schildje voor beheerders is klein en zonder vlak.
+- Groepen (zoals Design): de subitems staan ingesprongen met een dunne lijn vanaf het icoon. Kies je een item buiten de groep, dan klapt de groep vanzelf weer in.
+- Nieuw: iconen per tab. Vaste iconen voor de standaardtabs, `'icoon' => 'sleutel'` in `powerhub_tab()` of een groep, en eigen iconen via de filter `powerhub_tab_iconen`. Zonder icoon: schuifjes.
+
 ## 1.8.2 (24-11-2026)
 
 - Zijbalk: geen streepjes en geen vlak meer, maar elk item een eigen zacht wit vlakje met ruimte ertussen. Hover vol wit, actief donkergroen. Subitems in een uitgeklapte groep hebben geen eigen vlakje.

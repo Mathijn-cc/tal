@@ -27,7 +27,8 @@
 
 	function toon(tab, bijwerken) {
 		hub.querySelectorAll('[data-groep]').forEach(function (groep) {
-			if (groep.querySelector('[data-tab="' + tab + '"]')) { groepOpen(groep, true); }
+			/* De groep met de actieve tab staat open, de andere groepen gaan dicht. */
+			groepOpen(groep, !!groep.querySelector('[data-tab="' + tab + '"]'));
 		});
 		knoppen.forEach(function (k) {
 			var actief = k.dataset.tab === tab;

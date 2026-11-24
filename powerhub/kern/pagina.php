@@ -94,6 +94,9 @@ function powerhub_pagina() {
 			$tab_knop = function ( $sleutel, $tab, $sub = false ) {
 				?>
 				<button type="button" role="tab" class="<?php echo $sub ? 'powerhub-subtab' : ''; ?>" id="powerhub-tab-<?php echo esc_attr( $sleutel ); ?>" aria-controls="powerhub-paneel-<?php echo esc_attr( $sleutel ); ?>" data-tab="<?php echo esc_attr( $sleutel ); ?>">
+					<?php if ( ! $sub ) : ?>
+						<span class="powerhub-tab-icoon" aria-hidden="true"><?php echo powerhub_tab_icoon( $sleutel, $tab ); // phpcs:ignore ?></span>
+					<?php endif; ?>
 					<span class="powerhub-tab-titel">
 						<?php echo esc_html( $tab['titel'] ); ?>
 						<?php if ( powerhub_is_beheerder() && function_exists( 'powerhub_tab_voor_klant' ) && ! powerhub_tab_voor_klant( $sleutel, $tab ) ) : ?>
@@ -120,6 +123,7 @@ function powerhub_pagina() {
 						?>
 						<div class="powerhub-groep<?php echo $open ? ' is-open' : ''; ?>" data-groep>
 							<button type="button" class="powerhub-groep-knop" aria-expanded="<?php echo $open ? 'true' : 'false'; ?>" aria-controls="powerhub-groep-<?php echo esc_attr( $g ); ?>">
+								<span class="powerhub-tab-icoon" aria-hidden="true"><?php echo powerhub_tab_icoon( $g, $groepen[ $g ] ); // phpcs:ignore ?></span>
 								<span class="powerhub-tab-titel">
 									<?php echo esc_html( $groepen[ $g ]['titel'] ); ?>
 									<svg class="powerhub-groep-pijl" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
@@ -184,3 +188,29 @@ add_action( 'admin_head', function () {
 		. '#adminmenu #toplevel_page_powerhub:not(.current):not(.wp-has-current-submenu) > a.menu-top:hover .wp-menu-image:before{color:#e7fb79}'
 		. '</style>';
 } );
+
+/**
+ * Icoon voor een tab of groep in de zijbalk: 'icoon' in powerhub_tab() of de groep, anders de vaste lijst hieronder,
+ * anders schuifjes. Eigen iconen via de filter powerhub_tab_iconen: array( 'sleutel' => '<path .../>' ).
+ * Lijnen in 24 bij 24, zoals de rest van de iconen in Powerhub.
+ */
+function powerhub_tab_icoon( $sleutel, $tab = array() ) {
+	$iconen = (array) apply_filters( 'powerhub_tab_iconen', array(
+		'algemeen'         => '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/>',
+		'design'           => '<path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.3-.3-.3-.5-.7-.5-1.2 0-1 .8-1.7 1.8-1.7H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8z"/><circle cx="7.5" cy="11.5" r="1"/><circle cx="10.5" cy="7.5" r="1"/><circle cx="15.5" cy="8.5" r="1"/>',
+		'footer'           => '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 15h18"/>',
+		'animaties'        => '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',
+		'seo'              => '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+		'blog'             => '<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',
+		'beveiliging'      => '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+		'wpml'             => '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+		'toegankelijkheid' => '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+		'gereedschap'      => '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/>',
+		'toegang'          => '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/>',
+		'niet-gevonden'    => '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6"/><path d="M12 17.5h.01"/>',
+	) );
+	$standaard = '<path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/>';
+	$sleutel   = ! empty( $tab['icoon'] ) ? $tab['icoon'] : $sleutel;
+	$pad       = $iconen[ $sleutel ] ?? $standaard;
+	return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">' . $pad . '</svg>';
+}

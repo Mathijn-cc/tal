@@ -6,9 +6,9 @@
 	--ph-zacht:           #56645b;
 	--ph-lijn:            #e6e8eb;
 	--ph-vlak:            #ffffff;
-	--ph-achtergrond:     #f4f5f6;
+	--ph-achtergrond:     #eef1e8;
 	--ph-accent:          #e7fb79;
-	--ph-zweven:          #ffffff;
+	--ph-zweven:          #f1f4ec;
 	--ph-succes:          #2c7a4b;
 	--ph-fout:            #c0392b;
 	--ph-hoek:            14px;
@@ -33,7 +33,7 @@
 	align-items:          center;
 	justify-content:      space-between;
 	gap:                  1rem;
-	padding:              0.85rem 1.25rem 0.85rem 1.1rem;
+	padding:              0.85rem 1.25rem 0.85rem 1rem;
 	overflow:             hidden;
 	border-radius:        var(--ph-hoek);
 	background:           var(--ph-cc-groen);
@@ -43,7 +43,7 @@
 }
 
 .wrap.powerhub.is-gescrold .powerhub-kop {
-	padding:              0.55rem 1.25rem 0.55rem 1.1rem;
+	padding:              0.55rem 1.25rem 0.55rem 1rem;
 	box-shadow:           0 -10px 0 6px #f0f0f1, 0 8px 18px -10px rgba(17, 40, 29, 0.45);
 }
 
@@ -193,27 +193,33 @@
 }
 
 /*Indeling -- Tabs*/
-/* Zijbalk: elk item een eigen zacht wit vlakje met ruimte ertussen. Hover vol wit, actief donkergroen. */
+/* Zijbalk als één wit vlak, net als het paneel. Elk item een rij met een icoon in een rond-vierkant tegeltje.
+   Hover zacht groengrijs, actief donkergroen met een lime tegeltje. Geen lijnen, geen losse vlakjes. */
 .wrap.powerhub .powerhub-indeling .powerhub-tabs {
 	display:              flex;
 	flex-direction:       column;
-	gap:                  0.35rem;
+	gap:                  2px;
+	padding:              0.5rem;
+	border-radius:        var(--ph-hoek);
+	background:           var(--ph-vlak);
+	box-shadow:           0 1px 3px rgba(17, 40, 29, 0.08);
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button {
 	box-sizing:           border-box;
-	width:                100%;
 	display:              flex;
-	flex-direction:       column;
-	align-items:          flex-start;
-	gap:                  0.15rem;
-	padding:              0.7rem 1.1rem;
+	align-items:          center;
+	gap:                  0.7rem;
+	width:                100%;
+	min-height:           44px;
+	padding:              0.45rem 0.6rem 0.45rem 0.5rem;
 	border:               0;
 	border-radius:        10px;
-	background:           rgba(255, 255, 255, 0.55);
+	background:           transparent;
 	color:                var(--ph-tekst);
 	text-align:           left;
 	cursor:               pointer;
+	transition:           background 0.15s ease, color 0.15s ease;
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button:hover {
@@ -222,126 +228,96 @@
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button:focus-visible {
 	outline:              2px solid var(--ph-donker);
-	outline-offset:       2px;
+	outline-offset:       1px;
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button[aria-selected="true"] {
 	background:           var(--ph-cc-groen);
 	color:                var(--ph-cc-creme);
-	box-shadow:           0 1px 3px rgba(17, 40, 29, 0.2);
 }
 
-.wrap.powerhub .powerhub-indeling .powerhub-tabs button[aria-selected="true"] small {
-	color:                rgba(253, 255, 242, 0.75);
+/*Tabs -- Icoon*/
+.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-tab-icoon {
+	display:              grid;
+	flex:                 0 0 30px;
+	place-items:          center;
+	width:                30px;
+	height:               30px;
+	border-radius:        8px;
+	background:           var(--ph-achtergrond);
+	color:                var(--ph-donker);
+	transition:           background 0.15s ease, color 0.15s ease;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-tab-icoon svg {
+	display:              block;
+	width:                16px;
+	height:               16px;
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button:hover .powerhub-tab-icoon {
+	background:           var(--ph-vlak);
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs button[aria-selected="true"] .powerhub-tab-icoon {
+	background:           var(--ph-cc-lime);
+	color:                var(--ph-cc-groen);
+}
+
+/*Tabs -- Titel*/
+.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-tab-titel {
+	display:              flex;
+	flex:                 1 1 auto;
+	align-items:          center;
+	gap:                  0.4rem;
+	min-width:            0;
+	font-size:            0.9rem;
+	font-weight:          600;
+	line-height:          1.25;
+}
+
+/*Tabs -- Beheer*/
+/* Alleen voor beheerders: een klein schildje rechts, zonder vlak. */
+.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-slot {
+	display:              inline-flex;
+	flex:                 0 0 auto;
+	margin-left:          auto;
+	color:                var(--ph-zacht);
+	opacity:              0.55;
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button[aria-selected="true"] .powerhub-slot {
-	background:           var(--ph-cc-lime);
-	color:                var(--ph-cc-groen);
-}
-
-.wrap.powerhub .powerhub-indeling .powerhub-tabs button .powerhub-tab-titel {
-	display:              flex;
-	align-items:          center;
-	gap:                  0.4rem;
-	font-size:            0.95rem;
-	font-weight:          600;
-}
-
-.wrap.powerhub .powerhub-indeling .powerhub-tabs button small {
-	color:                var(--ph-zacht);
-	font-size:            0.78rem;
-}
-
-.wrap.powerhub .powerhub-indeling .powerhub-tabs button .powerhub-slot {
-	display:              inline-flex;
-	align-items:          center;
-	justify-content:      center;
-	margin-left:          auto;
-	padding:              0.3rem;
-	border-radius:        6px 6px 6px 2px;
-	background:           var(--ph-cc-groen-licht);
 	color:                var(--ph-cc-lime);
-	font-size:            0.68rem;
-	font-weight:          600;
-	line-height:          1;
-	letter-spacing:       0.02em;
-}
-
-.wrap.powerhub .powerhub-indeling .powerhub-tabs button .powerhub-slot svg {
-	flex-shrink:          0;
-}
-
-.wrap.powerhub .powerhub-indeling .powerhub-tabs button .powerhub-tab-titel {
-	width:                100%;
+	opacity:              1;
 }
 
 /*Indeling -- Groepen*/
-/* Submenu in de zijbalk, bijvoorbeeld Design met Kleuren, Typografie en Designsysteem eronder.
-   Het pijltje staat los rechts, verticaal gecentreerd op de hele knop (titel en uitleg samen), in een rond vlakje. */
-.wrap.powerhub .powerhub-indeling .powerhub-tabs button.powerhub-groep-knop {
-	position:             relative;
-	padding-right:        3rem;
-}
-
+/* Een groep zoals Design: de knop met icoon en pijltje, de subitems eronder ingesprongen tot de tekst,
+   met een dunne lijn vanaf het icoon. De groep met de actieve tab staat open, de rest is dicht. */
 .wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep-knop .powerhub-groep-pijl {
-	position:             absolute;
-	top:                  50%;
-	right:                0.75rem;
-	box-sizing:           border-box;
-	width:                28px;
-	height:               28px;
-	padding:              6px;
-	border-radius:        999px;
-	background:           var(--ph-vlak);
+	flex:                 0 0 auto;
+	margin-left:          auto;
 	color:                var(--ph-zacht);
-	stroke-width:         2;
-	transform:            translateY(-50%);
-	transition:           transform 0.25s ease, color 0.2s ease;
-}
-
-.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep-knop:hover .powerhub-groep-pijl {
-	color:                var(--ph-tekst);
+	stroke-width:         2.5;
+	transition:           transform 0.2s ease;
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep.is-open .powerhub-groep-pijl {
+	transform:            rotate(180deg);
+}
+
+.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep.is-open .powerhub-groep-knop .powerhub-tab-icoon {
 	background:           var(--ph-cc-lime);
 	color:                var(--ph-cc-groen);
-	transform:            translateY(-50%) rotate(180deg);
-}
-
-.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep-knop .powerhub-tab-titel {
-	width:                100%;
-}
-
-/* Een uitgeklapte groep is één wit vlak: de groepsknop met de subitems eronder. Hover op een subitem is daarin lichtgrijs. */
-.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep.is-open {
-	border-radius:        10px;
-	background:           var(--ph-vlak);
-	box-shadow:           0 1px 3px rgba(17, 40, 29, 0.06);
-}
-
-.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep.is-open .powerhub-groep-knop {
-	background:           transparent;
-}
-
-.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep.is-open .powerhub-groep-tabs {
-	margin-right:         0.5rem;
-	margin-bottom:        0;
-	padding-bottom:       0.6rem;
-}
-
-.wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep.is-open button.powerhub-subtab:not([aria-selected="true"]):hover {
-	background:           var(--ph-achtergrond);
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep-tabs {
 	display:              flex;
 	flex-direction:       column;
-	gap:                  0.3rem;
-	margin:               0.45rem 0 0.7rem 0.9rem;
-	padding-left:         0.75rem;
-	border-left:          2px solid var(--ph-lijn);
+	gap:                  2px;
+	margin:               2px 0 0.35rem 1.45rem;
+	padding-left:         0.95rem;
+	border-left:          1px solid var(--ph-lijn);
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs .powerhub-groep-tabs[hidden] {
@@ -349,15 +325,11 @@
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button.powerhub-subtab {
-	padding:              0.7rem 0.85rem;
-}
-
-.wrap.powerhub .powerhub-indeling .powerhub-tabs button.powerhub-subtab:not([aria-selected="true"]):not(:hover) {
-	background:           transparent;
+	min-height:           36px;
+	padding:              0.4rem 0.6rem;
 }
 
 .wrap.powerhub .powerhub-indeling .powerhub-tabs button.powerhub-subtab .powerhub-tab-titel {
-	font-size:            0.9rem;
 	font-weight:          500;
 }
 

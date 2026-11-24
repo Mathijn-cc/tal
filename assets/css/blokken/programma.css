@@ -38,7 +38,7 @@ body .sectie-programma .programma-kaart {
 	flex:                 none;
 	flex-direction:       column;
 	gap:                  20px;
-	width:                clamp(280px, 34vw, 520px);
+	width:                clamp(260px, 28vw, 440px);
 	scroll-snap-align:    start;
 	scroll-margin-left:   var(--goot);
 }
@@ -47,8 +47,9 @@ body .sectie-programma .programma-kaart:nth-child(even) {
 	padding-top:          clamp(24px, 3vw, 56px);
 }
 
+/* Staand, zodat de portretfoto's niet te veel worden afgesneden. */
 body .sectie-programma .programma-beeld {
-	aspect-ratio:         4 / 3;
+	aspect-ratio:         4 / 5;
 }
 
 body .sectie-programma .programma-kaart .lead {

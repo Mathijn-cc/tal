@@ -9,6 +9,7 @@
 	--ph-achtergrond:     #eef1e8;
 	--ph-accent:          #e7fb79;
 	--ph-zweven:          #f1f4ec;
+	--ph-sectie-kop:      #f6f8f2;
 	--ph-succes:          #2c7a4b;
 	--ph-fout:            #c0392b;
 	--ph-hoek:            14px;
@@ -429,6 +430,49 @@
 	text-transform:       uppercase;
 	letter-spacing:       0.06em;
 	color:                var(--ph-zacht);
+}
+
+/*Velden -- Secties*/
+/* Elke tussenkop begint een kaart met een getinte kopstrook; de velden staan eronder. */
+.wrap.powerhub .powerhub-sectie {
+	margin:               0 0 1rem;
+	padding:              0 1.25rem 0.2rem;
+	border:               1px solid var(--ph-lijn);
+	border-radius:        12px;
+	background:           var(--ph-vlak);
+}
+
+.wrap.powerhub .powerhub-sectie > .powerhub-tussenkop {
+	margin:               0 -1.25rem;
+	padding:              0.85rem 1.25rem 0.85rem;
+	border-bottom:        1px solid var(--ph-lijn);
+	border-radius:        11px 11px 0 0;
+	background:           var(--ph-sectie-kop);
+	color:                var(--ph-donker);
+	font-size:            0.95rem;
+	font-weight:          700;
+	letter-spacing:       0;
+	text-transform:       none;
+}
+
+.wrap.powerhub .powerhub-sectie > .powerhub-tussenkop:has(+ .powerhub-uitleg) {
+	padding-bottom:       0.15rem;
+	border-bottom:        0;
+}
+
+.wrap.powerhub .powerhub-sectie > .powerhub-tussenkop + .powerhub-uitleg {
+	display:              block;
+	margin:               0 -1.25rem;
+	padding:              0 1.25rem 0.85rem;
+	border-bottom:        1px solid var(--ph-lijn);
+	background:           var(--ph-sectie-kop);
+	font-size:            0.8rem;
+}
+
+.wrap.powerhub .powerhub-sectie > .powerhub-tussenkop + :is(.powerhub-veld, .powerhub-schakel),
+.wrap.powerhub .powerhub-sectie > .powerhub-uitleg + :is(.powerhub-veld, .powerhub-schakel),
+.wrap.powerhub .powerhub-sectie-zonder-kop > :first-child {
+	border-top:           0;
 }
 
 /*Velden -- Kleur*/

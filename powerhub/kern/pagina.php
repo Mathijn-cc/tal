@@ -157,9 +157,18 @@ function powerhub_pagina() {
 								<input type="hidden" name="powerhub_tab" value="<?php echo esc_attr( $sleutel ); ?>">
 								<?php wp_nonce_field( 'powerhub_opslaan_' . $sleutel ); ?>
 								<?php
+								/* Elke tussenkop begint een eigen sectie (een kaart), zodat de onderdelen duidelijk los van elkaar staan. */
+								$sectie_open = false;
 								foreach ( $tab['velden'] as $naam => $veld ) {
+									$is_kop = 'kop' === ( $veld['type'] ?? '' );
+									if ( $is_kop || ! $sectie_open ) {
+										echo $sectie_open ? '</div>' : '';
+										echo '<div class="powerhub-sectie' . ( $is_kop ? '' : ' powerhub-sectie-zonder-kop' ) . '">';
+										$sectie_open = true;
+									}
 									powerhub_veld_html( $naam, $veld );
 								}
+								echo $sectie_open ? '</div>' : '';
 								?>
 								<div class="powerhub-acties">
 									<button type="submit" class="button button-primary">Opslaan</button>

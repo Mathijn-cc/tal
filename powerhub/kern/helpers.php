@@ -54,7 +54,8 @@ function powerhub_logo( $variant = 'standaard', $class = '' ) {
 		/* Het thema kan een eigen logobestand leveren zolang er in Powerhub niets is gekozen. */
 		return (string) apply_filters( 'powerhub_logo_terugval', $terugval, $variant );
 	}
-	return wp_get_attachment_image( $id, 'medium', false, array(
+	/* Volledig formaat: een logo is klein, en een verkleinde kopie wordt onscherp op een scherm met hoge resolutie. */
+	return wp_get_attachment_image( $id, 'full', false, array(
 		'class'    => trim( 'logo ' . $class ),
 		'alt'      => get_bloginfo( 'name' ),
 		'loading'  => 'eager',

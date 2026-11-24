@@ -2,6 +2,10 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.3.1 (24-11-2026)
+
+- Logo: `powerhub_logo()` toont het logo op volledig formaat in plaats van de verkleinde kopie van 300 pixels, zodat een logo op 2x of 3x (PNG) scherp blijft.
+
 ## 1.3.0 (24-11-2026)
 
 Rustiger en beter gegroepeerd blokbeheer.

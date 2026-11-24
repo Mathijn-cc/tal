@@ -92,16 +92,17 @@ function tal_uitrol_bijlage( $bestand ) {
 		echo 'Beeld overgeslagen: ' . esc_html( $bestand ) . ' (' . esc_html( $upload['error'] ) . ")\n";
 		return 0;
 	}
-	$id = wp_insert_attachment( array(
-		'post_mime_type' => 'image/jpeg',
-		'post_title'     => 'Chantal Strijbos, TAL leadership',
+	$soort = wp_check_filetype( $bestand );
+	$id    = wp_insert_attachment( array(
+		'post_mime_type' => $soort['type'] ? $soort['type'] : 'image/jpeg',
+		'post_title'     => 0 === strpos( $bestand, 'tal-logo' ) ? 'Logo TAL leadership' : 'Chantal Strijbos, TAL leadership',
 		'post_status'    => 'inherit',
 	), $upload['file'] );
 	if ( ! $id || is_wp_error( $id ) ) {
 		return 0;
 	}
 	wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $upload['file'] ) );
-	update_post_meta( $id, '_wp_attachment_image_alt', 'Chantal Strijbos' );
+	update_post_meta( $id, '_wp_attachment_image_alt', 0 === strpos( $bestand, 'tal-logo' ) ? 'TAL leadership' : 'Chantal Strijbos' );
 	$bekend[ $bestand ] = $id;
 	update_option( 'tal_uitrol_bijlagen', $bekend, false );
 	return (int) $id;
@@ -484,5 +485,26 @@ function tal_uitrol_contact_plan_knop() {
 	if ( false !== $plek ) {
 		update_sub_field( array( 'field_powerhub_blokken', $plek + 1, 'field_contact_plan_knop' ), 'Plan direct een kennismaking', $pagina->ID );
 	}
+	return true;
+}
+
+/* Logo in Powerhub (Algemeen): TAL in de halve cirkel, voor licht en voor donker. Overschrijft niets wat al is gekozen. */
+add_filter( 'powerhub_uitroltaken', function ( $taken ) {
+	$taken['logo-v1'] = 'tal_uitrol_logo';
+	return $taken;
+} );
+
+function tal_uitrol_logo() {
+	$opgeslagen = powerhub_opgeslagen();
+	foreach ( array( 'logo' => 'tal-logo-standaard.png', 'logo_licht' => 'tal-logo-licht.png' ) as $veld => $bestand ) {
+		if ( empty( $opgeslagen[ $veld ] ) ) {
+			$id = tal_uitrol_bijlage( $bestand );
+			if ( $id ) {
+				$opgeslagen[ $veld ] = $id;
+			}
+		}
+	}
+	update_option( POWERHUB_OPTIE, $opgeslagen, true );
+	echo "Logo in Powerhub gezet.\n";
 	return true;
 }

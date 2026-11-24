@@ -66,7 +66,8 @@ add_filter( 'powerhub_standaardwaarden', function ( $standaard ) {
 /* TAL-knoppen hebben geen pijl; de tekst rolt bij hover (thema.css). */
 add_filter( 'powerhub_knop_pijl', '__return_empty_string' );
 
-/* Zolang er in Powerhub geen logo is gekozen: het woordmerk, TAL in de halve cirkel. */
+/* Zolang er in Powerhub geen logo is gekozen: het woordmerk, TAL in de halve cirkel (in HTML en CSS).
+   Het logo zelf staat in Powerhub > Algemeen; de uitroltaak logo-v1 zet daar assets/beelden/tal-logo-*.png neer. */
 add_filter( 'powerhub_logo_terugval', function () {
 	return '<span class="woordmerk"><span class="woordmerk-tal">TAL</span><span class="woordmerk-naam">leadership</span></span>';
 } );

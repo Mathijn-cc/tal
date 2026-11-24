@@ -2,6 +2,11 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.7.2 (24-11-2026)
+
+- Panelen en de hover in de zijbalk weer wit; donkergroen en lime blijven voor de actieve tab, knoppen en schakelaars.
+- Zijbalk en paneel blijven bovenin staan en scrollen elk zelf, precies zo hoog als de ruimte in beeld. Opslaan staat altijd onderaan in beeld. Een andere tab begint altijd bovenaan zijn instellingen. Onder 961 pixels breed scrolt alles weer gewoon mee.
+
 ## 1.7.1 (24-11-2026)
 
 - Powerhub helemaal in de kleuren van Creators Connect, los van het kleurenschema van de gebruiker: crème panelen, actieve tab donkergroen met een lime slotje, schakelaars donkergroen met een lime bolletje, knoppen donkergroen (lime bij hover), focus in donkergroen. Het menu-item Powerhub in de zijbalk van WordPress is donkergroen met een lime bliksemschicht als het actief is.

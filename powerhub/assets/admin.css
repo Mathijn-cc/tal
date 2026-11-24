@@ -1,14 +1,14 @@
 /**Powerhub -- Variabelen**/
-/* Kleuren van Creators Connect: donkergroen, lime en crème. Lime alleen als vlak achter donkergroene tekst, nooit als tekstkleur op licht. */
+/* Kleuren van Creators Connect: donkergroen en lime op wit. Crème alleen als tekst op donkergroen. Lime alleen als vlak achter donkergroene tekst, nooit als tekstkleur op licht. */
 .wrap.powerhub {
 	--ph-donker:          #11281d;
 	--ph-tekst:           #1b2e24;
 	--ph-zacht:           #56645b;
-	--ph-lijn:            #e2e7d6;
-	--ph-vlak:            #fdfff2;
-	--ph-achtergrond:     #f3f6ea;
+	--ph-lijn:            #e6e8eb;
+	--ph-vlak:            #ffffff;
+	--ph-achtergrond:     #f4f5f6;
 	--ph-accent:          #e7fb79;
-	--ph-zweven:          #eef3dd;
+	--ph-zweven:          #ffffff;
 	--ph-succes:          #2c7a4b;
 	--ph-fout:            #c0392b;
 	--ph-hoek:            14px;
@@ -133,12 +133,22 @@
 	.wrap.powerhub .powerhub-indeling {
 		grid-template-columns: 1fr;
 	}
+
+	.wrap.powerhub .powerhub-indeling .powerhub-tabs,
+	.wrap.powerhub .powerhub-indeling .powerhub-paneel {
+		position:             static;
+		max-height:           none;
+		overflow:             visible;
+	}
 }
 
 /*Indeling -- Tabs*/
 .wrap.powerhub .powerhub-indeling .powerhub-tabs {
 	position:             sticky;
 	top:                  48px;
+	max-height:           calc(100vh - 64px);
+	overflow-y:           auto;
+	padding:              2px;
 	display:              flex;
 	flex-direction:       column;
 	gap:                  0.2rem;
@@ -284,7 +294,13 @@
 }
 
 /*Indeling -- Panelen*/
+/* Het paneel blijft bovenin staan en scrolt zelf, zodat een andere tab altijd bovenaan zijn instellingen begint. */
 .wrap.powerhub .powerhub-indeling .powerhub-paneel {
+	position:             sticky;
+	top:                  48px;
+	max-height:           calc(100vh - 64px);
+	overflow-y:           auto;
+	box-sizing:           border-box;
 	padding:              1.5rem 1.75rem;
 	border-radius:        var(--ph-hoek);
 	background:           var(--ph-vlak);
@@ -421,7 +437,7 @@
 	height:               22px;
 	margin-top:           1px;
 	border-radius:        999px;
-	background:           #c9d0bd;
+	background:           #cfd4da;
 	transition:           background 0.2s ease;
 }
 
@@ -463,13 +479,13 @@
 /**Powerhub -- Acties**/
 .wrap.powerhub .powerhub-acties {
 	position:             sticky;
-	bottom:               0;
+	bottom:               -1.5rem;
 	margin:               1rem -1.75rem -1.5rem;
 	padding:              1rem 1.75rem;
 	border-top:           1px solid var(--ph-lijn);
 	border-radius:        0 0 var(--ph-hoek) var(--ph-hoek);
 	background:           var(--ph-vlak);
-	box-shadow:           0 -6px 12px rgba(253, 255, 242, 0.9);
+	box-shadow:           0 -6px 12px rgba(255, 255, 255, 0.9);
 }
 
 .wrap.powerhub .powerhub-formulier > .powerhub-tussenkop:first-of-type {

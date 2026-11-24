@@ -35,13 +35,46 @@
 			k.tabIndex = actief ? 0 : -1;
 		});
 		panelen.forEach(function (p) { p.hidden = p.dataset.paneel !== tab; });
+		if (typeof maat === 'function') { maat(); }
 		if (bijwerken) {
+			/* Altijd bovenaan de instellingen beginnen: het paneel zelf naar boven, en de pagina tot het paneel in beeld is. */
+			var paneel = hub.querySelector('[data-paneel="' + tab + '"]');
+			if (paneel) {
+				paneel.scrollTop = 0;
+				var boven = paneel.getBoundingClientRect().top;
+				if (boven < 0 || boven > window.innerHeight * 0.5) {
+					var stil = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+					window.scrollTo({ top: window.scrollY + boven - 48, behavior: stil ? 'auto' : 'smooth' });
+				}
+			}
 			var url = new URL(window.location.href);
 			url.searchParams.set('tab', tab);
 			url.searchParams.delete('melding');
 			window.history.replaceState(null, '', url);
 		}
 	}
+
+	/* Zijbalk en paneel zijn precies zo hoog als de ruimte eronder in beeld, zodat Opslaan altijd zichtbaar is. */
+	var breed = window.matchMedia('(min-width: 961px)');
+	var tabsLijst = hub.querySelector('.powerhub-tabs');
+	var wacht = false;
+	function maat() {
+		wacht = false;
+		var vakken = [tabsLijst].concat(Array.prototype.filter.call(panelen, function (p) { return !p.hidden; }));
+		vakken.forEach(function (el) {
+			if (!el) return;
+			if (!breed.matches) { el.style.maxHeight = ''; return; }
+			var boven = Math.max(48, el.getBoundingClientRect().top);
+			el.style.maxHeight = Math.max(240, window.innerHeight - boven - 16) + 'px';
+		});
+	}
+	function maatLater() {
+		if (!wacht) { wacht = true; window.requestAnimationFrame(maat); }
+	}
+	window.addEventListener('scroll', maatLater, { passive: true });
+	window.addEventListener('resize', maatLater);
+	window.addEventListener('load', maatLater);
+	if (window.ResizeObserver) { new ResizeObserver(maatLater).observe(hub); }
 
 	knoppen.forEach(function (k, i) {
 		k.addEventListener('click', function () { toon(k.dataset.tab, true); });

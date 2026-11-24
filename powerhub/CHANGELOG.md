@@ -2,6 +2,11 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.8.1 (24-11-2026)
+
+- Zijbalk: geen ondertitels meer bij de items (de uitleg staat bovenin het paneel). De zijbalk staat in een eigen vlak in een zachte groengrijze tint, met een dun streepje tussen de items, ingesprongen tot de tekst.
+- Het logo in de kop staat recht boven de tekst van de zijbalk.
+
 ## 1.8.0 (24-11-2026)
 
 - Nieuw: Reacties uit, in Onderhoud en beveiliging › Opschonen (standaard aan). Geen reacties en pingbacks op de hele site: weg uit de editor, de berichtenlijsten, het menu (Reacties en Instellingen › Discussie), de adminbalk en het dashboard. Ook geen reacties via de REST API of XML-RPC, geen reactiefeed en geen X-Pingback-kop. Bestaande reacties blijven in de database en komen terug als je de schakel uitzet.

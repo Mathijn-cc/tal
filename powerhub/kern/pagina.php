@@ -103,9 +103,6 @@ function powerhub_pagina() {
 							</span>
 						<?php endif; ?>
 					</span>
-					<?php if ( $tab['uitleg'] && ! $sub ) : ?>
-						<small><?php echo esc_html( $tab['uitleg'] ); ?></small>
-					<?php endif; ?>
 				</button>
 				<?php
 			};
@@ -127,9 +124,6 @@ function powerhub_pagina() {
 									<?php echo esc_html( $groepen[ $g ]['titel'] ); ?>
 									<svg class="powerhub-groep-pijl" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
 								</span>
-								<?php if ( ! empty( $groepen[ $g ]['uitleg'] ) ) : ?>
-									<small><?php echo esc_html( $groepen[ $g ]['uitleg'] ); ?></small>
-								<?php endif; ?>
 							</button>
 							<div class="powerhub-groep-tabs" id="powerhub-groep-<?php echo esc_attr( $g ); ?>"<?php echo $open ? '' : ' hidden'; ?>>
 								<?php foreach ( $groepen[ $g ]['tabs'] as $t ) : ?>

@@ -191,6 +191,10 @@ add_filter( 'powerhub_contrast_paren', fn( $p ) => array_merge( $p, array(
 
 Andere filters: `powerhub_toegankelijkheid_taal` (standaard `nl`), `powerhub_toegankelijkheid_kopblokken` (blokken die zelf een h1 maken zonder veld `kop`).
 
+## Bijwerken
+
+Zie [BIJWERKEN.md](BIJWERKEN.md) voor de werkwijze in een klantproject en de overstapstappen per versie (lettertypes en logo uit het thema naar Powerhub).
+
 ## Versies
 
 `POWERHUB_VERSIE` in `powerhub.php`. Verhoog bij elke wijziging in het startthema: patch voor fixes, minor voor nieuwe functies, major als projecten iets moeten aanpassen.

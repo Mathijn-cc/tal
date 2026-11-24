@@ -2,6 +2,11 @@
 
 Versienummers: hoofdversie (eerste cijfer) als projecten iets moeten aanpassen, tussenversie voor nieuwe functies, laatste cijfer voor reparaties.
 
+## 1.6.2 (24-11-2026)
+
+- Nieuw: `BIJWERKEN.md` met de werkwijze voor het bijwerken in een klantproject en de overstapstappen per versie: lettertypes en logo eenmalig uit het thema naar Powerhub (met de hand of met een uitroltaak), en `powerhub_maker_url()` in eigen footers.
+- `scripts/powerhub-bijwerken.sh` waarschuwt als een project nog lettertypes, een logo of `footer_maker` in het thema heeft.
+
 ## 1.6.1 (24-11-2026)
 
 - Lettertypes veiliger ophalen: alleen via https naar de hosts van Google Fonts en Fontshare (vaste lijst), met wp_safe_remote_get (geen interne adressen, geen omleidingen), hooguit 5 MB per bestand en 40 bestanden per lettertype. Eigen bestanden ook hooguit 5 MB.

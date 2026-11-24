@@ -42,6 +42,23 @@ cp -R "$TMP/cc-thema/powerhub" powerhub
 cp "$TMP/cc-thema/scripts/powerhub-bijwerken.sh" scripts/powerhub-bijwerken.sh
 
 echo "Powerhub bijgewerkt: $OUD -> $NIEUW."
+echo "Lees powerhub/BIJWERKEN.md: daar staan de overstapstappen per versie."
+
+# Wat nog eenmalig uit het thema naar Powerhub moet.
+if grep -rqs "powerhub_fonts" inc/ || ls assets/fonts/*.woff2 >/dev/null 2>&1; then
+	echo ""
+	echo "LET OP: dit project heeft nog lettertypes in het thema (filter powerhub_fonts of assets/fonts)."
+	echo "Zet ze eenmalig over naar Powerhub › Design › Typografie, zie powerhub/BIJWERKEN.md (Naar 1.5.0 en 1.6.0)."
+fi
+if grep -rqs "powerhub_logo_terugval" inc/ functions.php || ls assets/beelden/*logo* assets/images/*logo* >/dev/null 2>&1; then
+	echo ""
+	echo "LET OP: dit project heeft mogelijk nog een logo in het thema."
+	echo "Zet het eenmalig over naar Powerhub › Algemeen › Logo, zie powerhub/BIJWERKEN.md (Logo uit het thema naar Powerhub)."
+fi
+if grep -rqs "footer_maker" --include=*.php . --exclude-dir=powerhub; then
+	echo ""
+	echo "LET OP: footer_maker bestaat niet meer. Gebruik powerhub_maker_url(), zie powerhub/BIJWERKEN.md (Naar 1.4.0)."
+fi
 echo "Lees powerhub/CHANGELOG.md. Bij een nieuwe hoofdversie (eerste cijfer) moet het project mogelijk iets aanpassen."
 echo "Controleer daarna met: git diff --stat powerhub/"
 

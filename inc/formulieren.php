@@ -102,7 +102,3 @@ function tal_formulier_importeren( $naam, $optie ) {
 	return $id;
 }
 
-/* Tekenteller in het Nederlands: "12 van 2000 tekens" in plaats van "12 of 2000 max characters". */
-add_filter( 'gform_counter_script', function ( $script ) {
-	return str_replace( '#input of #max max characters', '#input van #max tekens', $script );
-} );

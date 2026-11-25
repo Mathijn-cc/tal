@@ -404,3 +404,22 @@
 		else window.addEventListener('load', function () { ST.sort(); ST.refresh(); window.talNaarStartAnker(); }, { once: true });
 	});
 })();
+
+/* Gravity Forms: tekenteller in het Nederlands ("12 van 2000 tekens"). Gravity Forms zet de tekst zelf, dus na elke wijziging vertalen. */
+(function () {
+	var vertaal = function (el) {
+		var t = el.textContent;
+		var n = t.replace(/(\d+)\s+of\s+(\d+)\s+max(?:imum)?\s+characters?/i, '$1 van $2 tekens');
+		if (n !== t) el.textContent = n;
+	};
+	var start = function () {
+		document.querySelectorAll('.ginput_counter').forEach(function (el) {
+			vertaal(el);
+			new MutationObserver(function () { vertaal(el); }).observe(el, { childList: true, characterData: true, subtree: true });
+		});
+	};
+	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+	document.addEventListener('gform/post_render', start);
+	if (window.jQuery) window.jQuery(document).on('gform_post_render', start);
+})();
+

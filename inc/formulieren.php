@@ -21,10 +21,18 @@ function tal_is_thema_formulier( $form ) {
  * Verzendknop als <button> met de rollende tekst van de themaknop. Alle attributen van Gravity Forms blijven staan.
  */
 add_filter( 'gform_submit_button', function ( $knop, $form ) {
-	if ( ! tal_is_thema_formulier( $form ) || ! preg_match( '/<input([^>]*)>/i', $knop, $m ) ) {
+	if ( ! tal_is_thema_formulier( $form ) ) {
 		return $knop;
 	}
 	$tekst = ! empty( $form['button']['text'] ) ? $form['button']['text'] : 'Verstuur';
+	/* Nieuwere versies van Gravity Forms geven al een <button>: classes erbij en de tekst in een span. */
+	if ( preg_match( '/<button([^>]*)>(.*?)<\/button>/is', $knop, $b ) ) {
+		$attr = preg_match( '/\sclass=/i', $b[1] ) ? preg_replace( '/\sclass=([\'"])(.*?)\1/i', ' class=$1$2 knop knop-actie$1', $b[1] ) : $b[1] . ' class="knop knop-actie"';
+		return str_replace( $b[0], '<button' . $attr . '><span>' . esc_html( wp_strip_all_tags( $b[2] ) ? wp_strip_all_tags( $b[2] ) : $tekst ) . '</span></button>', $knop );
+	}
+	if ( ! preg_match( '/<input([^>]*)>/i', $knop, $m ) ) {
+		return $knop;
+	}
 	$attr  = preg_replace( '/\s(type|value)=([\'"]).*?\2/i', '', $m[1] );
 	$attr  = preg_replace( '/\sclass=([\'"])(.*?)\1/i', ' class=$1$2 knop knop-actie$1', $attr );
 	$attr  = rtrim( $attr, " /" );
@@ -93,3 +101,8 @@ function tal_formulier_importeren( $naam, $optie ) {
 	}
 	return $id;
 }
+
+/* Tekenteller in het Nederlands: "12 van 2000 tekens" in plaats van "12 of 2000 max characters". */
+add_filter( 'gform_counter_script', function ( $script ) {
+	return str_replace( '#input of #max max characters', '#input van #max tekens', $script );
+} );
